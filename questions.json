@@ -1,0 +1,272 @@
+[
+  {
+    "question": "മലയാളത്തിലെ ആദ്യത്തെ നോവൽ ഏതാണ്?",
+    "options": ["ഇന്ദുലേഖ", "ശാരദ", "മാർത്താണ്ഡവർമ്മ", "കുന്ദലത"],
+    "answer": "കുന്ദലത",
+    "subject": "Part I Malayalam"
+  },
+  {
+    "question": "കേരളത്തിലെ ഏറ്റവും വലിയ നദി ഏതാണ്?",
+    "options": ["പെരിയാർ", "ഭാരതപ്പുഴ", "പമ്പ", "ചാലിയാർ"],
+    "answer": "പെരിയാർ",
+    "subject": "Part I Malayalam"
+  },
+  {
+    "question": "ഇന്ത്യയുടെ ദേശീയ മൃഗം ഏതാണ്?",
+    "options": ["സിംഹം", "കടുവ", "ആന", "പുലി"],
+    "answer": "കടുവ",
+    "subject": "Part I Malayalam"
+  },
+  {
+    "question": "ഓണം ഏത് മാസത്തിലാണ് ആഘോഷിക്കുന്നത്?",
+    "options": ["ചിങ്ങം", "കന്നി", "തുലാം", "വൃശ്ചികം"],
+    "answer": "ചിങ്ങം",
+    "subject": "Part I Malayalam"
+  },
+  {
+    "question": "കേരളത്തിന്റെ തലസ്ഥാനം ഏതാണ്?",
+    "options": ["കൊച്ചി", "കോഴിക്കോട്", "തിരുവനന്തപുരം", "തൃശ്ശൂർ"],
+    "answer": "തിരുവനന്തപുരം",
+    "subject": "Part I Malayalam"
+  },
+  {
+    "question": "താഴെ കൊടുത്തവയിൽ ശരിയായ പദം ഏത്?",
+    "options": ["അതിഥി", "അഥിതി", "അതിഥിതി", "അഥിഥി"],
+    "answer": "അതിഥി",
+    "subject": "Part II Malayalam"
+  },
+  {
+    "question": "സൂര്യൻ ഉദിക്കുന്നത് ഏത് ദിക്കിലാണ്?",
+    "options": ["പടിഞ്ഞാറ്", "കിഴക്ക്", "തെക്ക്", "വടക്ക്"],
+    "answer": "കിഴക്ക്",
+    "subject": "Part II Malayalam"
+  },
+  {
+    "question": "മഴവില്ലിൽ എത്ര നിറങ്ങൾ ഉണ്ട്?",
+    "options": ["5", "6", "7", "8"],
+    "answer": "7",
+    "subject": "Part II Malayalam"
+  },
+  {
+    "question": "താമരയുടെ പര്യായപദം അല്ലാത്തത് ഏത്?",
+    "options": ["പങ്കജം", "സരോജം", "കൈരവം", "നളിനം"],
+    "answer": "കൈരവം",
+    "subject": "Part II Malayalam"
+  },
+  {
+    "question": "കേരള പാണിനി എന്നറിയപ്പെടുന്നത് ആര്?",
+    "options": ["എ.ആർ. രാജരാജവർമ്മ", "വള്ളത്തോൾ", "കുമാരനാശാൻ", "ഉള്ളൂർ"],
+    "answer": "എ.ആർ. രാജരാജവർമ്മ",
+    "subject": "Part II Malayalam"
+  },
+  {
+    "question": "What is 2 + 2?",
+    "options": ["3", "4", "5", "6"],
+    "answer": "4",
+    "subject": "Maths"
+  },
+  {
+    "question": "What is 10 - 3?",
+    "options": ["6", "7", "8", "9"],
+    "answer": "7",
+    "subject": "Maths"
+  },
+  {
+    "question": "What is 5 * 3?",
+    "options": ["10", "12", "15", "18"],
+    "answer": "15",
+    "subject": "Maths"
+  },
+  {
+    "question": "What is 10 / 2?",
+    "options": ["3", "4", "5", "6"],
+    "answer": "5",
+    "subject": "Maths"
+  },
+  {
+    "question": "What is the square root of 9?",
+    "options": ["2", "3", "4", "5"],
+    "answer": "3",
+    "subject": "Maths"
+  },
+  {
+    "question": "What is 1 + 1?",
+    "options": ["1", "2", "3", "4"],
+    "answer": "2",
+    "subject": "Maths"
+  },
+  {
+    "question": "What is 7 - 2?",
+    "options": ["3", "4", "5", "6"],
+    "answer": "5",
+    "subject": "Maths"
+  },
+  {
+    "question": "What is 3 * 3?",
+    "options": ["6", "9", "12", "15"],
+    "answer": "9",
+    "subject": "Maths"
+  },
+  {
+    "question": "What is 8 / 4?",
+    "options": ["1", "2", "3", "4"],
+    "answer": "2",
+    "subject": "Maths"
+  },
+  {
+    "question": "What is the square root of 16?",
+    "options": ["2", "3", "4", "5"],
+    "answer": "4",
+    "subject": "Maths"
+  },
+  {
+    "question": "What is the capital of France?",
+    "options": ["Berlin", "Madrid", "Paris", "Rome"],
+    "answer": "Paris",
+    "subject": "English"
+  },
+  {
+    "question": "Which word is a noun?",
+    "options": ["Quickly", "Run", "Apple", "Happy"],
+    "answer": "Apple",
+    "subject": "English"
+  },
+  {
+    "question": "What is the past tense of 'go'?",
+    "options": ["Goed", "Went", "Gone", "Going"],
+    "answer": "Went",
+    "subject": "English"
+  },
+  {
+    "question": "Choose the correct spelling:",
+    "options": ["Separate", "Seperate", "Saperate", "Separete"],
+    "answer": "Separate",
+    "subject": "English"
+  },
+  {
+    "question": "What is a synonym for 'happy'?",
+    "options": ["Sad", "Joyful", "Angry", "Tired"],
+    "answer": "Joyful",
+    "subject": "English"
+  },
+  {
+    "question": "What is H2O?",
+    "options": ["Salt", "Sugar", "Water", "Oxygen"],
+    "answer": "Water",
+    "subject": "Basic Science"
+  },
+  {
+    "question": "Which planet is known as the Red Planet?",
+    "options": ["Earth", "Mars", "Jupiter", "Saturn"],
+    "answer": "Mars",
+    "subject": "Basic Science"
+  },
+  {
+    "question": "What gas do plants absorb from the atmosphere?",
+    "options": ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"],
+    "answer": "Carbon Dioxide",
+    "subject": "Basic Science"
+  },
+  {
+    "question": "What is the force that pulls objects towards each other?",
+    "options": ["Friction", "Magnetism", "Gravity", "Tension"],
+    "answer": "Gravity",
+    "subject": "Basic Science"
+  },
+  {
+    "question": "How many bones are in the adult human body?",
+    "options": ["150", "206", "250", "300"],
+    "answer": "206",
+    "subject": "Basic Science"
+  },
+  {
+    "question": "What is the chemical symbol for Gold?",
+    "options": ["Ag", "Au", "Gd", "Go"],
+    "answer": "Au",
+    "subject": "Basic Science"
+  },
+  {
+    "question": "Which of these is a source of Vitamin C?",
+    "options": ["Milk", "Orange", "Bread", "Egg"],
+    "answer": "Orange",
+    "subject": "Basic Science"
+  },
+  {
+    "question": "What is the process by which plants make their food called?",
+    "options": ["Respiration", "Photosynthesis", "Digestion", "Transpiration"],
+    "answer": "Photosynthesis",
+    "subject": "Basic Science"
+  },
+  {
+    "question": "The Earth is a ____.",
+    "options": ["Star", "Planet", "Comet", "Moon"],
+    "answer": "Planet",
+    "subject": "Basic Science"
+  },
+  {
+    "question": "What is the hardest natural substance on Earth?",
+    "options": ["Gold", "Iron", "Diamond", "Quartz"],
+    "answer": "Diamond",
+    "subject": "Basic Science"
+  },
+  {
+    "question": "Who was the first Prime Minister of India?",
+    "options": ["Mahatma Gandhi", "Jawaharlal Nehru", "Sardar Patel", "Indira Gandhi"],
+    "answer": "Jawaharlal Nehru",
+    "subject": "Social Science"
+  },
+  {
+    "question": "In which year did India get independence?",
+    "options": ["1945", "1947", "1950", "1952"],
+    "answer": "1947",
+    "subject": "Social Science"
+  },
+  {
+    "question": "What is the capital of India?",
+    "options": ["Mumbai", "New Delhi", "Kolkata", "Chennai"],
+    "answer": "New Delhi",
+    "subject": "Social Science"
+  },
+  {
+    "question": "Which ocean is the largest in the world?",
+    "options": ["Atlantic", "Indian", "Arctic", "Pacific"],
+    "answer": "Pacific",
+    "subject": "Social Science"
+  },
+  {
+    "question": "How many continents are there in the world?",
+    "options": ["5", "6", "7", "8"],
+    "answer": "7",
+    "subject": "Social Science"
+  },
+  {
+    "question": "The Great Wall is located in which country?",
+    "options": ["India", "Egypt", "China", "Rome"],
+    "answer": "China",
+    "subject": "Social Science"
+  },
+  {
+    "question": "Which is the longest river in the world?",
+    "options": ["Amazon", "Nile", "Yangtze", "Mississippi"],
+    "answer": "Nile",
+    "subject": "Social Science"
+  },
+  {
+    "question": "Who wrote the Indian National Anthem?",
+    "options": ["Bankim Chandra Chatterjee", "Rabindranath Tagore", "Sarojini Naidu", "Subramania Bharati"],
+    "answer": "Rabindranath Tagore",
+    "subject": "Social Science"
+  },
+  {
+    "question": "Which country is known as the Land of the Rising Sun?",
+    "options": ["China", "Japan", "Thailand", "Korea"],
+    "answer": "Japan",
+    "subject": "Social Science"
+  },
+  {
+    "question": "What is the currency of the USA?",
+    "options": ["Euro", "Pound", "Dollar", "Yen"],
+    "answer": "Dollar",
+    "subject": "Social Science"
+  }
+]
