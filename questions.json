@@ -1,4 +1,19 @@
-[
+[ {
+        "question": "നൽകിയിരിക്കുന്ന സൂചനകളിൽ നിന്ന് സാഹിത്യകാരിയെ കണ്ടെത്തിയെഴുതുക. 1. മലയാളത്തിലെ പ്രശസ്തകവിയും പരിസ്ഥിതിപ്രവർത്തകയും 2. തളിര് മാസികയുടെ പത്രാധിപരായി പ്രവർത്തിച്ചു. പ്രശസ്ത കവി ബോധേശ്വരന്റെ മകൾ 4. കുറിഞ്ഞിപ്പൂക്കൾ, അമ്പലമണി, മുത്തുച്ചിപ്പി, രാത്രിമഴ തുടങ്ങിയവ പ്രധാനകൃതികൾ",
+        "option1": "ലളിതാംബിക അന്തർജനം",
+        "malayalam_option1": "H2O",
+        "option2": "CO2",
+        "malayalam_option2": "CO2",
+        "option3": "NaCl",
+        "malayalam_option3": "NaCl",
+        "option4": "O2",
+        "malayalam_option4": "O2",
+        "answer": "H2O",
+        "malayalam_answer": "H2O",
+        "subject": "Basic Science",
+        "chapter": "Chapter 3: Chemistry Basics",
+        "image": null
+    },
     {
         "question": "What is the chemical symbol for water?",
         "malayalam_question": "വെള്ളത്തിന്റെ രാസസൂത്രം എന്താണ്?",
