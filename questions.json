@@ -1,53 +1,54 @@
 [
     {
-        "question": "What is the capital of Kerala?",
-        "option1": "Kochi",
-        "option2": "Thiruvananthapuram",
-        "option3": "Kozhikode",
-        "option4": "Kannur",
-        "answer": "Thiruvananthapuram",
-        "subject": "Part I Malayalam",
-        "chapter": "Chapter 1: Geography"
-    },
-    {
-        "question": "Who is known as the 'Father of Malayalam Literature'?",
-        "option1": "Thunchaththu Ramanujan Ezhuthachan",
-        "option2": "Kumaran Asan",
-        "option3": "Vallathol Narayana Menon",
-        "option4": "Changampuzha Krishna Pillai",
-        "answer": "Thunchaththu Ramanujan Ezhuthachan",
-        "subject": "Part I Malayalam",
-        "chapter": "Chapter 2: Literature"
-    },
-    {
-        "question": "What is 2 + 2?",
-        "option1": "3",
-        "option2": "4",
-        "option3": "5",
-        "option4": "6",
-        "answer": "4",
-        "subject": "Maths",
-        "chapter": "Chapter 1: Basic Arithmetic"
-    },
-    {
         "question": "What is the chemical symbol for water?",
+        "malayalam_question": "വെള്ളത്തിന്റെ രാസസൂത്രം എന്താണ്?",
         "option1": "H2O",
+        "malayalam_option1": "H2O",
         "option2": "CO2",
+        "malayalam_option2": "CO2",
         "option3": "NaCl",
+        "malayalam_option3": "NaCl",
         "option4": "O2",
+        "malayalam_option4": "O2",
         "answer": "H2O",
+        "malayalam_answer": "H2O",
         "subject": "Basic Science",
-        "chapter": "Chapter 3: Chemistry Basics"
+        "chapter": "Chapter 3: Chemistry Basics",
+        "image": null
     },
     {
-        "question": "Who was the first Prime Minister of India?",
+        "question": "What is the value of π (pi) approximately?",
+        "malayalam_question": "π (പൈ) യുടെ സാമീപ്യമൂല്യം എത്രയാണ്?",
+        "option1": "3.14",
+        "malayalam_option1": "3.14",
+        "option2": "2.71",
+        "malayalam_option2": "2.71",
+        "option3": "1.62",
+        "malayalam_option3": "1.62",
+        "option4": "4.13",
+        "malayalam_option4": "4.13",
+        "answer": "3.14",
+        "malayalam_answer": "3.14",
+        "subject": "Maths",
+        "chapter": "Chapter 2: Geometry",
+        "image": null
+    },
+    {
+        "question": "Who is known as the 'Father of the Indian Constitution'?",
+        "malayalam_question": "ഇന്ത്യൻ ഭരണഘടനയുടെ പിതാവ് എന്നറിയപ്പെടുന്നത് ആരാണ്?",
         "option1": "Mahatma Gandhi",
+        "malayalam_option1": "മഹാത്മാഗാന്ധി",
         "option2": "Jawaharlal Nehru",
-        "option3": "Indira Gandhi",
-        "option4": "Rajiv Gandhi",
-        "answer": "Jawaharlal Nehru",
+        "malayalam_option2": "ജവഹർലാൽ നെഹ്റു",
+        "option3": "B.R. Ambedkar",
+        "malayalam_option3": "ബി.ആർ. അംബേദ്കർ",
+        "option4": "Sardar Patel",
+        "malayalam_option4": "സർദാർ പട്ടേൽ",
+        "answer": "B.R. Ambedkar",
+        "malayalam_answer": "ബി.ആർ. അംബേദ്കർ",
         "subject": "Social Science",
-        "chapter": "Chapter 5: Indian History"
+        "chapter": "Chapter 5: Indian Constitution",
+        "image": null
     }
-    // Add all your remaining questions here following the same format
+    // Add more questions following this format
 ]
