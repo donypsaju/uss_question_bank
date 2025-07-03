@@ -6,6 +6,12 @@
     <title>Bilingual Classroom Quiz</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@100..900&display=swap');
+</style>
+    <style>
+        *{
+            font-family: "Noto Serif Malayalam", serif;
+        }
         .quiz-container {
             max-width: 800px;
             margin: 0 auto;
@@ -39,18 +45,11 @@
             font-size: 0.9rem;
             margin-left: 5px;
         }
-        .chapter-selector {
-            max-height: 300px;
-            overflow-y: auto;
+        .language-toggle-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .language-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
         }
         .question-card {
             position: relative;
@@ -58,6 +57,30 @@
         .malayalam-text {
             font-family: 'Noto Sans Malayalam', sans-serif;
             font-size: 1.2rem;
+        }
+        .question-image {
+            max-height: 300px;
+            cursor: zoom-in;
+            transition: transform 0.25s ease;
+        }
+        .question-image.zoomed {
+            transform: scale(1.5);
+            cursor: zoom-out;
+            z-index: 1000;
+            position: relative;
+        }
+        .answer-list {
+            text-align: left;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .answer-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .correct-answer-item {
+            background-color: #f8f9fa;
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam&display=swap" rel="stylesheet">
@@ -78,19 +101,20 @@
         </div>
 
         <div id="quiz-screen" class="hidden">
-            <div class="d-flex justify-content-between mb-4">
+            <div class="language-toggle-container">
                 <h5 id="question-counter">Question 1 of 0</h5>
-                <div>
-                    <span id="subject-display" class="badge bg-secondary subject-badge"></span>
-                    <span id="chapter-display" class="badge bg-info chapter-badge"></span>
-                </div>
+                <button id="language-toggle" class="btn btn-sm btn-outline-secondary">മലയാളം</button>
+            </div>
+            
+            <div class="d-flex mb-4">
+                <span id="subject-display" class="badge bg-secondary subject-badge"></span>
+                <span id="chapter-display" class="badge bg-info chapter-badge ms-2"></span>
             </div>
             
             <div class="card mb-4 question-card">
-                <button id="language-toggle" class="btn btn-sm btn-outline-secondary language-btn">മലയാളം</button>
                 <div class="card-body">
                     <h4 id="question-text" class="card-title question-text">Loading question...</h4>
-                    <div id="question-image-container" class="text-center mt-3 mb-3"></div>
+                    <div id="question-image-container" class="text-center mt-3 mb-3 hidden"></div>
                 </div>
             </div>
             
@@ -122,6 +146,7 @@
 
         <div id="results-screen" class="hidden text-center">
             <h2>Quiz Completed!</h2>
+            <div id="answers-container" class="answer-list"></div>
             <button id="restart-btn" class="btn btn-primary mt-4">Restart Quiz</button>
         </div>
     </div>
