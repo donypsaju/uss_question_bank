@@ -524,7 +524,7 @@
     "malayalam_answer": "60 ഡിഗ്രി",
     "subject": "Maths",
     "chapter": 1,
-    "image": "Assets/Images/maths_001.jpg"
+    "image": "maths_001.jpg"
   },
   {
     "question": "If PQ is parallel to RS, what is the measure of K?",
@@ -541,7 +541,7 @@
     "malayalam_answer": "45",
     "subject": "Maths",
     "chapter": 1,
-    "image": "Assets/Images/maths_002.jpg"
+    "image": "maths_002.jpg"
   },
   {
     "question": "In the figure, XY is parallel to MN. Find the measure of x.",
@@ -558,7 +558,7 @@
     "malayalam_answer": "75",
     "subject": "Maths",
     "chapter": 1,
-    "image": "Assets/Images/maths_003.jpg"
+    "image": "maths_003.jpg"
   },
   {
     "question": "In the figure, l1, l2, l3 are parallel lines. Find the measure of the shaded angle in the figure.",
@@ -575,7 +575,7 @@
     "malayalam_answer": "(m+n)",
     "subject": "Maths",
     "chapter": 1,
-    "image": "Assets/Images/maths_004.jpg"
+    "image": "maths_004.jpg"
   },
   {
     "question": "In the figure, triangle ABC is an equilateral triangle and AB is parallel to DE. How much is <DFC?",
@@ -592,7 +592,7 @@
     "malayalam_answer": "60",
     "subject": "Maths",
     "chapter": 1,
-    "image": "Assets/Images/maths_005.jpg"
+    "image": "maths_005.jpg"
   },
   {
     "question": "If AB and CD are parallel lines, what is <BOC?",
@@ -609,7 +609,7 @@
     "malayalam_answer": "85",
     "subject": "Maths",
     "chapter": 1,
-    "image": "Assets/Images/maths_006.jpg"
+    "image": "maths_006.jpg"
   },
   {
     "question": "In the figure, AB and CD are parallel lines. Find the value of x.",
@@ -626,7 +626,7 @@
     "malayalam_answer": "40",
     "subject": "Maths",
     "chapter": 1,
-    "image": "Assets/Images/maths_007.jpg"
+    "image": "maths_007.jpg"
   },
   {
     "question": "In the figure, PQRS is a parallelogram. What is the measure of <PQX?",
@@ -643,7 +643,7 @@
     "malayalam_answer": "70",
     "subject": "Maths",
     "chapter": 1,
-    "image": "Assets/Images/maths_008.jpg"
+    "image": "maths_008.jpg"
   },
   {
     "question": "In the figure, JK is parallel to LM, <KJN = 80 degree and <MLN = 30 degree. Then what is the measure of <LNJ?",
@@ -660,7 +660,7 @@
     "malayalam_answer": "50",
     "subject": "Maths",
     "chapter": 1,
-    "image": "Assets/Images/maths_009.jpg"
+    "image": "maths_009.jpg"
   },
   {
     "question": "In the figure, AB is parallel to CD, <ABE = 150 degree and <CDE = 160 degree. What is the measure of <BED?",
@@ -677,7 +677,7 @@
     "malayalam_answer": "50",
     "subject": "Maths",
     "chapter": 1,
-    "image": "Assets/Images/maths_010.jpg"
+    "image": "maths_010.jpg"
   },
   {
     "question": "In the figure, if AB is parallel to CD and <ACD =<DCE =x, then find <A+<B.",
@@ -694,7 +694,7 @@
     "malayalam_answer": "2x",
     "subject": "Maths",
     "chapter": 1,
-    "image": "Assets/Images/maths_011.jpg"
+    "image": "maths_011.jpg"
   },
   {
     "question": "In the figure, if AB is parallel to CF and <AMQ = 120 degree, <NEP = 30 degree. The <QPE= ?",
@@ -711,7 +711,7 @@
     "malayalam_answer": "30",
     "subject": "Maths",
     "chapter": 1,
-    "image": "Assets/Images/maths_012.jpg"
+    "image": "maths_012.jpg"
   },
   {
     "question": "When a line intersects another line, which of the following is the right statement?",
@@ -745,7 +745,7 @@
     "malayalam_answer": "65",
     "subject": "Maths",
     "chapter": 1,
-    "image": "Assets/Images/maths_013.jpg"
+    "image": "maths_013.jpg"
   },
   {
     "question": "In the figure, if AB is parallel to CD and <COP = 60 degree. Find the measure of <AMO.",
@@ -762,7 +762,7 @@
     "malayalam_answer": "150",
     "subject": "Maths",
     "chapter": 1,
-    "image": "Assets/Images/maths_014.jpg"
+    "image": "maths_014.jpg"
   },
   {
     "question": "Choose the correctly spelt word",
