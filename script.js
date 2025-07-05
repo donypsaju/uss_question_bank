@@ -33,37 +33,46 @@ document.addEventListener('DOMContentLoaded', function() {
     let timerInterval;
     const optionLetters = ['A', 'B', 'C', 'D'];
     
-    // Font size variables
-    let questionFontSize = 1.3; // rem
-    let optionFontSize = 1.1; // rem
+    // Font size variables (with default values)
+    let questionFontSize = 1.8; // rem - larger default for projector
+    let optionFontSize = 1.5;   // rem - larger default for projector
 
     // Initialize the app
     loadQuestions();
 
-    // Load saved font sizes from localStorage
-    const savedQuestionSize = localStorage.getItem('questionFontSize');
-    const savedOptionSize = localStorage.getItem('optionFontSize');
-    if (savedQuestionSize) questionFontSize = parseFloat(savedQuestionSize);
-    if (savedOptionSize) optionFontSize = parseFloat(savedOptionSize);
-    
-    // Set initial slider value (average of both sizes)
-    fontSizeSlider.value = ((questionFontSize + optionFontSize) / 2).toFixed(1);
+    // Load saved settings from localStorage
+    function loadSettings() {
+        // Language
+        const savedLanguage = localStorage.getItem('quizLanguage');
+        if (savedLanguage) {
+            currentLanguage = savedLanguage;
+            updateLanguageButtonText();
+        }
+        
+        // Font sizes
+        const savedQuestionSize = localStorage.getItem('questionFontSize');
+        const savedOptionSize = localStorage.getItem('optionFontSize');
+        if (savedQuestionSize) questionFontSize = parseFloat(savedQuestionSize);
+        if (savedOptionSize) optionFontSize = parseFloat(savedOptionSize);
+        
+        // Set initial slider value (average of both sizes)
+        fontSizeSlider.value = ((questionFontSize + optionFontSize) / 2).toFixed(1);
+    }
 
-    // Event listeners
-    startBtn.addEventListener('click', startQuiz);
-    restartBtn.addEventListener('click', restartQuiz);
-    nextBtn.addEventListener('click', nextQuestion);
-    prevBtn.addEventListener('click', prevQuestion);
-    revealBtn.addEventListener('click', revealAnswer);
-    languageToggle.addEventListener('click', toggleLanguage);
-    resultsLanguageToggle.addEventListener('click', toggleResultsLanguage);
-    fontSizeSlider.addEventListener('input', updateFontSizes);
+    // Update language toggle button text
+    function updateLanguageButtonText() {
+        languageToggle.textContent = currentLanguage === 'english' ? 'മലയാളം' : 'English';
+        if (resultsLanguageToggle) {
+            resultsLanguageToggle.textContent = currentLanguage === 'english' ? 'മലയാളം' : 'English';
+        }
+    }
 
+    // Font size adjustment functions
     function updateFontSizes() {
         // Calculate new sizes based on slider position (1-5)
         const sliderValue = parseFloat(fontSizeSlider.value);
-        questionFontSize = 1.0 + (sliderValue * 0.5); // 1.0-3.5rem
-        optionFontSize = 0.9 + (sliderValue * 0.4);   // 0.9-2.9rem
+        questionFontSize = 1.0 + (sliderValue * 0.8); // 1.0-5.0rem (wider range for projector)
+        optionFontSize = 0.9 + (sliderValue * 0.7);   // 0.9-4.4rem
         
         // Save to localStorage
         localStorage.setItem('questionFontSize', questionFontSize);
@@ -75,12 +84,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function applyFontSizes() {
         // Apply to question text
-        questionText.style.fontSize = `${questionFontSize}rem`;
+        if (questionText) {
+            questionText.style.fontSize = `${questionFontSize}rem`;
+            questionText.style.lineHeight = `${questionFontSize + 0.5}rem`;
+        }
         
         // Apply to options
         const optionContents = document.querySelectorAll('.option-content');
         optionContents.forEach(option => {
             option.style.fontSize = `${optionFontSize}rem`;
+            option.style.lineHeight = `${optionFontSize + 0.3}rem`;
         });
         
         // Apply to current results if on results screen
@@ -88,28 +101,26 @@ document.addEventListener('DOMContentLoaded', function() {
             const answerQuestions = answersContainer.querySelectorAll('.answer-item .fw-bold');
             answerQuestions.forEach(q => {
                 q.style.fontSize = `${questionFontSize}rem`;
+                q.style.lineHeight = `${questionFontSize + 0.5}rem`;
             });
             
             const answerOptions = answersContainer.querySelectorAll('.answer-item div:not(.fw-bold)');
             answerOptions.forEach(opt => {
                 opt.style.fontSize = `${optionFontSize}rem`;
+                opt.style.lineHeight = `${optionFontSize + 0.3}rem`;
             });
         }
     }
 
+    // Load questions from JSON file
     async function loadQuestions() {
         try {
-            // Load language preference from localStorage
-            const savedLanguage = localStorage.getItem('quizLanguage');
-            if (savedLanguage) {
-                currentLanguage = savedLanguage;
-                updateLanguageButtonText();
-            }
+            // Load settings first
+            loadSettings();
             
+            // Then load questions
             const response = await fetch('questions.json');
-            if (!response.ok) {
-                throw new Error('Failed to load questions');
-            }
+            if (!response.ok) throw new Error('Failed to load questions');
             questions = await response.json();
             
             initializeChapterSelection();
@@ -119,8 +130,130 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // ... (rest of the existing functions remain the same until loadQuestion)
+    // Initialize chapter selection checkboxes
+    function initializeChapterSelection() {
+        chapterSelection.innerHTML = '<h5 class="mb-3">Select Chapters:</h5>';
+        
+        // Get all unique chapter numbers from questions
+        const chapters = [...new Set(questions.map(q => q.chapter))].sort((a, b) => a - b);
+        
+        if (chapters.length === 0) {
+            chapterSelection.innerHTML = '<p>No chapters found in questions data.</p>';
+            return;
+        }
+        
+        // Create checkboxes for each chapter number
+        chapters.forEach(chapter => {
+            const div = document.createElement('div');
+            div.className = 'form-check';
+            
+            const input = document.createElement('input');
+            input.className = 'form-check-input chapter-checkbox';
+            input.type = 'checkbox';
+            input.value = chapter;
+            input.id = `chapter-${chapter}`;
+            input.checked = true;
+            
+            const label = document.createElement('label');
+            label.className = 'form-check-label';
+            label.htmlFor = input.id;
+            label.textContent = `Chapter ${chapter}`;
+            
+            div.appendChild(input);
+            div.appendChild(label);
+            chapterSelection.appendChild(div);
+        });
+    }
 
+    // Get selected chapters from checkboxes
+    function getSelectedChapters() {
+        const checkboxes = document.querySelectorAll('.chapter-checkbox:checked');
+        return Array.from(checkboxes).map(cb => parseInt(cb.value));
+    }
+
+    // Start the quiz
+    function startQuiz() {
+        selectedChapters = getSelectedChapters();
+        
+        if (selectedChapters.length === 0) {
+            alert('Please select at least one chapter');
+            return;
+        }
+        
+        // Start timer
+        startTime = new Date();
+        timerInterval = setInterval(updateTimer, 1000);
+        updateTimer();
+        
+        // Initialize quiz
+        currentQuestionIndex = 0;
+        answerRevealed = false;
+        selectedQuestions = selectQuestionsInOrder();
+        
+        if (selectedQuestions.length === 0) {
+            alert('No questions found in selected chapters');
+            return;
+        }
+        
+        // Show quiz screen
+        startScreen.style.display = 'none';
+        resultsScreen.style.display = 'none';
+        quizScreen.style.display = 'block';
+        
+        loadQuestion();
+    }
+
+    // Select questions in the specified subject order
+    function selectQuestionsInOrder() {
+        let filteredQuestions = questions.filter(q => selectedChapters.includes(q.chapter));
+        
+        // Group by subject in required order
+        const part1Malayalam = getRandomElements(filteredQuestions.filter(q => q.subject === "Part I Malayalam"), 5);
+        const part2Malayalam = getRandomElements(filteredQuestions.filter(q => q.subject === "Part II Malayalam"), 5);
+        const maths = getRandomElements(filteredQuestions.filter(q => q.subject === "Maths"), 10);
+        const english = getRandomElements(filteredQuestions.filter(q => q.subject === "English"), 5);
+        const basicScience = getRandomElements(filteredQuestions.filter(q => q.subject === "Basic Science"), 10);
+        const socialScience = getRandomElements(filteredQuestions.filter(q => q.subject === "Social Science"), 10);
+        
+        return [
+            ...part1Malayalam,
+            ...part2Malayalam,
+            ...maths,
+            ...english,
+            ...basicScience,
+            ...socialScience
+        ].filter(q => q !== undefined);
+    }
+
+    // Get random elements from array
+    function getRandomElements(array, count) {
+        if (array.length === 0) return [];
+        const shuffled = array.slice();
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled.slice(0, Math.min(count, shuffled.length));
+    }
+
+    // Update timer display
+    function updateTimer() {
+        const now = new Date();
+        const elapsed = new Date(now - startTime);
+        const minutes = elapsed.getUTCMinutes().toString().padStart(2, '0');
+        const seconds = elapsed.getUTCSeconds().toString().padStart(2, '0');
+        timerDisplay.textContent = `${minutes}:${seconds}`;
+    }
+
+    // Format time taken for display
+    function formatTimeTaken(ms) {
+        const totalSeconds = Math.floor(ms / 1000);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        return `${minutes} minute${minutes !== 1 ? 's' : ''} ${seconds} second${seconds !== 1 ? 's' : ''}`;
+    }
+
+    // Load and display current question
     function loadQuestion() {
         answerRevealed = false;
         const question = selectedQuestions[currentQuestionIndex];
@@ -141,6 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Apply current font size
         questionText.style.fontSize = `${questionFontSize}rem`;
+        questionText.style.lineHeight = `${questionFontSize + 0.5}rem`;
         
         // Display question image if exists
         displayQuestionImage(question.image);
@@ -155,10 +289,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const optionLetter = document.createElement('div');
             optionLetter.className = 'option-letter';
             optionLetter.textContent = optionLetters[i];
+            optionLetter.style.fontSize = `${optionFontSize}rem`;
             
             const optionContent = document.createElement('div');
             optionContent.className = 'option-content';
             optionContent.style.fontSize = `${optionFontSize}rem`;
+            optionContent.style.lineHeight = `${optionFontSize + 0.3}rem`;
             
             if (currentLanguage === 'malayalam' && question[`malayalam_option${i + 1}`]) {
                 optionContent.textContent = question[`malayalam_option${i + 1}`];
@@ -178,10 +314,117 @@ document.addEventListener('DOMContentLoaded', function() {
         nextBtn.textContent = currentQuestionIndex === selectedQuestions.length - 1 ? 'Finish' : 'Next';
         revealBtn.textContent = 'Reveal Answer';
         revealBtn.disabled = false;
+        
+        // Scroll to top of question
+        window.scrollTo(0, 0);
     }
 
-    // ... (rest of the existing functions remain the same until showResults)
+    // Display question image with zoom functionality
+    function displayQuestionImage(imagePath) {
+        questionImageContainer.innerHTML = '';
+        
+        if (imagePath) {
+            const img = document.createElement('img');
+            img.src = imagePath;
+            img.alt = "Question image";
+            img.className = "question-image img-fluid rounded";
+            
+            // Add zoom functionality
+            img.addEventListener('click', function() {
+                this.classList.toggle('zoomed');
+            });
+            
+            questionImageContainer.appendChild(img);
+            questionImageContainer.style.display = 'block';
+        } else {
+            questionImageContainer.style.display = 'none';
+        }
+    }
 
+    // Toggle between English and Malayalam
+    function toggleLanguage() {
+        currentLanguage = currentLanguage === 'english' ? 'malayalam' : 'english';
+        localStorage.setItem('quizLanguage', currentLanguage);
+        updateLanguageButtonText();
+        updateQuestionLanguage();
+    }
+
+    // Toggle language for results screen
+    function toggleResultsLanguage() {
+        currentLanguage = currentLanguage === 'english' ? 'malayalam' : 'english';
+        localStorage.setItem('quizLanguage', currentLanguage);
+        updateLanguageButtonText();
+        showResults();
+    }
+
+    // Update question language
+    function updateQuestionLanguage() {
+        const question = selectedQuestions[currentQuestionIndex];
+        
+        // Update question text
+        if (currentLanguage === 'malayalam' && question.malayalam_question) {
+            questionText.textContent = question.malayalam_question;
+            questionText.classList.add('malayalam-text');
+        } else {
+            questionText.textContent = question.question;
+            questionText.classList.remove('malayalam-text');
+        }
+        
+        // Update options
+        const options = document.querySelectorAll('.option-content');
+        options.forEach((option, index) => {
+            if (currentLanguage === 'malayalam' && selectedQuestions[currentQuestionIndex][`malayalam_option${index + 1}`]) {
+                option.textContent = selectedQuestions[currentQuestionIndex][`malayalam_option${index + 1}`];
+                option.classList.add('malayalam-text');
+            } else {
+                option.textContent = selectedQuestions[currentQuestionIndex][`option${index + 1}`];
+                option.classList.remove('malayalam-text');
+            }
+        });
+    }
+
+    // Reveal the correct answer
+    function revealAnswer() {
+        answerRevealed = true;
+        const question = selectedQuestions[currentQuestionIndex];
+        const options = document.querySelectorAll('.option');
+        
+        options.forEach(option => {
+            const optionIndex = parseInt(option.dataset.index);
+            const optionContent = option.querySelector('.option-content').textContent;
+            
+            if (currentLanguage === 'malayalam' && question.malayalam_answer) {
+                if (optionContent === question.malayalam_answer) {
+                    option.classList.add('correct-answer');
+                }
+            } else if (optionContent === question.answer) {
+                option.classList.add('correct-answer');
+            }
+        });
+        
+        revealBtn.textContent = 'Answer Revealed';
+        revealBtn.disabled = true;
+    }
+
+    // Move to next question
+    function nextQuestion() {
+        if (currentQuestionIndex < selectedQuestions.length - 1) {
+            currentQuestionIndex++;
+            loadQuestion();
+        } else {
+            showResults();
+        }
+    }
+
+    // Move to previous question
+    function prevQuestion() {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            loadQuestion();
+        }
+    }
+
+    // Show results screen
     function showResults() {
         // Stop timer
         clearInterval(timerInterval);
@@ -190,6 +433,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Show time taken
         timeTakenDisplay.textContent = `Time taken: ${formatTimeTaken(timeTaken)}`;
+        timeTakenDisplay.style.fontSize = `${questionFontSize}rem`;
         
         // Show results screen
         startScreen.style.display = 'none';
@@ -206,6 +450,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const questionText = document.createElement('div');
             questionText.className = 'fw-bold mb-2';
             questionText.style.fontSize = `${questionFontSize}rem`;
+            questionText.style.lineHeight = `${questionFontSize + 0.5}rem`;
             questionText.textContent = `${index + 1}. ${currentLanguage === 'malayalam' && question.malayalam_question ? question.malayalam_question : question.question}`;
             answerItem.appendChild(questionText);
             
@@ -214,6 +459,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const optionDiv = document.createElement('div');
                 optionDiv.className = 'ms-3';
                 optionDiv.style.fontSize = `${optionFontSize}rem`;
+                optionDiv.style.lineHeight = `${optionFontSize + 0.3}rem`;
                 
                 const optionText = currentLanguage === 'malayalam' && question[`malayalam_option${i}`] 
                     ? question[`malayalam_option${i}`] 
@@ -242,6 +488,7 @@ document.addEventListener('DOMContentLoaded', function() {
         window.scrollTo(0, 0);
     }
 
+    // Restart the quiz
     function restartQuiz() {
         // Clear localStorage
         localStorage.removeItem('quizLanguage');
@@ -255,4 +502,7 @@ document.addEventListener('DOMContentLoaded', function() {
         currentLanguage = 'english';
         updateLanguageButtonText();
     }
+
+    // Event listeners
+    fontSizeSlider.addEventListener('input', updateFontSizes);
 });
