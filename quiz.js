@@ -14,10 +14,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const subjectDisplay = document.getElementById('subject-display');
     const chapterDisplay = document.getElementById('chapter-display');
     const chapterSelection = document.getElementById('chapter-selection');
-    const loadingSpinner = document.querySelector('.loading-spinner');
     const languageToggle = document.getElementById('language-toggle');
+    const resultsLanguageToggle = document.getElementById('results-language-toggle');
     const questionImageContainer = document.getElementById('question-image-container');
     const answersContainer = document.getElementById('answers-container');
+    const timerDisplay = document.getElementById('timer');
+    const timeTakenDisplay = document.getElementById('time-taken');
 
     // Quiz variables
     let questions = [];
@@ -26,6 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let answerRevealed = false;
     let selectedChapters = [];
     let currentLanguage = 'english';
+    let startTime;
+    let timerInterval;
+    const optionLetters = ['A', 'B', 'C', 'D'];
 
     // Initialize the app
     loadQuestions();
@@ -37,17 +42,15 @@ document.addEventListener('DOMContentLoaded', function() {
     prevBtn.addEventListener('click', prevQuestion);
     revealBtn.addEventListener('click', revealAnswer);
     languageToggle.addEventListener('click', toggleLanguage);
+    resultsLanguageToggle.addEventListener('click', toggleResultsLanguage);
 
     async function loadQuestions() {
         try {
-            loadingSpinner.style.display = 'block';
-            startBtn.disabled = true;
-            
             // Load language preference from localStorage
             const savedLanguage = localStorage.getItem('quizLanguage');
             if (savedLanguage) {
                 currentLanguage = savedLanguage;
-                languageToggle.textContent = currentLanguage === 'english' ? 'മലയാളം' : 'English';
+                updateLanguageButtonText();
             }
             
             const response = await fetch('questions.json');
@@ -60,20 +63,26 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (error) {
             console.error('Error loading questions:', error);
             alert('Failed to load questions. Please try again later.');
-        } finally {
-            loadingSpinner.style.display = 'none';
-            startBtn.disabled = false;
         }
+    }
+
+    function updateLanguageButtonText() {
+        languageToggle.textContent = currentLanguage === 'english' ? 'മലയാളം' : 'English';
+        resultsLanguageToggle.textContent = currentLanguage === 'english' ? 'മലയാളം' : 'English';
     }
 
     function toggleLanguage() {
         currentLanguage = currentLanguage === 'english' ? 'malayalam' : 'english';
-        languageToggle.textContent = currentLanguage === 'english' ? 'മലയാളം' : 'English';
-        
-        // Save language preference to localStorage
         localStorage.setItem('quizLanguage', currentLanguage);
-        
+        updateLanguageButtonText();
         updateQuestionLanguage();
+    }
+
+    function toggleResultsLanguage() {
+        currentLanguage = currentLanguage === 'english' ? 'malayalam' : 'english';
+        localStorage.setItem('quizLanguage', currentLanguage);
+        updateLanguageButtonText();
+        showResults();
     }
 
     function updateQuestionLanguage() {
@@ -89,26 +98,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Update options
-        const options = document.querySelectorAll('.option');
+        const options = document.querySelectorAll('.option-content');
         options.forEach((option, index) => {
-            const englishOption = option.querySelector('.english-option');
-            const malayalamOption = option.querySelector('.malayalam-option');
-            
             if (currentLanguage === 'malayalam' && question[`malayalam_option${index + 1}`]) {
-                englishOption.classList.add('hidden');
-                malayalamOption.classList.remove('hidden');
-                malayalamOption.textContent = question[`malayalam_option${index + 1}`];
+                option.textContent = question[`malayalam_option${index + 1}`];
+                option.classList.add('malayalam-text');
             } else {
-                englishOption.classList.remove('hidden');
-                malayalamOption.classList.add('hidden');
-                englishOption.textContent = question[`option${index + 1}`];
+                option.textContent = question[`option${index + 1}`];
+                option.classList.remove('malayalam-text');
             }
         });
     }
 
     function initializeChapterSelection() {
         // Clear existing checkboxes
-        chapterSelection.innerHTML = '<h5>Select Chapters:</h5>';
+        chapterSelection.innerHTML = '<h5 class="mb-3">Select Chapters:</h5>';
         
         // Get all unique chapter numbers from questions
         const chapters = [...new Set(questions.map(q => q.chapter))].sort((a, b) => a - b);
@@ -139,45 +143,11 @@ document.addEventListener('DOMContentLoaded', function() {
             div.appendChild(label);
             chapterSelection.appendChild(div);
         });
-        
-        // Add "Select All" / "Deselect All" buttons
-        const selectAllDiv = document.createElement('div');
-        selectAllDiv.className = 'mt-2';
-        
-        const selectAllBtn = document.createElement('button');
-        selectAllBtn.className = 'btn btn-sm btn-outline-primary me-2';
-        selectAllBtn.textContent = 'Select All';
-        selectAllBtn.addEventListener('click', () => {
-            document.querySelectorAll('.chapter-checkbox').forEach(cb => {
-                cb.checked = true;
-            });
-        });
-        
-        const deselectAllBtn = document.createElement('button');
-        deselectAllBtn.className = 'btn btn-sm btn-outline-secondary';
-        deselectAllBtn.textContent = 'Deselect All';
-        deselectAllBtn.addEventListener('click', () => {
-            document.querySelectorAll('.chapter-checkbox').forEach(cb => {
-                cb.checked = false;
-            });
-        });
-        
-        selectAllDiv.appendChild(selectAllBtn);
-        selectAllDiv.appendChild(deselectAllBtn);
-        chapterSelection.appendChild(selectAllDiv);
     }
 
     function getSelectedChapters() {
         const checkboxes = document.querySelectorAll('.chapter-checkbox:checked');
         return Array.from(checkboxes).map(cb => parseInt(cb.value));
-    }
-
-    function restartQuiz() {
-        startScreen.classList.remove('hidden');
-        resultsScreen.classList.add('hidden');
-        quizScreen.classList.add('hidden');
-        currentLanguage = 'english';
-        languageToggle.textContent = 'മലയാളം';
     }
 
     function startQuiz() {
@@ -188,11 +158,14 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        // Start timer
+        startTime = new Date();
+        timerInterval = setInterval(updateTimer, 1000);
+        updateTimer();
+        
+        // Initialize quiz
         currentQuestionIndex = 0;
         answerRevealed = false;
-        currentLanguage = 'english';
-        languageToggle.textContent = 'മലയാളം';
-        
         selectedQuestions = selectQuestionsInOrder();
         
         if (selectedQuestions.length === 0) {
@@ -200,9 +173,10 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        startScreen.classList.add('hidden');
-        resultsScreen.classList.add('hidden');
-        quizScreen.classList.remove('hidden');
+        // Show quiz screen
+        startScreen.style.display = 'none';
+        resultsScreen.style.display = 'none';
+        quizScreen.style.display = 'block';
         
         loadQuestion();
     }
@@ -210,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function selectQuestionsInOrder() {
         let filteredQuestions = questions.filter(q => selectedChapters.includes(q.chapter));
         
-        // Group by subject in the required order
+        // Group by subject in required order
         const part1Malayalam = getRandomElements(filteredQuestions.filter(q => q.subject === "Part I Malayalam"), 5);
         const part2Malayalam = getRandomElements(filteredQuestions.filter(q => q.subject === "Part II Malayalam"), 5);
         const maths = getRandomElements(filteredQuestions.filter(q => q.subject === "Maths"), 10);
@@ -218,7 +192,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const basicScience = getRandomElements(filteredQuestions.filter(q => q.subject === "Basic Science"), 10);
         const socialScience = getRandomElements(filteredQuestions.filter(q => q.subject === "Social Science"), 10);
         
-        // Combine in the required order
         return [
             ...part1Malayalam,
             ...part2Malayalam,
@@ -239,42 +212,31 @@ document.addEventListener('DOMContentLoaded', function() {
         return shuffled.slice(0, Math.min(count, shuffled.length));
     }
 
-    function displayQuestionImage(imagePath) {
-    // Clear previous image
-    questionImageContainer.innerHTML = '';
-    
-    if (imagePath) {
-        // Show container and add image
-        questionImageContainer.classList.remove('hidden');
-        
-        const img = document.createElement('img');
-        img.src = imagePath;
-        img.alt = "Question image";
-        img.className = "question-image img-fluid rounded";
-        img.style.maxHeight = "300px";
-        
-        // Add zoom functionality
-        img.addEventListener('click', function() {
-            this.classList.toggle('zoomed');
-        });
-        
-        questionImageContainer.appendChild(img);
-    } else {
-        // Hide the image container if there's no image
-        questionImageContainer.classList.add('hidden');
+    function updateTimer() {
+        const now = new Date();
+        const elapsed = new Date(now - startTime);
+        const minutes = elapsed.getUTCMinutes().toString().padStart(2, '0');
+        const seconds = elapsed.getUTCSeconds().toString().padStart(2, '0');
+        timerDisplay.textContent = `${minutes}:${seconds}`;
     }
-}
 
+    function formatTimeTaken(ms) {
+        const totalSeconds = Math.floor(ms / 1000);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        return `${minutes} minute${minutes !== 1 ? 's' : ''} ${seconds} second${seconds !== 1 ? 's' : ''}`;
+    }
 
     function loadQuestion() {
         answerRevealed = false;
         const question = selectedQuestions[currentQuestionIndex];
         
-        questionCounter.textContent = `Question ${currentQuestionIndex + 1} of ${selectedQuestions.length}`;
+        // Update question counter and subject info
+        questionCounter.textContent = `Q${currentQuestionIndex + 1}/${selectedQuestions.length}`;
         subjectDisplay.textContent = question.subject;
-        chapterDisplay.textContent = `Chapter ${question.chapter}`;
+        chapterDisplay.textContent = question.chapter;
         
-        // Set question text based on current language
+        // Set question text
         if (currentLanguage === 'malayalam' && question.malayalam_question) {
             questionText.textContent = question.malayalam_question;
             questionText.classList.add('malayalam-text');
@@ -286,33 +248,56 @@ document.addEventListener('DOMContentLoaded', function() {
         // Display question image if exists
         displayQuestionImage(question.image);
         
-        // Reset options styling and set content
-        const options = document.querySelectorAll('.option');
-        options.forEach((option, index) => {
-            option.classList.remove('correct-answer');
+        // Create options with A, B, C, D labels
+        optionsContainer.innerHTML = '';
+        for (let i = 0; i < 4; i++) {
+            const optionDiv = document.createElement('div');
+            optionDiv.className = 'option';
+            optionDiv.dataset.index = i + 1;
             
-            const englishOption = option.querySelector('.english-option');
-            const malayalamOption = option.querySelector('.malayalam-option');
+            const optionLetter = document.createElement('div');
+            optionLetter.className = 'option-letter';
+            optionLetter.textContent = optionLetters[i];
             
-            englishOption.textContent = question[`option${index + 1}`];
+            const optionContent = document.createElement('div');
+            optionContent.className = 'option-content';
             
-            if (question[`malayalam_option${index + 1}`]) {
-                malayalamOption.textContent = question[`malayalam_option${index + 1}`];
-            }
-            
-            if (currentLanguage === 'malayalam' && question[`malayalam_option${index + 1}`]) {
-                englishOption.classList.add('hidden');
-                malayalamOption.classList.remove('hidden');
+            if (currentLanguage === 'malayalam' && question[`malayalam_option${i + 1}`]) {
+                optionContent.textContent = question[`malayalam_option${i + 1}`];
+                optionContent.classList.add('malayalam-text');
             } else {
-                englishOption.classList.remove('hidden');
-                malayalamOption.classList.add('hidden');
+                optionContent.textContent = question[`option${i + 1}`];
+                optionContent.classList.remove('malayalam-text');
             }
-        });
+            
+            optionDiv.appendChild(optionLetter);
+            optionDiv.appendChild(optionContent);
+            optionsContainer.appendChild(optionDiv);
+        }
         
-        prevBtn.classList.toggle('hidden', currentQuestionIndex === 0);
+        // Update navigation buttons
+        prevBtn.classList.toggle('d-none', currentQuestionIndex === 0);
         nextBtn.textContent = currentQuestionIndex === selectedQuestions.length - 1 ? 'Finish' : 'Next';
         revealBtn.textContent = 'Reveal Answer';
         revealBtn.disabled = false;
+    }
+
+    function displayQuestionImage(imagePath) {
+        questionImageContainer.innerHTML = '';
+        
+        if (imagePath) {
+            const img = document.createElement('img');
+            img.src = imagePath;
+            img.alt = "Question image";
+            img.className = "question-image img-fluid rounded";
+            
+            // Add zoom functionality
+            img.addEventListener('click', function() {
+                this.classList.toggle('zoomed');
+            });
+            
+            questionImageContainer.appendChild(img);
+        }
     }
 
     function revealAnswer() {
@@ -321,12 +306,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const options = document.querySelectorAll('.option');
         
         options.forEach(option => {
-            const englishOption = option.querySelector('.english-option');
-            const optionText = currentLanguage === 'malayalam' && question[`malayalam_option${englishOption.dataset.index}`] ? 
-                option.querySelector('.malayalam-option').textContent : 
-                englishOption.textContent;
+            const optionIndex = parseInt(option.dataset.index);
+            const optionContent = option.querySelector('.option-content').textContent;
             
-            if (optionText === (currentLanguage === 'malayalam' && question.malayalam_answer ? question.malayalam_answer : question.answer)) {
+            if (currentLanguage === 'malayalam' && question.malayalam_answer) {
+                if (optionContent === question.malayalam_answer) {
+                    option.classList.add('correct-answer');
+                }
+            } else if (optionContent === question.answer) {
                 option.classList.add('correct-answer');
             }
         });
@@ -339,6 +326,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentQuestionIndex < selectedQuestions.length - 1) {
             currentQuestionIndex++;
             loadQuestion();
+            // Scroll to top of question
+            window.scrollTo(0, 0);
         } else {
             showResults();
         }
@@ -348,51 +337,49 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentQuestionIndex > 0) {
             currentQuestionIndex--;
             loadQuestion();
+            // Scroll to top of question
+            window.scrollTo(0, 0);
         }
     }
 
     function showResults() {
-        // Clear language preference from localStorage when quiz is completed
-        localStorage.removeItem('quizLanguage');
+        // Stop timer
+        clearInterval(timerInterval);
+        const endTime = new Date();
+        const timeTaken = endTime - startTime;
         
-        quizScreen.classList.add('hidden');
-        resultsScreen.classList.remove('hidden');
+        // Show time taken
+        timeTakenDisplay.textContent = `Time taken: ${formatTimeTaken(timeTaken)}`;
         
+        // Show results screen
+        startScreen.style.display = 'none';
+        quizScreen.style.display = 'none';
+        resultsScreen.style.display = 'block';
+        
+        // Generate answer list
         answersContainer.innerHTML = '';
-        
         selectedQuestions.forEach((question, index) => {
             const answerItem = document.createElement('div');
             answerItem.className = 'answer-item';
             
-            // Show question in current language
-            const questionText = currentLanguage === 'malayalam' && question.malayalam_question 
-                ? question.malayalam_question 
-                : question.question;
+            // Question text
+            const questionText = document.createElement('div');
+            questionText.className = 'fw-bold mb-2';
+            questionText.textContent = `${index + 1}. ${currentLanguage === 'malayalam' && question.malayalam_question ? question.malayalam_question : question.question}`;
+            answerItem.appendChild(questionText);
             
-            const questionNumber = document.createElement('h5');
-            questionNumber.textContent = `${index + 1}. ${questionText}`;
-            
-            const optionsList = document.createElement('div');
-            optionsList.className = 'ms-3';
-            
-            // Determine correct answer
-            let correctOptionIndex = -1;
-            const optionLetters = ['A', 'B', 'C', 'D'];
-            
-            // Add all options in current language
+            // Options
             for (let i = 1; i <= 4; i++) {
                 const optionDiv = document.createElement('div');
-                let optionText;
+                optionDiv.className = 'ms-3';
                 
-                if (currentLanguage === 'malayalam' && question[`malayalam_option${i}`]) {
-                    optionText = question[`malayalam_option${i}`];
-                } else {
-                    optionText = question[`option${i}`];
-                }
+                const optionText = currentLanguage === 'malayalam' && question[`malayalam_option${i}`] 
+                    ? question[`malayalam_option${i}`] 
+                    : question[`option${i}`];
                 
                 optionDiv.textContent = `${optionLetters[i-1]}. ${optionText}`;
                 
-                // Check if this is the correct answer
+                // Highlight correct answer
                 if (currentLanguage === 'malayalam' && question.malayalam_answer) {
                     if (question[`malayalam_option${i}`] === question.malayalam_answer) {
                         optionDiv.style.fontWeight = 'bold';
@@ -403,12 +390,27 @@ document.addEventListener('DOMContentLoaded', function() {
                     optionDiv.style.color = 'green';
                 }
                 
-                optionsList.appendChild(optionDiv);
+                answerItem.appendChild(optionDiv);
             }
             
-            answerItem.appendChild(questionNumber);
-            answerItem.appendChild(optionsList);
             answersContainer.appendChild(answerItem);
         });
+        
+        // Scroll to top of results
+        window.scrollTo(0, 0);
+    }
+
+    function restartQuiz() {
+        // Clear localStorage
+        localStorage.removeItem('quizLanguage');
+        
+        // Reset to start screen
+        startScreen.style.display = 'flex';
+        quizScreen.style.display = 'none';
+        resultsScreen.style.display = 'none';
+        
+        // Reset language to default
+        currentLanguage = 'english';
+        updateLanguageButtonText();
     }
 });
