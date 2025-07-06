@@ -504,5 +504,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Event listeners
+    startBtn.addEventListener('click', startQuiz);
+    restartBtn.addEventListener('click', restartQuiz);
+    nextBtn.addEventListener('click', nextQuestion);
+    prevBtn.addEventListener('click', prevQuestion);
+    revealBtn.addEventListener('click', revealAnswer);
+    languageToggle.addEventListener('click', toggleLanguage);
+    resultsLanguageToggle.addEventListener('click', toggleResultsLanguage);
     fontSizeSlider.addEventListener('input', updateFontSizes);
 });
