@@ -178,7 +178,6 @@
 </head>
 <body>
     <div class="container-fluid quiz-container">
-        <!-- Start Screen -->
         <div id="start-screen" class="text-center">
             <h1 class="mb-4">USS QUIZ BANK FOR TEACHERS</h1>
             
@@ -194,13 +193,11 @@
             </div>
             
             <div id="chapter-selection" class="mb-4" style="display: none;">
-                <!-- Chapters will be populated by JavaScript -->
-            </div>
+                </div>
             
             <button id="start-quiz-btn" class="btn btn-success btn-lg" style="display: none;">Start Quiz</button>
         </div>
 
-        <!-- Quiz Screen -->
         <div id="quiz-screen">
             <div class="quiz-header">
                 <div>
@@ -216,17 +213,14 @@
             
             <div class="card mb-3">
                 <div class="card-body p-4">
-                    <!-- FIXED: Removed the 'fs-4' class to allow JS to control font size -->
                     <div id="question-text" class="question-text"></div>
                     <div id="question-image-container" class="text-center"></div>
                 </div>
             </div>
             
             <div id="options-container" class="mb-5 pb-5">
-                <!-- Options will be inserted here -->
-            </div>
+                </div>
             
-            <!-- Font Size Control -->
             <div class="font-size-control">
                 <div class="d-flex align-items-center mb-1">
                     <small class="me-2">A</small>
@@ -243,7 +237,6 @@
             </div>
         </div>
 
-        <!-- Results Screen -->
         <div id="results-screen">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2>Quiz Results</h2>
@@ -689,7 +682,7 @@
         }
 
         // --- Results Screen ---
-                function showResults() {
+        function showResults() {
             clearInterval(timerInterval);
             const timeTaken = new Date() - startTime;
             
@@ -701,30 +694,8 @@
             answersContainer.innerHTML = '';
             selectedQuestions.forEach((q, index) => {
                 let optionsHtml = '';
-
-                // Create options from the original data
-                const options = [
-                    { text: q.option1, malayalam: q.malayalam_option1, isCorrect: q.answer === q.option1 },
-                    { text: q.option2, malayalam: q.malayalam_option2, isCorrect: q.answer === q.option2 },
-                    { text: q.option3, malayalam: q.malayalam_option3, isCorrect: q.answer === q.option3 },
-                    { text: q.option4, malayalam: q.malayalam_option4, isCorrect: q.answer === q.option4 }
-                ];
                 
-                // Shuffle the options consistently for the results, just like in the quiz.
-                // NOTE: A better approach would be to save the shuffled order in the question object
-                // during quiz generation and retrieve it here. For a quick fix, re-shuffling
-                // provides a stable order, but might not be the exact one shown.
-                // A better fix is below.
-                
-                // **Corrected approach:** Store the shuffled options with the question object itself
-                // To do this, you would modify the selectQuestions() function to add a property
-                // to each question like `q.shuffledOptions = shuffleArray(...)`.
-                // For a simpler, immediate fix, let's just make the results options display
-                // the original order which is easier for teachers to verify.
-                
-                // Let's re-render the options in the original, non-shuffled order for clarity
-                // on the results page. This is likely the best user experience for a teacher
-                // checking answers.
+                // FIXED: Display options in their original, non-shuffled order for clarity
                 for (let i = 1; i <= 4; i++) {
                     const optionKey = `option${i}`;
                     const malayalamOptionKey = `malayalam_option${i}`;
@@ -747,7 +718,6 @@
             applyFontSizes(); // Apply font sizes to the newly created results
             window.scrollTo(0, 0);
         }
-
 
         // --- Restart ---
         function restartQuiz() {
