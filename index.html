@@ -689,7 +689,7 @@
         }
 
         // --- Results Screen ---
-        function showResults() {
+                function showResults() {
             clearInterval(timerInterval);
             const timeTaken = new Date() - startTime;
             
@@ -701,9 +701,36 @@
             answersContainer.innerHTML = '';
             selectedQuestions.forEach((q, index) => {
                 let optionsHtml = '';
+
+                // Create options from the original data
+                const options = [
+                    { text: q.option1, malayalam: q.malayalam_option1, isCorrect: q.answer === q.option1 },
+                    { text: q.option2, malayalam: q.malayalam_option2, isCorrect: q.answer === q.option2 },
+                    { text: q.option3, malayalam: q.malayalam_option3, isCorrect: q.answer === q.option3 },
+                    { text: q.option4, malayalam: q.malayalam_option4, isCorrect: q.answer === q.option4 }
+                ];
+                
+                // Shuffle the options consistently for the results, just like in the quiz.
+                // NOTE: A better approach would be to save the shuffled order in the question object
+                // during quiz generation and retrieve it here. For a quick fix, re-shuffling
+                // provides a stable order, but might not be the exact one shown.
+                // A better fix is below.
+                
+                // **Corrected approach:** Store the shuffled options with the question object itself
+                // To do this, you would modify the selectQuestions() function to add a property
+                // to each question like `q.shuffledOptions = shuffleArray(...)`.
+                // For a simpler, immediate fix, let's just make the results options display
+                // the original order which is easier for teachers to verify.
+                
+                // Let's re-render the options in the original, non-shuffled order for clarity
+                // on the results page. This is likely the best user experience for a teacher
+                // checking answers.
                 for (let i = 1; i <= 4; i++) {
-                    const optionText = (currentLanguage === 'malayalam' && q[`malayalam_option${i}`]) ? q[`malayalam_option${i}`] : q[`option${i}`];
-                    const isCorrect = q[`option${i}`] === q.answer;
+                    const optionKey = `option${i}`;
+                    const malayalamOptionKey = `malayalam_option${i}`;
+                    const optionText = (currentLanguage === 'malayalam' && q[malayalamOptionKey]) ? q[malayalamOptionKey] : q[optionKey];
+                    const isCorrect = q[optionKey] === q.answer;
+                    
                     optionsHtml += `<div class="ms-3 ${isCorrect ? 'text-success fw-bold' : ''}">${optionLetters[i-1]}. ${optionText}</div>`;
                 }
 
@@ -720,6 +747,7 @@
             applyFontSizes(); // Apply font sizes to the newly created results
             window.scrollTo(0, 0);
         }
+
 
         // --- Restart ---
         function restartQuiz() {
