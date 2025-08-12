@@ -53,7 +53,7 @@
             </div>
         </div>
 
-        <!-- ===== Configuration Screen (Subject-wise only) ===== -->
+        <!-- ===== Configuration Screen ===== -->
         <div id="config-screen" class="hidden flex-col items-center justify-center h-full p-4 md:p-8">
             <div class="w-full max-w-5xl bg-gray-800 p-6 rounded-lg shadow-xl">
                 <h2 id="config-title" class="text-3xl font-bold text-indigo-300 mb-6 text-center"></h2>
@@ -128,7 +128,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         const appState = {
             currentScreen: 'setup', language: 'en', fontSize: 'lg', allQuestions: [], quizQuestions: [],
-            currentQuestionIndex: 0, userAnswers: [], quizMode: null, selections: {}, subjectChapterInfo: {}
+            currentQuestionIndex: 0, userAnswers: [], quizMode: null, selections: {}, subjectChapterInfo: {}, allAvailableChapters: []
         };
 
         const FONT_SIZES = ['base', 'lg', 'xl', '2xl', '3xl'];
@@ -166,7 +166,8 @@
                 score_text: (score, total) => `Final Score: ${score} out of ${total}`,
                 question_label: "Question ", of_label: (total) => ` of ${total}`,
                 all_questions: "All", chapter_label: (chapter) => `Chapter ${chapter}`,
-                no_questions_selected: "Please select some questions to start the quiz.",
+                no_questions_selected: "Please select some chapters to start the quiz.",
+                config_title_complete: "Select Chapters for Complete Quiz",
                 config_title_subject: "Configure Subject Quiz", select_subject_prompt: "Select a Subject",
             },
             ml: {
@@ -176,7 +177,8 @@
                 score_text: (score, total) => `അന്തിമ സ്കോർ: ${total}-ൽ ${score}`,
                 question_label: "ചോദ്യം ", of_label: (total) => ` / ${total}`,
                 all_questions: "എല്ലാം", chapter_label: (chapter) => `അദ്ധ്യായം ${chapter}`,
-                no_questions_selected: "ക്വിസ് ആരംഭിക്കുന്നതിന് ദയവായി ചില ചോദ്യങ്ങൾ തിരഞ്ഞെടുക്കുക.",
+                no_questions_selected: "ക്വിസ് ആരംഭിക്കുന്നതിന് ദയവായി ചില അധ്യായങ്ങൾ തിരഞ്ഞെടുക്കുക.",
+                config_title_complete: "സമ്പൂർണ്ണ ക്വിസിനായി അധ്യായങ്ങൾ തിരഞ്ഞെടുക്കുക",
                 config_title_subject: "വിഷയാടിസ്ഥാനത്തിലുള്ള ക്വിസ് കോൺഫിഗർ ചെയ്യുക", select_subject_prompt: "ഒരു വിഷയം തിരഞ്ഞെടുക്കുക",
             }
         };
@@ -223,25 +225,40 @@
         };
 
         const processQuestionData = () => {
+            const allChapters = new Set();
             appState.subjectChapterInfo = appState.allQuestions.reduce((acc, q) => {
                 if (!acc[q.subject]) acc[q.subject] = new Set();
                 acc[q.subject].add(q.chapter);
+                allChapters.add(q.chapter);
                 return acc;
             }, {});
+            appState.allAvailableChapters = Array.from(allChapters).sort((a,b) => a-b);
         };
 
         const renderConfigScreen = () => {
             dom.configOptions.innerHTML = '';
             appState.selections = {};
-            dom.configTitle.textContent = getTranslatedText('config_title_subject');
-            const subjects = Object.keys(appState.subjectChapterInfo);
-            const subjectSelectorHtml = `
-                <select id="subject-selector" class="w-full bg-gray-900 border border-gray-600 rounded-md p-3 text-white text-xl">
-                    <option value="">${getTranslatedText('select_subject_prompt')}</option>
-                    ${subjects.map(s => `<option value="${s}">${s}</option>`).join('')}
-                </select>
-                <div id="chapter-config-container" class="mt-4 space-y-3"></div>`;
-            dom.configOptions.innerHTML = subjectSelectorHtml;
+
+            if (appState.quizMode === 'complete') {
+                dom.configTitle.textContent = getTranslatedText('config_title_complete');
+                const chaptersHtml = appState.allAvailableChapters.map(chapter => `
+                    <div class="flex items-center bg-gray-700 p-3 rounded-lg">
+                        <input type="checkbox" id="ch-complete-${chapter}" data-chapter="${chapter}" class="chapter-checkbox w-6 h-6 rounded text-indigo-500 bg-gray-900 border-gray-600 focus:ring-indigo-600 mr-4">
+                        <label for="ch-complete-${chapter}" class="text-xl font-semibold">${getTranslatedText('chapter_label', chapter)}</label>
+                    </div>`).join('');
+                dom.configOptions.innerHTML = chaptersHtml;
+
+            } else if (appState.quizMode === 'subject-wise') {
+                dom.configTitle.textContent = getTranslatedText('config_title_subject');
+                const subjects = Object.keys(appState.subjectChapterInfo);
+                const subjectSelectorHtml = `
+                    <select id="subject-selector" class="w-full bg-gray-900 border border-gray-600 rounded-md p-3 text-white text-xl">
+                        <option value="">${getTranslatedText('select_subject_prompt')}</option>
+                        ${subjects.map(s => `<option value="${s}">${s}</option>`).join('')}
+                    </select>
+                    <div id="chapter-config-container" class="mt-4 space-y-3"></div>`;
+                dom.configOptions.innerHTML = subjectSelectorHtml;
+            }
         };
         
         const displayQuestion = (newIndex) => {
@@ -255,8 +272,9 @@
             const q = appState.quizQuestions[appState.currentQuestionIndex];
             const lang = appState.language;
             dom.questionText.textContent = q[`${lang}_question`] || q.question;
-            dom.imageContainer.innerHTML = (q.image && q.image !== 'null') ? `<img src="${q.image}" alt="Question visual aid" class="max-h-60 mx-auto rounded-lg cursor-pointer transition-transform hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e2e8f0/334155?text=Image+Not+Found';">` : '';
-            if (q.image && q.image !== 'null') dom.imageContainer.querySelector('img').addEventListener('click', () => showImageZoom(q.image));
+            const imagePath = q.image && q.image !== 'null' ? `./${q.image}` : null;
+            dom.imageContainer.innerHTML = imagePath ? `<img src="${imagePath}" alt="Question visual aid" class="max-h-60 mx-auto rounded-lg cursor-pointer transition-transform hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e2e8f0/334155?text=Image+Not+Found';">` : '';
+            if (imagePath) dom.imageContainer.querySelector('img').addEventListener('click', () => showImageZoom(imagePath));
             
             const options = [
                 { text: q[`${lang}_option1`] || q.option1 }, { text: q[`${lang}_option2`] || q.option2 },
@@ -280,7 +298,6 @@
                 dom.optionsContainer.appendChild(button);
             });
             
-            // Update navigation
             dom.questionJumpInput.value = appState.currentQuestionIndex + 1;
             dom.totalQuestionsSpan.textContent = getTranslatedText('of_label', appState.quizQuestions.length);
             dom.prevBtn.disabled = appState.currentQuestionIndex === 0;
@@ -310,9 +327,10 @@
                     else if (opt.text === userAnswerText) optionClass = 'result-incorrect';
                     optionsHtml += `<div class="p-3 mt-2 border-2 rounded-lg ${optionClass} flex items-center space-x-4"><span class="bg-gray-700 text-white font-bold rounded-md w-10 h-10 flex-shrink-0 flex items-center justify-center">${optionLabel}</span><span>${opt.text}</span></div>`;
                 });
+                const imagePath = q.image && q.image !== 'null' ? `./${q.image}` : null;
                 resultCard.innerHTML = `
                     <p class="font-semibold text-lg mb-2">${index + 1}. ${q[`${lang}_question`] || q.question}</p>
-                    ${q.image && q.image !== 'null' ? `<img src="${q.image}" class="max-h-40 rounded-md my-2" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e2e8f0/334155?text=Image+Not+Found';">` : ''}
+                    ${imagePath ? `<img src="${imagePath}" class="max-h-40 rounded-md my-2" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e2e8f0/334155?text=Image+Not+Found';">` : ''}
                     <div>${optionsHtml}</div>`;
                 dom.resultsList.appendChild(resultCard);
             });
@@ -327,13 +345,17 @@
         const handleStartQuiz = () => {
             let finalQuestions = [];
             if (appState.quizMode === 'complete') {
-                const config = {
-                    "Part I Malayalam": 5, "Part II Malayalam": 5, "Maths": 10,
-                    "English": 5, "Basic Science": 10, "Social Science": 10
-                };
+                const selectedChapters = Object.keys(appState.selections).filter(ch => appState.selections[ch]);
+                if(selectedChapters.length === 0) {
+                    alert(getTranslatedText('no_questions_selected'));
+                    return;
+                }
+                const questionsFromSelectedChapters = appState.allQuestions.filter(q => selectedChapters.includes(String(q.chapter)));
+                
+                const config = { "Part I Malayalam": 5, "Part II Malayalam": 5, "Maths": 10, "English": 5, "Basic Science": 10, "Social Science": 10 };
                 SUBJECT_ORDER.forEach(subject => {
                     const count = config[subject];
-                    const subjectQuestions = appState.allQuestions.filter(q => q.subject === subject);
+                    const subjectQuestions = questionsFromSelectedChapters.filter(q => q.subject === subject);
                     finalQuestions.push(...shuffleArray(subjectQuestions).slice(0, count));
                 });
             } else { // Subject-wise
@@ -371,7 +393,8 @@
         const setupEventListeners = () => {
             document.getElementById('complete-quiz-btn').addEventListener('click', () => {
                 appState.quizMode = 'complete';
-                handleStartQuiz();
+                renderConfigScreen();
+                showScreen('config');
             });
             document.getElementById('subject-wise-btn').addEventListener('click', () => {
                 appState.quizMode = 'subject-wise';
@@ -380,7 +403,6 @@
             });
             document.getElementById('start-quiz-btn').addEventListener('click', handleStartQuiz);
             
-            // Quiz Navigation
             dom.nextBtn.addEventListener('click', () => displayQuestion(appState.currentQuestionIndex + 1));
             dom.prevBtn.addEventListener('click', () => displayQuestion(appState.currentQuestionIndex - 1));
             document.getElementById('finish-quiz-btn').addEventListener('click', displayResults);
@@ -390,11 +412,10 @@
                 if (!isNaN(num) && num >= 1 && num <= appState.quizQuestions.length) {
                     displayQuestion(num - 1);
                 } else {
-                    e.target.value = appState.currentQuestionIndex + 1; // Reset to current if invalid
+                    e.target.value = appState.currentQuestionIndex + 1;
                 }
             });
             
-            // Controls
             dom.languageToggle.addEventListener('change', (e) => setLanguage(e.target.checked ? 'ml' : 'en'));
             document.getElementById('font-increase-btn').addEventListener('click', () => {
                 const currentIndex = FONT_SIZES.indexOf(appState.fontSize);
@@ -405,13 +426,14 @@
                 if (currentIndex > 0) setFontSize(FONT_SIZES[currentIndex - 1]);
             });
 
-            // Image Zoom
             document.getElementById('close-zoom-modal').addEventListener('click', () => dom.zoomModal.classList.add('hidden'));
             dom.zoomModal.addEventListener('click', (e) => { if (e.target.id === 'image-zoom-modal') dom.zoomModal.classList.add('hidden'); });
 
-            // Dynamic config screen listeners
             dom.configOptions.addEventListener('change', (e) => {
-                if (appState.quizMode === 'subject-wise') {
+                if (appState.quizMode === 'complete' && e.target.matches('.chapter-checkbox')) {
+                    const chapter = e.target.dataset.chapter;
+                    appState.selections[chapter] = e.target.checked;
+                } else if (appState.quizMode === 'subject-wise') {
                     if (e.target.matches('#subject-selector')) {
                         const subject = e.target.value;
                         appState.selections = { subject: subject, chapters: {} };
