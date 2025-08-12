@@ -3,747 +3,462 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USS QUIZ FOR TEACHERS</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* General body and container styling for full height */
-        body, html {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-            font-family: 'Inter', sans-serif;
-        }
-        .quiz-container {
-            height: 100%;
-            padding: 1rem;
-            margin: 0;
-            max-width: 100%;
-        }
-        /* Start screen layout */
-        #start-screen {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        /* Styling for selection panels on the start screen */
-        #subject-selection, #chapter-selection {
-            width: 100%;
-            max-width: 800px;
-            max-height: 60vh;
-            overflow-y: auto;
-            margin-bottom: 1.5rem;
-            padding: 1.5rem;
-            border: 1px solid #dee2e6;
-            border-radius: 0.5rem;
-            background-color: #f8f9fa;
-        }
-        /* Quiz and Results screen initial state */
-        #quiz-screen, #results-screen {
-            height: 100%;
-            display: none;
-            overflow-y: auto;
-        }
-        /* Styling for each multiple-choice option */
-        .option {
-            padding: 1rem;
-            margin: 0.5rem 0;
-            border: 2px solid #ddd;
-            border-radius: 0.5rem;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-        }
-        .option:hover {
-            background-color: #e9ecef;
-            border-color: #0d6efd;
-        }
-        .option-letter {
-            font-weight: bold;
-            margin-right: 1rem;
-            min-width: 30px;
-            font-size: 1.2rem;
-            color: #495057;
-        }
-        .correct-answer {
-            background-color: #d1e7dd;
-            border-color: #a3cfbb;
-            font-weight: bold;
-        }
-        .question-text {
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-        /* Specific font for Malayalam text */
-        .malayalam-text {
-            font-family: 'Noto Sans Malayalam', sans-serif;
-        }
-        /* Styling for question images */
-        .question-image {
-            max-height: 250px;
-            cursor: zoom-in;
-            margin-bottom: 1rem;
-            border-radius: 0.5rem;
-            transition: transform 0.3s ease;
-        }
-        .question-image.zoomed {
-            transform: scale(2.5);
-            cursor: zoom-out;
-            z-index: 100;
-            position: relative;
-            background: white;
-            box-shadow: 0 0 25px rgba(0,0,0,0.3);
-        }
-        .timer {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-right: 1.5rem;
-        }
-        /* Header within the quiz screen */
-        .quiz-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-        /* Styling for each answer item on the results page */
-        .answer-item {
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-        .time-taken {
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
-        /* Floating font-size control */
-        .font-size-control {
-            position: fixed;
-            bottom: 100px; /* Increased bottom to not overlap nav buttons */
-            right: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 10px 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-        }
-        .font-size-slider {
-            width: 180px;
-        }
-        /* Subject selection buttons */
-        .subject-btn {
-            margin: 5px;
-            padding: 10px 15px;
-            width: 220px;
-        }
-        /* Styling for each chapter item in the selection list */
-        .chapter-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem;
-            border-radius: 0.25rem;
-        }
-        .chapter-item:nth-child(odd) {
-            background-color: #f8f9fa;
-        }
-        .question-count-select {
-            width: 100px;
-            display: inline-block;
-            margin-left: 1rem;
-        }
-        /* Fixed navigation buttons at the bottom */
-        .nav-buttons {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            padding: 15px;
-            border-top: 1px solid #ddd;
-            z-index: 999;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-        }
-    </style>
+    <title>Classroom Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+Malayalam&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Malayalam:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        [lang="ml"] body, [lang="ml"] .font-malayalam { font-family: 'Noto Sans Malayalam', sans-serif; }
+        .font-size-base { font-size: 1rem; }
+        .font-size-lg { font-size: 1.25rem; }
+        .font-size-xl { font-size: 1.5rem; }
+        .font-size-2xl { font-size: 1.875rem; }
+        .font-size-3xl { font-size: 2.25rem; }
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        .btn { @apply px-6 py-3 rounded-lg font-semibold text-white transition-transform duration-200 ease-in-out transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed; }
+        .btn-primary { @apply bg-indigo-600 hover:bg-indigo-700; }
+        .btn-secondary { @apply bg-gray-600 hover:bg-gray-700; }
+        .btn-green { @apply bg-emerald-600 hover:bg-emerald-700; }
+        .btn-red { @apply bg-red-600 hover:bg-red-700; }
+        .option-btn { @apply w-full text-left p-2 border-2 border-gray-600 rounded-lg hover:bg-gray-700 hover:border-indigo-500 transition-colors duration-200; }
+        .option-btn.selected { @apply bg-indigo-800 border-indigo-500; }
+        .result-correct { @apply border-emerald-500 bg-emerald-900/50; }
+        .result-incorrect { @apply border-red-500 bg-red-900/50; }
+        /* Hide number input arrows */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+          -webkit-appearance: none; 
+          margin: 0; 
+        }
+        input[type=number] {
+          -moz-appearance: textfield;
+        }
+    </style>
 </head>
-<body>
-    <div class="container-fluid quiz-container">
-        <div id="start-screen" class="text-center">
-            <h1 class="mb-4">USS QUIZ BANK FOR TEACHERS</h1>
-            
-            <div id="subject-selection" class="mb-4">
-                <h4 class="mb-3">Select Test Type:</h4>
-                <button id="all-subjects-btn" class="btn btn-primary subject-btn">All Subjects</button>
-                <button data-subject="Part I Malayalam" class="btn btn-secondary subject-btn">Part I Malayalam</button>
-                <button data-subject="Part II Malayalam" class="btn btn-secondary subject-btn">Part II Malayalam</button>
-                <button data-subject="Maths" class="btn btn-secondary subject-btn">Maths</button>
-                <button data-subject="English" class="btn btn-secondary subject-btn">English</button>
-                <button data-subject="Basic Science" class="btn btn-secondary subject-btn">Basic Science</button>
-                <button data-subject="Social Science" class="btn btn-secondary subject-btn">Social Science</button>
-            </div>
-            
-            <div id="chapter-selection" class="mb-4" style="display: none;">
-                </div>
-            
-            <button id="start-quiz-btn" class="btn btn-success btn-lg" style="display: none;">Start Quiz</button>
-        </div>
+<body class="bg-gray-900 text-white overflow-hidden h-screen flex flex-col">
 
-        <div id="quiz-screen">
-            <div class="quiz-header">
-                <div>
-                    <span id="question-counter" class="fw-bold"></span>
-                    <span id="subject-display" class="badge bg-secondary ms-2"></span>
-                    <span id="chapter-display" class="badge bg-info ms-1"></span>
+    <!-- Main Container -->
+    <div id="app-container" class="flex-grow flex flex-col h-full">
+
+        <!-- ===== Setup Screen ===== -->
+        <div id="setup-screen" class="flex flex-col items-center justify-center h-full p-4 md:p-8">
+            <div class="w-full max-w-4xl text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-indigo-400 mb-8" data-lang-key="quiz_title">Classroom Quiz</h1>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <button id="complete-quiz-btn" class="btn btn-primary text-2xl py-8" data-lang-key="complete_quiz">Complete Quiz</button>
+                    <button id="subject-wise-btn" class="btn btn-secondary text-2xl py-8" data-lang-key="subject_wise_quiz">Subject-wise Quiz</button>
                 </div>
-                <div class="d-flex align-items-center">
-                    <span id="timer" class="timer">00:00</span>
-                    <button id="language-toggle" class="btn btn-sm btn-outline-secondary">മലയാളം</button>
-                </div>
-            </div>
-            
-            <div class="card mb-3">
-                <div class="card-body p-4">
-                    <div id="question-text" class="question-text"></div>
-                    <div id="question-image-container" class="text-center"></div>
-                </div>
-            </div>
-            
-            <div id="options-container" class="mb-5 pb-5">
-                </div>
-            
-            <div class="font-size-control">
-                <div class="d-flex align-items-center mb-1">
-                    <small class="me-2">A</small>
-                    <input type="range" id="font-size-slider" class="form-range font-size-slider" min="1" max="5" step="0.5" value="3">
-                    <small class="ms-2" style="font-size: 1.5rem;">A</small>
-                </div>
-                <small class="text-muted d-block text-center">Adjust Font Size</small>
-            </div>
-            
-            <div class="nav-buttons d-flex justify-content-between p-3">
-                <button id="prev-btn" class="btn btn-secondary">Previous</button>
-                <button id="reveal-btn" class="btn btn-warning">Reveal Answer</button>
-                <button id="next-btn" class="btn btn-primary">Next</button>
             </div>
         </div>
 
-        <div id="results-screen">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2>Quiz Results</h2>
-                <button id="results-language-toggle" class="btn btn-sm btn-outline-secondary">മലയാളം</button>
+        <!-- ===== Configuration Screen (Subject-wise only) ===== -->
+        <div id="config-screen" class="hidden flex-col items-center justify-center h-full p-4 md:p-8">
+            <div class="w-full max-w-5xl bg-gray-800 p-6 rounded-lg shadow-xl">
+                <h2 id="config-title" class="text-3xl font-bold text-indigo-300 mb-6 text-center"></h2>
+                <div id="config-options" class="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+                    <!-- Dynamic content will be injected here -->
+                </div>
+                <div class="mt-8 text-center">
+                    <button id="start-quiz-btn" class="btn btn-green text-3xl py-4 px-12" data-lang-key="start_quiz">Start Quiz</button>
+                </div>
             </div>
-            
-            <div id="time-taken" class="time-taken"></div>
-            <div id="answers-container" class="pb-5"></div>
-            
-            <div class="nav-buttons text-center p-3">
-                <button id="restart-btn" class="btn btn-primary">Restart Quiz</button>
+        </div>
+
+        <!-- ===== Quiz Screen ===== -->
+        <div id="quiz-screen" class="hidden flex-col h-full p-4 md:p-8">
+            <div class="flex-grow flex flex-col items-center justify-center">
+                <div class="w-full max-w-5xl">
+                    <div class="flex items-center justify-end text-gray-400 mb-2 text-lg">
+                        <span data-lang-key="question_label">Question</span>
+                        <input type="number" id="question-jump-input" class="bg-gray-700 text-white w-20 text-center mx-2 rounded-md p-1">
+                        <span id="total-questions-span"></span>
+                    </div>
+                    <div class="bg-gray-800 p-6 md:p-8 rounded-xl shadow-2xl">
+                        <div id="question-image-container" class="mb-4 text-center"></div>
+                        <h2 id="question-text" class="text-2xl md:text-4xl font-semibold mb-8 text-center"></h2>
+                        <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                    </div>
+                </div>
             </div>
+            <div class="flex-shrink-0 text-center py-4 flex justify-center items-center space-x-4">
+                <button id="prev-question-btn" class="btn btn-secondary px-10" data-lang-key="previous">Previous</button>
+                <button id="finish-quiz-btn" class="btn btn-red px-10" data-lang-key="finish_quiz">Finish</button>
+                <button id="next-question-btn" class="btn btn-primary px-16" data-lang-key="next">Next</button>
+            </div>
+        </div>
+
+        <!-- ===== Results Screen ===== -->
+        <div id="results-screen" class="hidden flex-col h-full p-4 md:p-8">
+            <h1 class="text-3xl md:text-5xl font-bold text-center text-indigo-400 mb-4" data-lang-key="quiz_results">Quiz Results</h1>
+            <div id="score-container" class="text-2xl md:text-3xl font-semibold text-center mb-6"></div>
+            <div id="results-list" class="flex-grow overflow-y-auto bg-gray-800 p-4 rounded-lg"></div>
+            <div class="flex-shrink-0 text-center py-4">
+                <button id="restart-quiz-btn" class="btn btn-secondary" data-lang-key="restart_quiz">Restart Quiz</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Top Bar for Controls -->
+    <div class="absolute top-0 right-0 p-4 flex items-center space-x-4 bg-gray-900/50 rounded-bl-lg z-10">
+        <div class="flex items-center space-x-2">
+            <span class="text-lg font-medium" data-lang-key="font_size">Font:</span>
+            <button id="font-decrease-btn" class="bg-gray-700 hover:bg-gray-600 rounded-full w-8 h-8 flex items-center justify-center text-lg">-</button>
+            <button id="font-increase-btn" class="bg-gray-700 hover:bg-gray-600 rounded-full w-8 h-8 flex items-center justify-center text-lg">+</button>
+        </div>
+        <div class="flex items-center">
+            <span class="mr-2 text-lg font-medium">EN</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="language-toggle" class="sr-only peer">
+                <div class="w-11 h-6 bg-gray-600 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+            </label>
+            <span class="ml-2 text-lg font-medium">മലയാളം</span>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Image Zoom Modal -->
+    <div id="image-zoom-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+        <img id="zoomed-image" src="" alt="Zoomed Question Image" class="max-w-full max-h-full object-contain">
+        <button id="close-zoom-modal" class="absolute top-4 right-4 text-white text-4xl font-bold">&times;</button>
+    </div>
+
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // DOM Elements
-        const startScreen = document.getElementById('start-screen');
-        const quizScreen = document.getElementById('quiz-screen');
-        const resultsScreen = document.getElementById('results-screen');
-        const subjectSelection = document.getElementById('subject-selection');
-        const chapterSelection = document.getElementById('chapter-selection');
-        const startQuizBtn = document.getElementById('start-quiz-btn');
-        const subjectButtons = document.querySelectorAll('.subject-btn');
+    document.addEventListener('DOMContentLoaded', () => {
+        const appState = {
+            currentScreen: 'setup', language: 'en', fontSize: 'lg', allQuestions: [], quizQuestions: [],
+            currentQuestionIndex: 0, userAnswers: [], quizMode: null, selections: {}, subjectChapterInfo: {}
+        };
 
-        const nextBtn = document.getElementById('next-btn');
-        const prevBtn = document.getElementById('prev-btn');
-        const revealBtn = document.getElementById('reveal-btn');
-        const restartBtn = document.getElementById('restart-btn');
-        const questionText = document.getElementById('question-text');
-        const optionsContainer = document.getElementById('options-container');
-        const questionCounter = document.getElementById('question-counter');
-        const subjectDisplay = document.getElementById('subject-display');
-        const chapterDisplay = document.getElementById('chapter-display');
-        const languageToggle = document.getElementById('language-toggle');
-        const resultsLanguageToggle = document.getElementById('results-language-toggle');
-        const questionImageContainer = document.getElementById('question-image-container');
-        const answersContainer = document.getElementById('answers-container');
-        const timerDisplay = document.getElementById('timer');
-        const timeTakenDisplay = document.getElementById('time-taken');
-        const fontSizeSlider = document.getElementById('font-size-slider');
+        const FONT_SIZES = ['base', 'lg', 'xl', '2xl', '3xl'];
+        const SUBJECT_ORDER = ["Part I Malayalam", "Part II Malayalam", "Maths", "English", "Basic Science", "Social Science"];
 
-        // Quiz state variables
-        let questions = [];
-        let currentQuestionIndex = 0;
-        let selectedQuestions = [];
-        let answerRevealed = false;
-        let selectedSubject = null; // Can be null (all) or a string (e.g., "Maths")
-        let currentLanguage = 'english';
-        let startTime;
-        let timerInterval;
-        const optionLetters = ['A', 'B', 'C', 'D'];
-        
-        // Font size variables
-        let questionFontSize = 1.8;
-        let optionFontSize = 1.5;
+        const dom = {
+            appContainer: document.getElementById('app-container'),
+            screens: {
+                setup: document.getElementById('setup-screen'),
+                config: document.getElementById('config-screen'),
+                quiz: document.getElementById('quiz-screen'),
+                results: document.getElementById('results-screen'),
+            },
+            languageToggle: document.getElementById('language-toggle'),
+            configTitle: document.getElementById('config-title'),
+            configOptions: document.getElementById('config-options'),
+            questionText: document.getElementById('question-text'),
+            optionsContainer: document.getElementById('options-container'),
+            questionJumpInput: document.getElementById('question-jump-input'),
+            totalQuestionsSpan: document.getElementById('total-questions-span'),
+            resultsList: document.getElementById('results-list'),
+            scoreContainer: document.getElementById('score-container'),
+            imageContainer: document.getElementById('question-image-container'),
+            zoomModal: document.getElementById('image-zoom-modal'),
+            zoomedImage: document.getElementById('zoomed-image'),
+            prevBtn: document.getElementById('prev-question-btn'),
+            nextBtn: document.getElementById('next-question-btn'),
+        };
 
-        // Initialize the app
-        loadQuestions();
+        const translations = {
+            en: {
+                quiz_title: "Classroom Quiz", complete_quiz: "Complete Quiz", subject_wise_quiz: "Subject-wise Quiz",
+                start_quiz: "Start Quiz", next: "Next", previous: "Previous",
+                finish_quiz: "Finish", quiz_results: "Quiz Results", restart_quiz: "Restart Quiz", font_size: "Font:",
+                score_text: (score, total) => `Final Score: ${score} out of ${total}`,
+                question_label: "Question ", of_label: (total) => ` of ${total}`,
+                all_questions: "All", chapter_label: (chapter) => `Chapter ${chapter}`,
+                no_questions_selected: "Please select some questions to start the quiz.",
+                config_title_subject: "Configure Subject Quiz", select_subject_prompt: "Select a Subject",
+            },
+            ml: {
+                quiz_title: "ക്ലാസ്സ്റൂം ക്വിസ്", complete_quiz: "സമ്പൂർണ്ണ ക്വിസ്", subject_wise_quiz: "വിഷയാടിസ്ഥാനത്തിലുള്ള ക്വിസ്",
+                start_quiz: "ക്വിസ് ആരംഭിക്കുക", next: "അടുത്തത്", previous: "മുമ്പത്തെ",
+                finish_quiz: "അവസാനിപ്പിക്കുക", quiz_results: "ക്വിസ് ഫലം", restart_quiz: "വീണ്ടും ആരംഭിക്കുക", font_size: "അക്ഷരവലിപ്പം:",
+                score_text: (score, total) => `അന്തിമ സ്കോർ: ${total}-ൽ ${score}`,
+                question_label: "ചോദ്യം ", of_label: (total) => ` / ${total}`,
+                all_questions: "എല്ലാം", chapter_label: (chapter) => `അദ്ധ്യായം ${chapter}`,
+                no_questions_selected: "ക്വിസ് ആരംഭിക്കുന്നതിന് ദയവായി ചില ചോദ്യങ്ങൾ തിരഞ്ഞെടുക്കുക.",
+                config_title_subject: "വിഷയാടിസ്ഥാനത്തിലുള്ള ക്വിസ് കോൺഫിഗർ ചെയ്യുക", select_subject_prompt: "ഒരു വിഷയം തിരഞ്ഞെടുക്കുക",
+            }
+        };
 
-        // --- Utility Functions ---
+        const getTranslatedText = (key, ...args) => {
+            const text = translations[appState.language][key] || translations['en'][key];
+            return typeof text === 'function' ? text(...args) : text;
+        };
 
-        // Shuffle array using Fisher-Yates algorithm
-        function shuffleArray(array) {
-            const newArray = [...array];
-            for (let i = newArray.length - 1; i > 0; i--) {
+        const shuffleArray = (array) => {
+            for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+                [array[i], array[j]] = [array[j], array[i]];
             }
-            return newArray;
-        }
+            return array;
+        };
 
-        // Get random elements from an array
-        function getRandomElements(array, count) {
-            if (array.length === 0) return [];
-            const shuffled = shuffleArray(array);
-            return shuffled.slice(0, Math.min(count, shuffled.length));
-        }
+        const showScreen = (screenName) => {
+            Object.values(dom.screens).forEach(screen => screen.classList.add('hidden'));
+            dom.screens[screenName].classList.remove('hidden');
+            dom.screens[screenName].classList.add('flex');
+            appState.currentScreen = screenName;
+        };
 
-        // --- Initialization and Setup ---
-
-        // Load questions from the JSON file
-        async function loadQuestions() {
-            try {
-                const response = await fetch('questions.json');
-                if (!response.ok) throw new Error('Network response was not ok');
-                questions = await response.json();
-                loadSettings(); // Load saved settings after questions are loaded
-            } catch (error) {
-                console.error('Error loading questions:', error);
-                startScreen.innerHTML = `<div class="alert alert-danger">Failed to load questions.json. Please ensure the file exists and is correctly formatted.</div>`;
-            }
-        }
-
-        // Load saved settings from localStorage
-        function loadSettings() {
-            const savedLanguage = localStorage.getItem('quizLanguage');
-            if (savedLanguage) {
-                currentLanguage = savedLanguage;
-                updateLanguageButtonText();
-            }
-            const savedQuestionSize = localStorage.getItem('questionFontSize');
-            if (savedQuestionSize) questionFontSize = parseFloat(savedQuestionSize);
-            const savedOptionSize = localStorage.getItem('optionFontSize');
-            if (savedOptionSize) optionFontSize = parseFloat(savedOptionSize);
-            
-            fontSizeSlider.value = (parseFloat(savedQuestionSize) - 1.0) / 0.8 || 3;
-            applyFontSizes();
-        }
-
-        // Update the text on the language toggle buttons
-        function updateLanguageButtonText() {
-            const text = currentLanguage === 'english' ? 'മലയാളം' : 'English';
-            languageToggle.textContent = text;
-            resultsLanguageToggle.textContent = text;
-        }
-
-        // --- Start Screen Logic ---
-
-        // Add event listeners to all subject buttons
-        subjectButtons.forEach(btn => {
-            btn.addEventListener('click', function() {
-                selectedSubject = this.dataset.subject || null; // null for "All Subjects"
-                subjectButtons.forEach(b => {
-                    b.classList.remove('btn-primary', 'active');
-                    b.classList.add('btn-secondary');
-                });
-                this.classList.remove('btn-secondary');
-                this.classList.add('btn-primary', 'active');
-                showChapterSelection();
+        const setLanguage = (lang) => {
+            const effectiveLang = translations[lang] ? lang : 'en';
+            appState.language = effectiveLang;
+            document.documentElement.lang = effectiveLang;
+            localStorage.setItem('quizLanguage', effectiveLang);
+            dom.languageToggle.checked = effectiveLang === 'ml';
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                el.textContent = getTranslatedText(el.dataset.langKey);
             });
-        });
+            if (appState.currentScreen === 'config') renderConfigScreen();
+            if (appState.currentScreen === 'quiz') displayQuestion();
+            if (appState.currentScreen === 'results') displayResults();
+        };
 
-        // Display the chapter selection UI based on the chosen subject
-        function showChapterSelection() {
-            const isAllSubjects = selectedSubject === null;
-            let filteredChapters;
+        const setFontSize = (size) => {
+            appState.fontSize = size;
+            localStorage.setItem('quizFontSize', size);
+            FONT_SIZES.forEach(s => dom.appContainer.classList.remove(`font-size-${s}`));
+            dom.appContainer.classList.add(`font-size-${size}`);
+        };
 
-            if (isAllSubjects) {
-                filteredChapters = [...new Set(questions.map(q => q.chapter))];
-            } else {
-                filteredChapters = [...new Set(questions.filter(q => q.subject === selectedSubject).map(q => q.chapter))];
+        const processQuestionData = () => {
+            appState.subjectChapterInfo = appState.allQuestions.reduce((acc, q) => {
+                if (!acc[q.subject]) acc[q.subject] = new Set();
+                acc[q.subject].add(q.chapter);
+                return acc;
+            }, {});
+        };
+
+        const renderConfigScreen = () => {
+            dom.configOptions.innerHTML = '';
+            appState.selections = {};
+            dom.configTitle.textContent = getTranslatedText('config_title_subject');
+            const subjects = Object.keys(appState.subjectChapterInfo);
+            const subjectSelectorHtml = `
+                <select id="subject-selector" class="w-full bg-gray-900 border border-gray-600 rounded-md p-3 text-white text-xl">
+                    <option value="">${getTranslatedText('select_subject_prompt')}</option>
+                    ${subjects.map(s => `<option value="${s}">${s}</option>`).join('')}
+                </select>
+                <div id="chapter-config-container" class="mt-4 space-y-3"></div>`;
+            dom.configOptions.innerHTML = subjectSelectorHtml;
+        };
+        
+        const displayQuestion = (newIndex) => {
+            if (newIndex !== undefined) {
+                appState.currentQuestionIndex = newIndex;
             }
-            filteredChapters.sort((a, b) => a - b);
-
-            let chapterHtml = `<h4 class="mb-3">Select Chapters for ${selectedSubject || 'All Subjects'}:</h4>`;
-            if (filteredChapters.length === 0) {
-                chapterHtml += '<p>No chapters found for the selected subject.</p>';
-            } else {
-                filteredChapters.forEach(chapter => {
-                    chapterHtml += `
-                        <div class="chapter-item form-check">
-                            <div>
-                                <input class="form-check-input chapter-checkbox" type="checkbox" value="${chapter}" id="chapter-${chapter}" checked>
-                                <label class="form-check-label" for="chapter-${chapter}">Chapter ${chapter}</label>
-                            </div>
-                            ${!isAllSubjects ? `
-                            <div>
-                                <label for="count-${chapter}" class="form-label me-2 small">Questions:</label>
-                                <select class="form-select form-select-sm question-count-select" id="count-${chapter}" data-chapter="${chapter}">
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="15">15</option>
-                                    <option value="all">All</option>
-                                </select>
-                            </div>
-                            ` : ''}
-                        </div>`;
-                });
-            }
-            
-            chapterSelection.innerHTML = chapterHtml;
-            chapterSelection.style.display = 'block';
-            startQuizBtn.style.display = 'inline-block';
-        }
-
-        // --- Quiz Generation and Control ---
-
-        // Main function to select questions based on user criteria
-        function selectQuestions() {
-            if (selectedSubject) {
-                // --- Single Subject Logic (questions are shuffled) ---
-                let finalQuestions = [];
-                const chapterItems = document.querySelectorAll('#chapter-selection .chapter-item');
-                chapterItems.forEach(item => {
-                    const checkbox = item.querySelector('.chapter-checkbox');
-                    if (checkbox.checked) {
-                        const chapterNumber = parseInt(checkbox.value);
-                        const countSelector = item.querySelector('.question-count-select');
-                        const requestedCountStr = countSelector.value;
-                        
-                        const questionsFromChapter = questions.filter(q => 
-                            q.subject === selectedSubject && q.chapter === chapterNumber
-                        );
-
-                        let countToTake = 0;
-                        if (requestedCountStr === 'all') {
-                            countToTake = questionsFromChapter.length;
-                        } else {
-                            countToTake = Math.min(parseInt(requestedCountStr), questionsFromChapter.length);
-                        }
-
-                        finalQuestions.push(...getRandomElements(questionsFromChapter, countToTake));
-                    }
-                });
-                return shuffleArray(finalQuestions);
-
-            } else {
-                // --- All Subjects Logic (subjects are in order) ---
-                const selectedChapters = Array.from(document.querySelectorAll('.chapter-checkbox:checked')).map(cb => parseInt(cb.value));
-                if (selectedChapters.length === 0) return [];
-
-                let filteredQuestions = questions.filter(q => selectedChapters.includes(q.chapter));
-                
-                const part1Malayalam = getRandomElements(filteredQuestions.filter(q => q.subject === "Part I Malayalam"), 5);
-                const part2Malayalam = getRandomElements(filteredQuestions.filter(q => q.subject === "Part II Malayalam"), 5);
-                const maths = getRandomElements(filteredQuestions.filter(q => q.subject === "Maths"), 10);
-                const english = getRandomElements(filteredQuestions.filter(q => q.subject === "English"), 5);
-                const basicScience = getRandomElements(filteredQuestions.filter(q => q.subject === "Basic Science"), 10);
-                const socialScience = getRandomElements(filteredQuestions.filter(q => q.subject === "Social Science"), 10);
-                
-                // FIXED: Return the concatenated array without shuffling to maintain subject order
-                return [
-                    ...part1Malayalam, ...part2Malayalam, ...maths, ...english, ...basicScience, ...socialScience
-                ].filter(q => q); // filter out any potential undefined items
-            }
-        }
-
-        // Start the quiz
-        function startQuiz() {
-            selectedQuestions = selectQuestions();
-            
-            if (selectedQuestions.length === 0) {
-                alert('No questions found for the selected criteria. Please check your selections.');
+            if (appState.currentQuestionIndex >= appState.quizQuestions.length) {
+                displayResults();
                 return;
             }
+            const q = appState.quizQuestions[appState.currentQuestionIndex];
+            const lang = appState.language;
+            dom.questionText.textContent = q[`${lang}_question`] || q.question;
+            dom.imageContainer.innerHTML = (q.image && q.image !== 'null') ? `<img src="${q.image}" alt="Question visual aid" class="max-h-60 mx-auto rounded-lg cursor-pointer transition-transform hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e2e8f0/334155?text=Image+Not+Found';">` : '';
+            if (q.image && q.image !== 'null') dom.imageContainer.querySelector('img').addEventListener('click', () => showImageZoom(q.image));
             
-            startTime = new Date();
-            timerInterval = setInterval(updateTimer, 1000);
-            updateTimer();
-            
-            currentQuestionIndex = 0;
-            answerRevealed = false;
-            
-            startScreen.style.display = 'none';
-            resultsScreen.style.display = 'none';
-            quizScreen.style.display = 'block';
-            
-            loadQuestion();
-        }
-
-        // --- In-Quiz Functions ---
-
-        // Load and display the current question and options
-        function loadQuestion() {
-            answerRevealed = false;
-            const question = selectedQuestions[currentQuestionIndex];
-            
-            questionCounter.textContent = `Q ${currentQuestionIndex + 1}/${selectedQuestions.length}`;
-            subjectDisplay.textContent = question.subject;
-            chapterDisplay.textContent = `Chapter ${question.chapter}`;
-            
-            updateQuestionAndOptionText();
-            displayQuestionImage(question.image);
-
-            // Update nav buttons and scroll to top
-            updateNavButtons();
-            window.scrollTo(0, 0);
-        }
-
-        // Update the language of the currently displayed question and options
-        function updateQuestionAndOptionText() {
-            const question = selectedQuestions[currentQuestionIndex];
-            if (!question) return;
-
-            // Update question text
-            if (currentLanguage === 'malayalam' && question.malayalam_question) {
-                questionText.textContent = question.malayalam_question;
-                questionText.classList.add('malayalam-text');
-            } else {
-                questionText.textContent = question.question;
-                questionText.classList.remove('malayalam-text');
-            }
-
-            // Create options and shuffle them
             const options = [
-                { text: question.option1, malayalam: question.malayalam_option1, isCorrect: question.answer === question.option1 },
-                { text: question.option2, malayalam: question.malayalam_option2, isCorrect: question.answer === question.option2 },
-                { text: question.option3, malayalam: question.malayalam_option3, isCorrect: question.answer === question.option3 },
-                { text: question.option4, malayalam: question.malayalam_option4, isCorrect: question.answer === question.option4 }
+                { text: q[`${lang}_option1`] || q.option1 }, { text: q[`${lang}_option2`] || q.option2 },
+                { text: q[`${lang}_option3`] || q.option3 }, { text: q[`${lang}_option4`] || q.option4 },
             ];
-            const shuffledOptions = shuffleArray(options);
-
-            optionsContainer.innerHTML = '';
-            shuffledOptions.forEach((opt, index) => {
-                const optionDiv = document.createElement('div');
-                optionDiv.className = 'option';
-                optionDiv.dataset.correct = opt.isCorrect;
-
-                const optionLetter = document.createElement('div');
-                optionLetter.className = 'option-letter';
-                optionLetter.textContent = optionLetters[index];
-                
-                const optionContent = document.createElement('div');
-                optionContent.className = 'option-content';
-                
-                if (currentLanguage === 'malayalam' && opt.malayalam) {
-                    optionContent.textContent = opt.malayalam;
-                    optionContent.classList.add('malayalam-text');
-                } else {
-                    optionContent.textContent = opt.text;
-                    optionContent.classList.remove('malayalam-text');
+            q.originalOptions = options;
+            dom.optionsContainer.innerHTML = '';
+            options.forEach((opt, index) => {
+                const optionLabel = String.fromCharCode(65 + index);
+                const button = document.createElement('button');
+                button.className = 'option-btn flex items-center space-x-4';
+                button.innerHTML = `<span class="bg-indigo-600 text-white font-bold rounded-md w-10 h-10 flex-shrink-0 flex items-center justify-center">${optionLabel}</span><span class="text-left">${opt.text}</span>`;
+                if (appState.userAnswers[appState.currentQuestionIndex] && appState.userAnswers[appState.currentQuestionIndex].text === opt.text) {
+                    button.classList.add('selected');
                 }
-                
-                optionDiv.appendChild(optionLetter);
-                optionDiv.appendChild(optionContent);
-                optionsContainer.appendChild(optionDiv);
-            });
-            // Apply font sizes after creating the elements
-            applyFontSizes(); 
-        }
-
-        // Reveal the correct answer
-        function revealAnswer() {
-            answerRevealed = true;
-            document.querySelectorAll('.option').forEach(option => {
-                if (option.dataset.correct === 'true') {
-                    option.classList.add('correct-answer');
-                }
-            });
-            revealBtn.textContent = 'Answer Revealed';
-            revealBtn.disabled = true;
-        }
-
-        // --- Navigation and UI Updates ---
-
-        function updateNavButtons() {
-            prevBtn.classList.toggle('d-none', currentQuestionIndex === 0);
-            nextBtn.textContent = currentQuestionIndex === selectedQuestions.length - 1 ? 'Finish' : 'Next';
-            revealBtn.textContent = 'Reveal Answer';
-            revealBtn.disabled = false;
-        }
-
-        function nextQuestion() {
-            if (currentQuestionIndex < selectedQuestions.length - 1) {
-                currentQuestionIndex++;
-                loadQuestion();
-            } else {
-                showResults();
-            }
-        }
-
-        function prevQuestion() {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                loadQuestion();
-            }
-        }
-
-        // --- Font Size Control ---
-        function updateFontSizes() {
-            const sliderValue = parseFloat(fontSizeSlider.value);
-            // Define a mapping from slider value (1-5) to font sizes
-            questionFontSize = 1.0 + (sliderValue * 0.8);
-            optionFontSize = 0.9 + (sliderValue * 0.7);
-            
-            localStorage.setItem('questionFontSize', questionFontSize.toString());
-            localStorage.setItem('optionFontSize', optionFontSize.toString());
-            
-            applyFontSizes();
-        }
-
-        function applyFontSizes() {
-            // Apply to quiz screen question text
-            if (questionText) {
-                questionText.style.fontSize = `${questionFontSize}rem`;
-                questionText.style.lineHeight = '1.5';
-            }
-            
-            // Apply to quiz screen options
-            document.querySelectorAll('.option-letter, .option-content').forEach(option => {
-                option.style.fontSize = `${optionFontSize}rem`;
-                option.style.lineHeight = '1.5';
-            });
-            
-            // Apply to results screen if visible
-            if (resultsScreen.style.display === 'block') {
-                answersContainer.querySelectorAll('.answer-item .fw-bold').forEach(q => {
-                    q.style.fontSize = `${questionFontSize}rem`;
+                button.addEventListener('click', () => {
+                    dom.optionsContainer.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
+                    button.classList.add('selected');
+                    appState.userAnswers[appState.currentQuestionIndex] = { text: opt.text };
                 });
-                answersContainer.querySelectorAll('.answer-item div:not(.fw-bold)').forEach(opt => {
-                    opt.style.fontSize = `${optionFontSize}rem`;
-                });
-            }
-        }
-        
-        // --- Language Toggle ---
-        function toggleLanguage() {
-            currentLanguage = currentLanguage === 'english' ? 'malayalam' : 'english';
-            localStorage.setItem('quizLanguage', currentLanguage);
-            updateLanguageButtonText();
-            updateQuestionAndOptionText(); // Reload text without reloading entire question logic
-        }
-        
-        function toggleResultsLanguage() {
-            currentLanguage = currentLanguage === 'english' ? 'malayalam' : 'english';
-            localStorage.setItem('quizLanguage', currentLanguage);
-            updateLanguageButtonText();
-            showResults(); // Regenerate results with new language
-        }
-
-        // --- Timer Functions ---
-        function updateTimer() {
-            const elapsed = new Date(new Date() - startTime);
-            const minutes = elapsed.getUTCMinutes().toString().padStart(2, '0');
-            const seconds = elapsed.getUTCSeconds().toString().padStart(2, '0');
-            timerDisplay.textContent = `${minutes}:${seconds}`;
-        }
-
-        function formatTimeTaken(ms) {
-            const totalSeconds = Math.floor(ms / 1000);
-            const minutes = Math.floor(totalSeconds / 60);
-            const seconds = totalSeconds % 60;
-            return `${minutes} minute${minutes !== 1 ? 's' : ''} and ${seconds} second${seconds !== 1 ? 's' : ''}`;
-        }
-
-        // --- Image Display ---
-        function displayQuestionImage(imagePath) {
-            questionImageContainer.innerHTML = '';
-            if (imagePath && imagePath !== 'null') {
-                const img = document.createElement('img');
-                img.src = imagePath;
-                img.alt = "Question image";
-                img.className = "question-image img-fluid rounded";
-                img.addEventListener('click', () => img.classList.toggle('zoomed'));
-                questionImageContainer.appendChild(img);
-                questionImageContainer.style.display = 'block';
-            } else {
-                questionImageContainer.style.display = 'none';
-            }
-        }
-
-        // --- Results Screen ---
-        function showResults() {
-            clearInterval(timerInterval);
-            const timeTaken = new Date() - startTime;
+                dom.optionsContainer.appendChild(button);
+            });
             
-            timeTakenDisplay.textContent = `Time taken: ${formatTimeTaken(timeTaken)}`;
-            
-            quizScreen.style.display = 'none';
-            resultsScreen.style.display = 'block';
-            
-            answersContainer.innerHTML = '';
-            selectedQuestions.forEach((q, index) => {
+            // Update navigation
+            dom.questionJumpInput.value = appState.currentQuestionIndex + 1;
+            dom.totalQuestionsSpan.textContent = getTranslatedText('of_label', appState.quizQuestions.length);
+            dom.prevBtn.disabled = appState.currentQuestionIndex === 0;
+            dom.nextBtn.disabled = appState.currentQuestionIndex === appState.quizQuestions.length - 1;
+        };
+
+        const displayResults = () => {
+            showScreen('results');
+            dom.resultsList.innerHTML = '';
+            let score = 0;
+            const questionsToShow = appState.quizQuestions.slice(0, appState.currentQuestionIndex + 1);
+
+            questionsToShow.forEach((q, index) => {
+                const lang = appState.language;
+                const correctAnswer = q[`${lang}_answer`] || q.answer;
+                const userAnswerText = appState.userAnswers[index] ? appState.userAnswers[index].text : null;
+                const isCorrect = userAnswerText === correctAnswer;
+                if (isCorrect) score++;
+
+                const resultCard = document.createElement('div');
+                resultCard.className = 'p-4 mb-4 bg-gray-900 rounded-lg';
                 let optionsHtml = '';
-                
-                // FIXED: Display options in their original, non-shuffled order for clarity
-                for (let i = 1; i <= 4; i++) {
-                    const optionKey = `option${i}`;
-                    const malayalamOptionKey = `malayalam_option${i}`;
-                    const optionText = (currentLanguage === 'malayalam' && q[malayalamOptionKey]) ? q[malayalamOptionKey] : q[optionKey];
-                    const isCorrect = q[optionKey] === q.answer;
-                    
-                    optionsHtml += `<div class="ms-3 ${isCorrect ? 'text-success fw-bold' : ''}">${optionLetters[i-1]}. ${optionText}</div>`;
+                q.originalOptions.forEach((opt, idx) => {
+                    const optionLabel = String.fromCharCode(65 + idx);
+                    let optionClass = 'border-gray-600';
+                    if (opt.text === correctAnswer) optionClass = 'result-correct';
+                    else if (opt.text === userAnswerText) optionClass = 'result-incorrect';
+                    optionsHtml += `<div class="p-3 mt-2 border-2 rounded-lg ${optionClass} flex items-center space-x-4"><span class="bg-gray-700 text-white font-bold rounded-md w-10 h-10 flex-shrink-0 flex items-center justify-center">${optionLabel}</span><span>${opt.text}</span></div>`;
+                });
+                resultCard.innerHTML = `
+                    <p class="font-semibold text-lg mb-2">${index + 1}. ${q[`${lang}_question`] || q.question}</p>
+                    ${q.image && q.image !== 'null' ? `<img src="${q.image}" class="max-h-40 rounded-md my-2" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e2e8f0/334155?text=Image+Not+Found';">` : ''}
+                    <div>${optionsHtml}</div>`;
+                dom.resultsList.appendChild(resultCard);
+            });
+            dom.scoreContainer.textContent = getTranslatedText('score_text', score, questionsToShow.length);
+        };
+
+        const showImageZoom = (src) => {
+            dom.zoomedImage.src = src;
+            dom.zoomModal.classList.remove('hidden');
+        };
+
+        const handleStartQuiz = () => {
+            let finalQuestions = [];
+            if (appState.quizMode === 'complete') {
+                const config = {
+                    "Part I Malayalam": 5, "Part II Malayalam": 5, "Maths": 10,
+                    "English": 5, "Basic Science": 10, "Social Science": 10
+                };
+                SUBJECT_ORDER.forEach(subject => {
+                    const count = config[subject];
+                    const subjectQuestions = appState.allQuestions.filter(q => q.subject === subject);
+                    finalQuestions.push(...shuffleArray(subjectQuestions).slice(0, count));
+                });
+            } else { // Subject-wise
+                const selectedSubject = appState.selections.subject;
+                if (selectedSubject && appState.selections.chapters) {
+                    let subjectQuestions = [];
+                    for (const chapter in appState.selections.chapters) {
+                        const countOrAll = appState.selections.chapters[chapter];
+                        const questionsFromChapter = appState.allQuestions.filter(q => q.subject === selectedSubject && String(q.chapter) === chapter);
+                        if (countOrAll === 'all') {
+                            subjectQuestions.push(...questionsFromChapter);
+                        } else if (countOrAll > 0) {
+                            subjectQuestions.push(...shuffleArray(questionsFromChapter).slice(0, countOrAll));
+                        }
+                    }
+                    finalQuestions = shuffleArray(subjectQuestions);
                 }
+            }
 
-                const questionTextContent = (currentLanguage === 'malayalam' && q.malayalam_question) ? q.malayalam_question : q.question;
-                const answerItem = document.createElement('div');
-                answerItem.className = 'answer-item';
-                answerItem.innerHTML = `
-                    <div class="fw-bold mb-2">${index + 1}. ${questionTextContent}</div>
-                    ${optionsHtml}
-                `;
-                answersContainer.appendChild(answerItem);
+            if (finalQuestions.length === 0) {
+                alert(getTranslatedText('no_questions_selected'));
+                return;
+            }
+            appState.quizQuestions = finalQuestions;
+            appState.currentQuestionIndex = 0;
+            appState.userAnswers = new Array(appState.quizQuestions.length).fill(null);
+            showScreen('quiz');
+            displayQuestion();
+        };
+
+        const resetApp = () => {
+            showScreen('setup');
+        };
+
+        const setupEventListeners = () => {
+            document.getElementById('complete-quiz-btn').addEventListener('click', () => {
+                appState.quizMode = 'complete';
+                handleStartQuiz();
+            });
+            document.getElementById('subject-wise-btn').addEventListener('click', () => {
+                appState.quizMode = 'subject-wise';
+                renderConfigScreen();
+                showScreen('config');
+            });
+            document.getElementById('start-quiz-btn').addEventListener('click', handleStartQuiz);
+            
+            // Quiz Navigation
+            dom.nextBtn.addEventListener('click', () => displayQuestion(appState.currentQuestionIndex + 1));
+            dom.prevBtn.addEventListener('click', () => displayQuestion(appState.currentQuestionIndex - 1));
+            document.getElementById('finish-quiz-btn').addEventListener('click', displayResults);
+            document.getElementById('restart-quiz-btn').addEventListener('click', resetApp);
+            dom.questionJumpInput.addEventListener('change', (e) => {
+                const num = parseInt(e.target.value, 10);
+                if (!isNaN(num) && num >= 1 && num <= appState.quizQuestions.length) {
+                    displayQuestion(num - 1);
+                } else {
+                    e.target.value = appState.currentQuestionIndex + 1; // Reset to current if invalid
+                }
             });
             
-            applyFontSizes(); // Apply font sizes to the newly created results
-            window.scrollTo(0, 0);
-        }
-
-        // --- Restart ---
-        function restartQuiz() {
-            startScreen.style.display = 'flex';
-            quizScreen.style.display = 'none';
-            resultsScreen.style.display = 'none';
-            chapterSelection.style.display = 'none';
-            startQuizBtn.style.display = 'none';
-            
-            subjectButtons.forEach(b => {
-                b.classList.remove('btn-primary', 'active');
-                b.classList.add('btn-secondary');
+            // Controls
+            dom.languageToggle.addEventListener('change', (e) => setLanguage(e.target.checked ? 'ml' : 'en'));
+            document.getElementById('font-increase-btn').addEventListener('click', () => {
+                const currentIndex = FONT_SIZES.indexOf(appState.fontSize);
+                if (currentIndex < FONT_SIZES.length - 1) setFontSize(FONT_SIZES[currentIndex + 1]);
             });
-            
-            selectedSubject = null;
-        }
+            document.getElementById('font-decrease-btn').addEventListener('click', () => {
+                const currentIndex = FONT_SIZES.indexOf(appState.fontSize);
+                if (currentIndex > 0) setFontSize(FONT_SIZES[currentIndex - 1]);
+            });
 
-        // --- Event Listeners ---
-        startQuizBtn.addEventListener('click', startQuiz);
-        restartBtn.addEventListener('click', restartQuiz);
-        nextBtn.addEventListener('click', nextQuestion);
-        prevBtn.addEventListener('click', prevQuestion);
-        revealBtn.addEventListener('click', revealAnswer);
-        languageToggle.addEventListener('click', toggleLanguage);
-        resultsLanguageToggle.addEventListener('click', toggleResultsLanguage);
-        fontSizeSlider.addEventListener('input', updateFontSizes);
+            // Image Zoom
+            document.getElementById('close-zoom-modal').addEventListener('click', () => dom.zoomModal.classList.add('hidden'));
+            dom.zoomModal.addEventListener('click', (e) => { if (e.target.id === 'image-zoom-modal') dom.zoomModal.classList.add('hidden'); });
+
+            // Dynamic config screen listeners
+            dom.configOptions.addEventListener('change', (e) => {
+                if (appState.quizMode === 'subject-wise') {
+                    if (e.target.matches('#subject-selector')) {
+                        const subject = e.target.value;
+                        appState.selections = { subject: subject, chapters: {} };
+                        const container = document.getElementById('chapter-config-container');
+                        if (!subject) {
+                            container.innerHTML = '';
+                            return;
+                        }
+                        const chapters = Array.from(appState.subjectChapterInfo[subject]).sort((a,b) => a-b);
+                        container.innerHTML = chapters.map(ch => `
+                            <div class="flex items-center justify-between bg-gray-700 p-3 rounded-lg">
+                                <label class="text-xl font-semibold">${getTranslatedText('chapter_label', ch)}</label>
+                                <select data-chapter="${ch}" class="chapter-select bg-gray-900 border border-gray-600 rounded-md p-2 text-white">
+                                    <option value="0">0</option><option value="5">5</option><option value="10">10</option>
+                                    <option value="all">${getTranslatedText('all_questions')}</option>
+                                </select>
+                            </div>`).join('');
+                    } else if (e.target.matches('.chapter-select')) {
+                        const chapter = e.target.dataset.chapter;
+                        if (!appState.selections.chapters) appState.selections.chapters = {};
+                        appState.selections.chapters[chapter] = e.target.value === 'all' ? 'all' : parseInt(e.target.value, 10);
+                    }
+                }
+            });
+        };
+
+        const init = async () => {
+            try {
+                const response = await fetch('questions.json');
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}. Make sure 'questions.json' is present.`);
+                appState.allQuestions = await response.json();
+                processQuestionData();
+
+                const savedLang = localStorage.getItem('quizLanguage') || 'en';
+                const savedFontSize = localStorage.getItem('quizFontSize') || 'lg';
+                
+                setupEventListeners();
+                setFontSize(savedFontSize);
+                setLanguage(savedLang); 
+                showScreen('setup');
+            } catch (error) {
+                console.error("Failed to load or initialize quiz:", error);
+                document.body.innerHTML = `<div class="h-screen w-full flex items-center justify-center bg-red-900 text-white text-xl p-8 text-center"><div><h2 class="text-3xl font-bold mb-4">Error: Could not load questions.</h2><p class="bg-red-800 p-4 rounded-lg">Please ensure a valid <strong>questions.json</strong> file exists in the same directory as this HTML file.</p><p class="mt-4 text-left text-sm text-red-200"><strong>Details:</strong> ${error.message}</p></div></div>`;
+            }
+        };
+
+        init();
     });
     </script>
 </body>
