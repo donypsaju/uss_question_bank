@@ -58,7 +58,14 @@ body.dark-theme {
 .dark-theme .header {
     border-bottom-color: var(--option-border-dark);
 }
-
+#question {
+    height: auto; /* This is the key: allows the container to grow as needed */
+    min-height: 120px; /* Optional: Maintains a consistent minimum size for short questions */
+    display: flex; /* Helps to vertically center the text */
+    align-items: center; /* Vertically centers the text within the box */
+    justify-content: center; /* Horizontally centers the text (as it was before) */
+    overflow-wrap: break-word; /* Ensures very long words without spaces don't overflow */
+}
 /* Custom button styles to make them more materialistic */
 .btn-primary {
     background-color: var(--primary-color-light);
