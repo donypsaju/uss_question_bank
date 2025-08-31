@@ -1,508 +1,374 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // DOM Elements
-    const startScreen = document.getElementById('start-screen');
-    const quizScreen = document.getElementById('quiz-screen');
-    const resultsScreen = document.getElementById('results-screen');
+document.addEventListener('DOMContentLoaded', () => {
+    // --- DOM ELEMENTS ---
     const startBtn = document.getElementById('start-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const prevBtn = document.getElementById('prev-btn');
-    const revealBtn = document.getElementById('reveal-btn');
-    const restartBtn = document.getElementById('restart-btn');
-    const questionText = document.getElementById('question-text');
-    const optionsContainer = document.getElementById('options-container');
-    const questionCounter = document.getElementById('question-counter');
-    const subjectDisplay = document.getElementById('subject-display');
-    const chapterDisplay = document.getElementById('chapter-display');
+    const startScreen = document.getElementById('start-screen');
+    const quizOptions = document.getElementById('quiz-options');
+    const fullQuizBtn = document.getElementById('full-quiz-btn');
+    const subjectQuizBtn = document.getElementById('subject-quiz-btn');
     const chapterSelection = document.getElementById('chapter-selection');
-    const languageToggle = document.getElementById('language-toggle');
-    const resultsLanguageToggle = document.getElementById('results-language-toggle');
+    const chapterCheckboxes = document.getElementById('chapter-checkboxes');
+    const startFullQuizExecution = document.getElementById('start-full-quiz-execution');
+    const subjectSelection = document.getElementById('subject-selection');
+    const subjectButtons = document.getElementById('subject-buttons');
+    const subjectChapterSelection = document.getElementById('subject-chapter-selection');
+    const subjectChapterTitle = document.getElementById('subject-chapter-title');
+    const subjectChapterOptions = document.getElementById('subject-chapter-options');
+    const startSubjectQuizExecution = document.getElementById('start-subject-quiz-execution');
+    const quizContainer = document.getElementById('quiz-container');
+    const questionCounter = document.getElementById('question-counter');
+    const questionEl = document.getElementById('question');
+    const optionsEl = document.getElementById('options');
+    const nextBtn = document.getElementById('next-btn');
+    const revealAnswerBtn = document.getElementById('reveal-answer-btn');
+    const resultsContainer = document.getElementById('results-container');
+    const answerSheet = document.getElementById('answer-sheet');
+    const restartBtn = document.getElementById('restart-btn');
+    const themeSwitcher = document.getElementById('theme-switcher');
+    const langSwitcher = document.getElementById('lang-switcher');
+    const fontIncrease = document.getElementById('font-increase');
+    const fontDecrease = document.getElementById('font-decrease');
     const questionImageContainer = document.getElementById('question-image-container');
-    const answersContainer = document.getElementById('answers-container');
-    const timerDisplay = document.getElementById('timer');
-    const timeTakenDisplay = document.getElementById('time-taken');
-    const fontSizeSlider = document.getElementById('font-size-slider');
+    const questionImage = document.getElementById('question-image');
+    const imageModalEl = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-img');
+    const bsImageModal = new bootstrap.Modal(imageModalEl);
 
-    // Quiz variables
-    let questions = [];
+    // --- STATE ---
+    let allQuestions = [];
+    let currentQuizQuestions = [];
     let currentQuestionIndex = 0;
-    let selectedQuestions = [];
-    let answerRevealed = false;
-    let selectedChapters = [];
-    let currentLanguage = 'english';
-    let startTime;
-    let timerInterval;
-    const optionLetters = ['A', 'B', 'C', 'D'];
+    let userAnswers = [];
+    let questionDisplayStates = {};
+    let currentLanguage = localStorage.getItem('language') || 'malayalam';
+    let currentTheme = localStorage.getItem('theme') || 'light';
+    let currentFontSize = parseInt(localStorage.getItem('fontSize')) || 24;
+    let quizMode = '';
+
+    // --- INITIALIZATION ---
+    fetch('questions.json')
+        .then(response => response.json())
+        .then(data => {
+            allQuestions = data;
+        });
+
+    applyTheme();
+    applyFontSize();
+    updateLanguageSwitcherText();
+
+    // --- EVENT LISTENERS ---
+    startBtn.addEventListener('click', showQuizOptions);
+    fullQuizBtn.addEventListener('click', () => {
+        quizMode = 'quizTime';
+        setupFullQuiz();
+    });
+    subjectQuizBtn.addEventListener('click', () => {
+        quizMode = 'classTime';
+        setupSubjectQuiz();
+    });
+    startFullQuizExecution.addEventListener('click', startFullQuiz);
+    startSubjectQuizExecution.addEventListener('click', startSubjectQuiz);
+    nextBtn.addEventListener('click', nextQuestion);
+    revealAnswerBtn.addEventListener('click', revealAnswer);
+    restartBtn.addEventListener('click', restartQuiz);
+    themeSwitcher.addEventListener('click', toggleTheme);
+    langSwitcher.addEventListener('click', toggleLanguage);
+    fontIncrease.addEventListener('click', () => changeFontSize(2));
+    fontDecrease.addEventListener('click', () => changeFontSize(-2));
+    questionImage.addEventListener('click', () => {
+        modalImg.src = questionImage.src;
+        bsImageModal.show();
+    });
+
+    // --- FUNCTIONS ---
+    function showQuizOptions() {
+        startScreen.classList.add('hidden');
+        quizOptions.classList.remove('hidden');
+    }
+
+    function setupFullQuiz() {
+        quizOptions.classList.add('hidden');
+        chapterSelection.classList.remove('hidden');
+        const chapters = [...new Set(allQuestions.map(q => q.chapter))].sort((a, b) => a - b);
+        chapterCheckboxes.innerHTML = chapters.map(ch => `
+            <label class="form-check form-check-inline m-2 p-3 border rounded shadow-sm">
+                <input class="form-check-input" type="checkbox" value="${ch}"> Chapter ${ch}
+            </label>
+        `).join('');
+    }
+
+    function setupSubjectQuiz() {
+        quizOptions.classList.add('hidden');
+        subjectSelection.classList.remove('hidden');
+        const subjects = [...new Set(allQuestions.map(q => q.subject))];
+        subjectButtons.innerHTML = subjects.map(sub => `<button class="btn btn-outline-primary m-2" data-subject="${sub}">${sub}</button>`).join('');
+        subjectButtons.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => selectSubject(btn.dataset.subject));
+        });
+    }
     
-    // Font size variables (with default values)
-    let questionFontSize = 1.8; // rem - larger default for projector
-    let optionFontSize = 1.5;   // rem - larger default for projector
-
-    // Initialize the app
-    loadQuestions();
-
-    // Load saved settings from localStorage
-    function loadSettings() {
-        // Language
-        const savedLanguage = localStorage.getItem('quizLanguage');
-        if (savedLanguage) {
-            currentLanguage = savedLanguage;
-            updateLanguageButtonText();
-        }
-        
-        // Font sizes
-        const savedQuestionSize = localStorage.getItem('questionFontSize');
-        const savedOptionSize = localStorage.getItem('optionFontSize');
-        if (savedQuestionSize) questionFontSize = parseFloat(savedQuestionSize);
-        if (savedOptionSize) optionFontSize = parseFloat(savedOptionSize);
-        
-        // Set initial slider value (average of both sizes)
-        fontSizeSlider.value = ((questionFontSize + optionFontSize) / 2).toFixed(1);
+    function selectSubject(subject) {
+        subjectSelection.classList.add('hidden');
+        subjectChapterSelection.classList.remove('hidden');
+        subjectChapterTitle.textContent = `Select questions for ${subject}`;
+        const chapters = [...new Set(allQuestions.filter(q => q.subject === subject).map(q => q.chapter))].sort((a, b) => a - b);
+        subjectChapterOptions.innerHTML = chapters.map(ch => `
+            <div class="col-md-4 col-sm-6 d-flex align-items-center justify-content-between p-3 border rounded shadow-sm">
+                <span>Chapter ${ch}:</span>
+                <select class="form-select w-auto" data-chapter="${ch}" data-subject="${subject}">
+                    <option value="0">0</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="all">All</option>
+                </select>
+            </div>
+        `).join('');
     }
 
-    // Update language toggle button text
-    function updateLanguageButtonText() {
-        languageToggle.textContent = currentLanguage === 'english' ? 'മലയാളം' : 'English';
-        if (resultsLanguageToggle) {
-            resultsLanguageToggle.textContent = currentLanguage === 'english' ? 'മലയാളം' : 'English';
-        }
-    }
-
-    // Font size adjustment functions
-    function updateFontSizes() {
-        // Calculate new sizes based on slider position (1-5)
-        const sliderValue = parseFloat(fontSizeSlider.value);
-        questionFontSize = 1.0 + (sliderValue * 0.8); // 1.0-5.0rem (wider range for projector)
-        optionFontSize = 0.9 + (sliderValue * 0.7);   // 0.9-4.4rem
-        
-        // Save to localStorage
-        localStorage.setItem('questionFontSize', questionFontSize);
-        localStorage.setItem('optionFontSize', optionFontSize);
-        
-        // Apply to current elements
-        applyFontSizes();
-    }
-
-    function applyFontSizes() {
-        // Apply to question text
-        if (questionText) {
-            questionText.style.fontSize = `${questionFontSize}rem`;
-            questionText.style.lineHeight = `${questionFontSize + 0.5}rem`;
-        }
-        
-        // Apply to options
-        const optionContents = document.querySelectorAll('.option-content');
-        optionContents.forEach(option => {
-            option.style.fontSize = `${optionFontSize}rem`;
-            option.style.lineHeight = `${optionFontSize + 0.3}rem`;
-        });
-        
-        // Apply to current results if on results screen
-        if (resultsScreen.style.display === 'block') {
-            const answerQuestions = answersContainer.querySelectorAll('.answer-item .fw-bold');
-            answerQuestions.forEach(q => {
-                q.style.fontSize = `${questionFontSize}rem`;
-                q.style.lineHeight = `${questionFontSize + 0.5}rem`;
-            });
-            
-            const answerOptions = answersContainer.querySelectorAll('.answer-item div:not(.fw-bold)');
-            answerOptions.forEach(opt => {
-                opt.style.fontSize = `${optionFontSize}rem`;
-                opt.style.lineHeight = `${optionFontSize + 0.3}rem`;
-            });
-        }
-    }
-
-    // Load questions from JSON file
-    async function loadQuestions() {
-        try {
-            // Load settings first
-            loadSettings();
-            
-            // Then load questions
-            const response = await fetch('questions.json');
-            if (!response.ok) throw new Error('Failed to load questions');
-            questions = await response.json();
-            
-            initializeChapterSelection();
-        } catch (error) {
-            console.error('Error loading questions:', error);
-            alert('Failed to load questions. Please try again later.');
-        }
-    }
-
-    // Initialize chapter selection checkboxes
-    function initializeChapterSelection() {
-        chapterSelection.innerHTML = '<h5 class="mb-3">Select Chapters:</h5>';
-        
-        // Get all unique chapter numbers from questions
-        const chapters = [...new Set(questions.map(q => q.chapter))].sort((a, b) => a - b);
-        
-        if (chapters.length === 0) {
-            chapterSelection.innerHTML = '<p>No chapters found in questions data.</p>';
-            return;
-        }
-        
-        // Create checkboxes for each chapter number
-        chapters.forEach(chapter => {
-            const div = document.createElement('div');
-            div.className = 'form-check';
-            
-            const input = document.createElement('input');
-            input.className = 'form-check-input chapter-checkbox';
-            input.type = 'checkbox';
-            input.value = chapter;
-            input.id = `chapter-${chapter}`;
-            input.checked = true;
-            
-            const label = document.createElement('label');
-            label.className = 'form-check-label';
-            label.htmlFor = input.id;
-            label.textContent = `Chapter ${chapter}`;
-            
-            div.appendChild(input);
-            div.appendChild(label);
-            chapterSelection.appendChild(div);
-        });
-    }
-
-    // Get selected chapters from checkboxes
-    function getSelectedChapters() {
-        const checkboxes = document.querySelectorAll('.chapter-checkbox:checked');
-        return Array.from(checkboxes).map(cb => parseInt(cb.value));
-    }
-
-    // Start the quiz
-    function startQuiz() {
-        selectedChapters = getSelectedChapters();
-        
-        if (selectedChapters.length === 0) {
-            alert('Please select at least one chapter');
-            return;
-        }
-        
-        // Start timer
-        startTime = new Date();
-        timerInterval = setInterval(updateTimer, 1000);
-        updateTimer();
-        
-        // Initialize quiz
-        currentQuestionIndex = 0;
-        answerRevealed = false;
-        selectedQuestions = selectQuestionsInOrder();
-        
-        if (selectedQuestions.length === 0) {
-            alert('No questions found in selected chapters');
-            return;
-        }
-        
-        // Show quiz screen
-        startScreen.style.display = 'none';
-        resultsScreen.style.display = 'none';
-        quizScreen.style.display = 'block';
-        
-        loadQuestion();
-    }
-
-    // Select questions in the specified subject order
-    function selectQuestionsInOrder() {
-        let filteredQuestions = questions.filter(q => selectedChapters.includes(q.chapter));
-        
-        // Group by subject in required order
-        const part1Malayalam = getRandomElements(filteredQuestions.filter(q => q.subject === "Part I Malayalam"), 5);
-        const part2Malayalam = getRandomElements(filteredQuestions.filter(q => q.subject === "Part II Malayalam"), 5);
-        const maths = getRandomElements(filteredQuestions.filter(q => q.subject === "Maths"), 10);
-        const english = getRandomElements(filteredQuestions.filter(q => q.subject === "English"), 5);
-        const basicScience = getRandomElements(filteredQuestions.filter(q => q.subject === "Basic Science"), 10);
-        const socialScience = getRandomElements(filteredQuestions.filter(q => q.subject === "Social Science"), 10);
-        
-        return [
-            ...part1Malayalam,
-            ...part2Malayalam,
-            ...maths,
-            ...english,
-            ...basicScience,
-            ...socialScience
-        ].filter(q => q !== undefined);
-    }
-
-    // Get random elements from array
-    function getRandomElements(array, count) {
-        if (array.length === 0) return [];
-        const shuffled = array.slice();
-        for (let i = shuffled.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-        }
-        return shuffled.slice(0, Math.min(count, shuffled.length));
-    }
-
-    // Update timer display
-    function updateTimer() {
-        const now = new Date();
-        const elapsed = new Date(now - startTime);
-        const minutes = elapsed.getUTCMinutes().toString().padStart(2, '0');
-        const seconds = elapsed.getUTCSeconds().toString().padStart(2, '0');
-        timerDisplay.textContent = `${minutes}:${seconds}`;
-    }
-
-    // Format time taken for display
-    function formatTimeTaken(ms) {
-        const totalSeconds = Math.floor(ms / 1000);
-        const minutes = Math.floor(totalSeconds / 60);
-        const seconds = totalSeconds % 60;
-        return `${minutes} minute${minutes !== 1 ? 's' : ''} ${seconds} second${seconds !== 1 ? 's' : ''}`;
-    }
-
-    // Load and display current question
-    function loadQuestion() {
-        answerRevealed = false;
-        const question = selectedQuestions[currentQuestionIndex];
-        
-        // Update question counter and subject info
-        questionCounter.textContent = `Q${currentQuestionIndex + 1}/${selectedQuestions.length}`;
-        subjectDisplay.textContent = question.subject;
-        chapterDisplay.textContent = question.chapter;
-        
-        // Set question text
-        if (currentLanguage === 'malayalam' && question.malayalam_question) {
-            questionText.textContent = question.malayalam_question;
-            questionText.classList.add('malayalam-text');
-        } else {
-            questionText.textContent = question.question;
-            questionText.classList.remove('malayalam-text');
-        }
-        
-        // Apply current font size
-        questionText.style.fontSize = `${questionFontSize}rem`;
-        questionText.style.lineHeight = `${questionFontSize + 0.5}rem`;
-        
-        // Display question image if exists
-        displayQuestionImage(question.image);
-        
-        // Create options with A, B, C, D labels
-        optionsContainer.innerHTML = '';
-        for (let i = 0; i < 4; i++) {
-            const optionDiv = document.createElement('div');
-            optionDiv.className = 'option';
-            optionDiv.dataset.index = i + 1;
-            
-            const optionLetter = document.createElement('div');
-            optionLetter.className = 'option-letter';
-            optionLetter.textContent = optionLetters[i];
-            optionLetter.style.fontSize = `${optionFontSize}rem`;
-            
-            const optionContent = document.createElement('div');
-            optionContent.className = 'option-content';
-            optionContent.style.fontSize = `${optionFontSize}rem`;
-            optionContent.style.lineHeight = `${optionFontSize + 0.3}rem`;
-            
-            if (currentLanguage === 'malayalam' && question[`malayalam_option${i + 1}`]) {
-                optionContent.textContent = question[`malayalam_option${i + 1}`];
-                optionContent.classList.add('malayalam-text');
-            } else {
-                optionContent.textContent = question[`option${i + 1}`];
-                optionContent.classList.remove('malayalam-text');
-            }
-            
-            optionDiv.appendChild(optionLetter);
-            optionDiv.appendChild(optionContent);
-            optionsContainer.appendChild(optionDiv);
-        }
-        
-        // Update navigation buttons
-        prevBtn.classList.toggle('d-none', currentQuestionIndex === 0);
-        nextBtn.textContent = currentQuestionIndex === selectedQuestions.length - 1 ? 'Finish' : 'Next';
-        revealBtn.textContent = 'Reveal Answer';
-        revealBtn.disabled = false;
-        
-        // Scroll to top of question
-        window.scrollTo(0, 0);
-    }
-
-    // Display question image with zoom functionality
-    function displayQuestionImage(imagePath) {
-        questionImageContainer.innerHTML = '';
-        
-        if (imagePath) {
-            const img = document.createElement('img');
-            img.src = imagePath;
-            img.alt = "Question image";
-            img.className = "question-image img-fluid rounded";
-            
-            // Add zoom functionality
-            img.addEventListener('click', function() {
-                this.classList.toggle('zoomed');
-            });
-            
-            questionImageContainer.appendChild(img);
-            questionImageContainer.style.display = 'block';
-        } else {
-            questionImageContainer.style.display = 'none';
-        }
-    }
-
-    // Toggle between English and Malayalam
-    function toggleLanguage() {
-        currentLanguage = currentLanguage === 'english' ? 'malayalam' : 'english';
-        localStorage.setItem('quizLanguage', currentLanguage);
-        updateLanguageButtonText();
-        updateQuestionLanguage();
-    }
-
-    // Toggle language for results screen
-    function toggleResultsLanguage() {
-        currentLanguage = currentLanguage === 'english' ? 'malayalam' : 'english';
-        localStorage.setItem('quizLanguage', currentLanguage);
-        updateLanguageButtonText();
-        showResults();
-    }
-
-    // Update question language
-    function updateQuestionLanguage() {
-        const question = selectedQuestions[currentQuestionIndex];
-        
-        // Update question text
-        if (currentLanguage === 'malayalam' && question.malayalam_question) {
-            questionText.textContent = question.malayalam_question;
-            questionText.classList.add('malayalam-text');
-        } else {
-            questionText.textContent = question.question;
-            questionText.classList.remove('malayalam-text');
-        }
-        
-        // Update options
-        const options = document.querySelectorAll('.option-content');
-        options.forEach((option, index) => {
-            if (currentLanguage === 'malayalam' && selectedQuestions[currentQuestionIndex][`malayalam_option${index + 1}`]) {
-                option.textContent = selectedQuestions[currentQuestionIndex][`malayalam_option${index + 1}`];
-                option.classList.add('malayalam-text');
-            } else {
-                option.textContent = selectedQuestions[currentQuestionIndex][`option${index + 1}`];
-                option.classList.remove('malayalam-text');
-            }
-        });
-    }
-
-    // Reveal the correct answer
-    function revealAnswer() {
-        answerRevealed = true;
-        const question = selectedQuestions[currentQuestionIndex];
-        const options = document.querySelectorAll('.option');
-        
-        options.forEach(option => {
-            const optionIndex = parseInt(option.dataset.index);
-            const optionContent = option.querySelector('.option-content').textContent;
-            
-            if (currentLanguage === 'malayalam' && question.malayalam_answer) {
-                if (optionContent === question.malayalam_answer) {
-                    option.classList.add('correct-answer');
+    function startFullQuiz() {
+        chapterSelection.classList.add('hidden');
+        const selectedChapters = Array.from(chapterCheckboxes.querySelectorAll('input:checked')).map(cb => parseInt(cb.value));
+        const subjectOrder = ["Part I Malayalam", "Part II Malayalam", "Maths", "English", "Basic Science", "Social Science"];
+        const questionCounts = {
+            "Part I Malayalam": 5, "Part II Malayalam": 5, "Maths": 10,
+            "English": 5, "Basic Science": 10, "Social Science": 10
+        };
+        currentQuizQuestions = [];
+        subjectOrder.forEach(subject => {
+            if (questionCounts[subject]) {
+                let subjectQuestions = allQuestions.filter(q => q.subject === subject && selectedChapters.includes(q.chapter));
+                if (subjectQuestions.length < questionCounts[subject]) {
+                    subjectQuestions = allQuestions.filter(q => q.subject === subject);
                 }
-            } else if (optionContent === question.answer) {
-                option.classList.add('correct-answer');
+                const selectedQuestions = shuffleArray(subjectQuestions).slice(0, questionCounts[subject]);
+                currentQuizQuestions.push(...selectedQuestions);
             }
         });
-        
-        revealBtn.textContent = 'Answer Revealed';
-        revealBtn.disabled = true;
+        startQuiz();
+    }
+    
+    function startSubjectQuiz() {
+        subjectChapterSelection.classList.add('hidden');
+        currentQuizQuestions = [];
+        subjectChapterOptions.querySelectorAll('select').forEach(select => {
+            const subject = select.dataset.subject;
+            const chapter = parseInt(select.dataset.chapter);
+            const count = select.value;
+            if (count !== "0") {
+                let chapterQuestions = allQuestions.filter(q => q.subject === subject && q.chapter === chapter);
+                if (count === 'all') {
+                    currentQuizQuestions.push(...chapterQuestions);
+                } else {
+                    currentQuizQuestions.push(...shuffleArray(chapterQuestions).slice(0, parseInt(count)));
+                }
+            }
+        });
+        currentQuizQuestions = shuffleArray(currentQuizQuestions);
+        startQuiz();
     }
 
-    // Move to next question
+    function startQuiz() {
+        quizContainer.classList.remove('hidden');
+        currentQuestionIndex = 0;
+        userAnswers = Array(currentQuizQuestions.length).fill(null);
+        questionDisplayStates = {};
+        if (quizMode === 'classTime') {
+            revealAnswerBtn.classList.remove('hidden');
+            nextBtn.textContent = "Next Question";
+        } else {
+            revealAnswerBtn.classList.add('hidden');
+            nextBtn.textContent = "Next";
+        }
+        showQuestion();
+    }
+
+    function showQuestion() {
+        questionCounter.textContent = `Question ${currentQuestionIndex + 1} / ${currentQuizQuestions.length}`;
+        const question = currentQuizQuestions[currentQuestionIndex];
+        const questionTextKey = currentLanguage === 'english' ? 'question' : 'malayalam_question';
+        questionEl.innerHTML = `<strong>Q${currentQuestionIndex + 1}:</strong> ${question[questionTextKey]}`;
+
+        if (question.image && question.image !== "null") {
+            questionImageContainer.classList.remove('hidden');
+            questionImage.src = question.image;
+        } else {
+            questionImageContainer.classList.add('hidden');
+            questionImage.src = '';
+        }
+
+        const optionKeys = ['option1', 'option2', 'option3', 'option4'];
+        const malayalamOptionKeys = ['malayalam_option1', 'malayalam_option2', 'malayalam_option3', 'malayalam_option4'];
+        let optionsToDisplay = [];
+        if (currentLanguage === 'english') {
+            optionsToDisplay = optionKeys.map(key => ({ text: question[key], isAnswer: question[key] === question['answer'] }));
+        } else {
+            optionsToDisplay = malayalamOptionKeys.map(key => ({ text: question[key], isAnswer: question[key] === question['malayalam_answer'] }));
+        }
+
+        optionsEl.innerHTML = '';
+        const optionLabels = ['A', 'B', 'C', 'D'];
+        const shuffledOptions = shuffleArray(optionsToDisplay);
+        questionDisplayStates[currentQuestionIndex] = [];
+
+        shuffledOptions.forEach((opt, index) => {
+            const label = optionLabels[index];
+            questionDisplayStates[currentQuestionIndex].push({ text: opt.text, label: label });
+
+            const optionCol = document.createElement('div');
+            optionCol.classList.add('col-md-6');
+            const optionEl = document.createElement('div');
+            optionEl.classList.add('option', 'p-3', 'border', 'rounded', 'shadow-sm', 'h-100', 'd-flex', 'align-items-center');
+            optionEl.textContent = `${label}. ${opt.text}`;
+            optionEl.dataset.isAnswer = opt.isAnswer;
+            optionEl.addEventListener('click', () => selectOption(optionEl, opt.text));
+            
+            if (userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex].selected === opt.text) {
+                optionEl.classList.add('selected');
+            }
+            optionCol.appendChild(optionEl);
+            optionsEl.appendChild(optionCol);
+        });
+
+        nextBtn.disabled = false;
+        if (quizMode === 'classTime') {
+            revealAnswerBtn.disabled = false;
+            revealAnswerBtn.classList.remove('hidden');
+        } else {
+            revealAnswerBtn.classList.add('hidden');
+        }
+
+        if (quizMode === 'classTime' && userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex].revealed) {
+             applyRevealStyles(userAnswers[currentQuestionIndex].selected);
+             revealAnswerBtn.disabled = true;
+        }
+    }
+
+    function selectOption(optionEl, selectedOptionText) {
+        if (quizMode === 'classTime' && userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex].revealed) {
+            return;
+        }
+        const alreadySelected = optionsEl.querySelector('.option.selected');
+        if (alreadySelected) {
+            alreadySelected.classList.remove('selected');
+        }
+        optionEl.classList.add('selected');
+        userAnswers[currentQuestionIndex] = { selected: selectedOptionText, revealed: false };
+    }
+    
+    function revealAnswer() {
+        if (!userAnswers[currentQuestionIndex] || userAnswers[currentQuestionIndex].revealed) {
+            return;
+        }
+        const selectedOptionText = userAnswers[currentQuestionIndex].selected;
+        applyRevealStyles(selectedOptionText);
+        userAnswers[currentQuestionIndex].revealed = true;
+        revealAnswerBtn.disabled = true;
+    }
+
+    function applyRevealStyles(selectedOptionText) {
+        const correctAnswerText = currentQuizQuestions[currentQuestionIndex][currentLanguage === 'english' ? 'answer' : 'malayalam_answer'];
+        Array.from(optionsEl.children).forEach(optionCol => {
+            const optEl = optionCol.querySelector('.option');
+            // Check based on original text, ignoring the 'A. ' prefix
+            const originalText = optEl.textContent.substring(optEl.textContent.indexOf(' ') + 1);
+            
+            if (originalText === correctAnswerText) {
+                optEl.classList.add('correct');
+            } else if (originalText === selectedOptionText) {
+                optEl.classList.add('wrong');
+            }
+            optEl.style.pointerEvents = 'none';
+        });
+    }
+
     function nextQuestion() {
-        if (currentQuestionIndex < selectedQuestions.length - 1) {
-            currentQuestionIndex++;
-            loadQuestion();
+        if (quizMode === 'classTime' && (!userAnswers[currentQuestionIndex] || !userAnswers[currentQuestionIndex].revealed)) {
+            alert("Please reveal the answer before proceeding.");
+            return;
+        }
+        currentQuestionIndex++;
+        if (currentQuestionIndex < currentQuizQuestions.length) {
+            showQuestion();
         } else {
             showResults();
         }
     }
 
-    // Move to previous question
-    function prevQuestion() {
-        if (currentQuestionIndex > 0) {
-            currentQuestionIndex--;
-            loadQuestion();
+    function showResults() {
+        quizContainer.classList.add('hidden');
+        resultsContainer.classList.remove('hidden');
+        let correctCount = 0;
+        answerSheet.innerHTML = currentQuizQuestions.map((q, index) => {
+            const userAnswerObj = userAnswers[index];
+            const userAnswerText = userAnswerObj ? userAnswerObj.selected : null;
+            const correctAnswerKey = currentLanguage === 'english' ? 'answer' : 'malayalam_answer';
+            const correctAnswerText = q[correctAnswerKey];
+            const questionTextKey = currentLanguage === 'english' ? 'question' : 'malayalam_question';
+            const isCorrect = userAnswerText === correctAnswerText;
+            if (isCorrect) correctCount++;
+
+            const displayState = questionDisplayStates[index] || [];
+            const userOption = displayState.find(opt => opt.text === userAnswerText);
+            const correctOption = displayState.find(opt => opt.text === correctAnswerText);
+            const userLabel = userOption ? `<strong>${userOption.label}.</strong>` : '';
+            const correctLabel = correctOption ? `<strong>${correctOption.label}.</strong>` : '';
+            const userAnswerDisplay = userAnswerText ? `${userLabel} ${userAnswerText}` : 'Not Answered';
+            const correctAnswerDisplay = `${correctLabel} ${correctAnswerText}`;
+
+            return `
+                <div class="result-item p-3 mb-2 rounded shadow-sm ${isCorrect ? 'bg-success-subtle text-success-emphasis' : 'bg-danger-subtle text-danger-emphasis'}">
+                    <p class="mb-1"><strong>Question ${index + 1}:</strong> ${q[questionTextKey]}</p>
+                    <p class="mb-1">Your Answer: ${userAnswerDisplay}</p>
+                    <p class="mb-0">Correct Answer: ${correctAnswerDisplay}</p>
+                </div>
+            `;
+        }).join('');
+        answerSheet.insertAdjacentHTML('afterbegin', `<h3 class="text-center mb-3">You got ${correctCount} out of ${currentQuizQuestions.length} correct!</h3>`);
+    }
+
+    function restartQuiz() {
+        resultsContainer.classList.add('hidden');
+        startScreen.classList.remove('hidden');
+    }
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    // --- SETTINGS & HELPERS ---
+    function toggleTheme() {
+        currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+        localStorage.setItem('theme', currentTheme);
+        applyTheme();
+    }
+
+    function applyTheme() {
+        document.body.className = `${currentTheme}-theme`;
+    }
+
+    function toggleLanguage() {
+        currentLanguage = currentLanguage === 'english' ? 'malayalam' : 'english';
+        localStorage.setItem('language', currentLanguage);
+        updateLanguageSwitcherText();
+        if (!quizContainer.classList.contains('hidden')) {
+            showQuestion();
         }
     }
 
-    // Show results screen
-    function showResults() {
-        // Stop timer
-        clearInterval(timerInterval);
-        const endTime = new Date();
-        const timeTaken = endTime - startTime;
-        
-        // Show time taken
-        timeTakenDisplay.textContent = `Time taken: ${formatTimeTaken(timeTaken)}`;
-        timeTakenDisplay.style.fontSize = `${questionFontSize}rem`;
-        
-        // Show results screen
-        startScreen.style.display = 'none';
-        quizScreen.style.display = 'none';
-        resultsScreen.style.display = 'block';
-        
-        // Generate answer list with proper font sizes
-        answersContainer.innerHTML = '';
-        selectedQuestions.forEach((question, index) => {
-            const answerItem = document.createElement('div');
-            answerItem.className = 'answer-item';
-            
-            // Question text
-            const questionText = document.createElement('div');
-            questionText.className = 'fw-bold mb-2';
-            questionText.style.fontSize = `${questionFontSize}rem`;
-            questionText.style.lineHeight = `${questionFontSize + 0.5}rem`;
-            questionText.textContent = `${index + 1}. ${currentLanguage === 'malayalam' && question.malayalam_question ? question.malayalam_question : question.question}`;
-            answerItem.appendChild(questionText);
-            
-            // Options
-            for (let i = 1; i <= 4; i++) {
-                const optionDiv = document.createElement('div');
-                optionDiv.className = 'ms-3';
-                optionDiv.style.fontSize = `${optionFontSize}rem`;
-                optionDiv.style.lineHeight = `${optionFontSize + 0.3}rem`;
-                
-                const optionText = currentLanguage === 'malayalam' && question[`malayalam_option${i}`] 
-                    ? question[`malayalam_option${i}`] 
-                    : question[`option${i}`];
-                
-                optionDiv.textContent = `${optionLetters[i-1]}. ${optionText}`;
-                
-                // Highlight correct answer
-                if (currentLanguage === 'malayalam' && question.malayalam_answer) {
-                    if (question[`malayalam_option${i}`] === question.malayalam_answer) {
-                        optionDiv.style.fontWeight = 'bold';
-                        optionDiv.style.color = 'green';
-                    }
-                } else if (question[`option${i}`] === question.answer) {
-                    optionDiv.style.fontWeight = 'bold';
-                    optionDiv.style.color = 'green';
-                }
-                
-                answerItem.appendChild(optionDiv);
-            }
-            
-            answersContainer.appendChild(answerItem);
-        });
-        
-        // Scroll to top of results
-        window.scrollTo(0, 0);
+    function updateLanguageSwitcherText() {
+        // This can be enhanced to show the current language or the one to switch to.
+    }
+    
+    function changeFontSize(amount) {
+        currentFontSize = Math.max(16, currentFontSize + amount);
+        localStorage.setItem('fontSize', currentFontSize);
+        applyFontSize();
     }
 
-    // Restart the quiz
-    function restartQuiz() {
-        // Clear localStorage
-        localStorage.removeItem('quizLanguage');
-        
-        // Reset to start screen
-        startScreen.style.display = 'flex';
-        quizScreen.style.display = 'none';
-        resultsScreen.style.display = 'none';
-        
-        // Reset language to default
-        currentLanguage = 'english';
-        updateLanguageButtonText();
+    function applyFontSize() {
+        document.body.style.fontSize = `${currentFontSize}px`;
     }
-
-    // Event listeners
-    fontSizeSlider.addEventListener('input', updateFontSizes);
 });

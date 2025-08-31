@@ -1,0 +1,299 @@
+:root {
+    --bg-color-light: #eceff1; /* Light Blue Grey */
+    --text-color-light: #263238; /* Dark Blue Grey */
+    --primary-color-light: #4285f4; /* Google Blue */
+    --accent-color-light: #0f9d58; /* Google Green */
+    --option-bg-light: #ffffff;
+    --option-border-light: #e0e0e0; /* Light Grey */
+    --correct-answer-light: #e8f5e9; /* Light Green */
+    --wrong-answer-light: #fbe9e7; /* Light Red */
+    --shadow-light: rgba(0, 0, 0, 0.1);
+
+    --bg-color-dark: #212121; /* Dark Grey */
+    --text-color-dark: #e0e0e0;
+    --primary-color-dark: #64b5f6; /* Lighter Blue */
+    --accent-color-dark: #81c784; /* Lighter Green */
+    --option-bg-dark: #303030;
+    --option-border-dark: #424242; /* Darker Grey */
+    --correct-answer-dark: #388e3c; /* Dark Green */
+    --wrong-answer-dark: #d32f2f; /* Dark Red */
+    --shadow-dark: rgba(255, 255, 255, 0.1);
+
+    --font-family: 'Manjari', sans-serif;
+    --base-font-size: 24px; /* Increased for projection */
+}
+
+body {
+    font-family: var(--font-family);
+    transition: background-color 0.3s, color 0.3s;
+    font-size: var(--base-font-size);
+}
+
+body.light-theme {
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+}
+
+body.dark-theme {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+}
+
+/* Override Bootstrap defaults for materialistic design */
+.app-container {
+    background-color: var(--option-bg-light);
+    box-shadow: 0 4px 8px var(--shadow-light);
+    border-radius: 8px;
+}
+
+.dark-theme .app-container {
+    background-color: var(--option-bg-dark);
+    box-shadow: 0 4px 8px var(--shadow-dark);
+}
+
+.header {
+    border-bottom: 2px solid var(--option-border-light);
+}
+
+.dark-theme .header {
+    border-bottom-color: var(--option-border-dark);
+}
+
+/* Custom button styles to make them more materialistic */
+.btn-primary {
+    background-color: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+    transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+}
+.btn-primary:hover {
+    background-color: color-mix(in srgb, var(--primary-color-light) 90%, black);
+    border-color: color-mix(in srgb, var(--primary-color-light) 90%, black);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px var(--shadow-light);
+}
+.dark-theme .btn-primary {
+    background-color: var(--primary-color-dark);
+    border-color: var(--primary-color-dark);
+}
+.dark-theme .btn-primary:hover {
+    background-color: color-mix(in srgb, var(--primary-color-dark) 90%, black);
+    border-color: color-mix(in srgb, var(--primary-color-dark) 90%, black);
+}
+
+.btn-success {
+    background-color: var(--accent-color-light);
+    border-color: var(--accent-color-light);
+}
+.btn-success:hover {
+    background-color: color-mix(in srgb, var(--accent-color-light) 90%, black);
+    border-color: color-mix(in srgb, var(--accent-color-light) 90%, black);
+}
+.dark-theme .btn-success {
+    background-color: var(--accent-color-dark);
+    border-color: var(--accent-color-dark);
+}
+.dark-theme .btn-success:hover {
+    background-color: color-mix(in srgb, var(--accent-color-dark) 90%, black);
+    border-color: color-mix(in srgb, var(--accent-color-dark) 90%, black);
+}
+
+.btn-info {
+    background-color: #7986cb; /* Indigo light */
+    border-color: #7986cb;
+}
+.btn-info:hover {
+    background-color: color-mix(in srgb, #7986cb 90%, black);
+    border-color: color-mix(in srgb, #7986cb 90%, black);
+}
+.dark-theme .btn-info {
+    background-color: #9fa8da; /* Indigo lighter */
+    border-color: #9fa8da;
+}
+.dark-theme .btn-info:hover {
+    background-color: color-mix(in srgb, #9fa8da 90%, black);
+    border-color: color-mix(in srgb, #9fa8da 90%, black);
+}
+
+.btn-warning { /* Reveal Answer button */
+    background-color: #ffb300; /* Amber */
+    border-color: #ffb300;
+    color: var(--text-color-dark); /* Ensure text is readable on amber */
+}
+.btn-warning:hover {
+    background-color: color-mix(in srgb, #ffb300 90%, black);
+    border-color: color-mix(in srgb, #ffb300 90%, black);
+}
+.dark-theme .btn-warning {
+    background-color: #ffca28; /* Lighter Amber */
+    border-color: #ffca28;
+}
+.dark-theme .btn-warning:hover {
+    background-color: color-mix(in srgb, #ffca28 90%, black);
+    border-color: color-mix(in srgb, #ffca28 90%, black);
+}
+
+
+.btn-outline-secondary {
+    border-color: var(--option-border-light);
+    color: var(--text-color-light);
+}
+.dark-theme .btn-outline-secondary {
+    border-color: var(--option-border-dark);
+    color: var(--text-color-dark);
+}
+.btn-outline-secondary:hover {
+    background-color: var(--primary-color-light);
+    color: #fff;
+    border-color: var(--primary-color-light);
+}
+.dark-theme .btn-outline-secondary:hover {
+    background-color: var(--primary-color-dark);
+    color: #fff;
+    border-color: var(--primary-color-dark);
+}
+
+
+.hidden {
+    display: none !important;
+}
+
+.options-container .option {
+    padding: 1.5rem;
+    border: 2px solid var(--option-border-light);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 4px var(--shadow-light);
+    background-color: var(--option-bg-light);
+}
+
+.dark-theme .options-container .option {
+    border-color: var(--option-border-dark);
+    box-shadow: 0 2px 4px var(--shadow-dark);
+    background-color: var(--option-bg-dark);
+}
+
+.option:hover {
+    border-color: var(--primary-color-light);
+    box-shadow: 0 4px 8px var(--shadow-light);
+    transform: translateY(-2px);
+}
+.dark-theme .option:hover {
+    border-color: var(--primary-color-dark);
+    box-shadow: 0 4px 8px var(--shadow-dark);
+}
+
+
+.option.selected {
+    background-color: var(--primary-color-light);
+    color: #fff;
+    border-color: var(--primary-color-light);
+}
+
+.dark-theme .option.selected {
+    background-color: var(--primary-color-dark);
+    border-color: var(--primary-color-dark);
+}
+
+.option.correct {
+    background-color: var(--correct-answer-light) !important;
+    border-color: #4caf50 !important; /* Green 500 */
+    color: var(--text-color-light); /* Ensure text is visible */
+}
+
+.dark-theme .option.correct {
+    background-color: var(--correct-answer-dark) !important;
+    border-color: #66bb6a !important; /* Green 400 */
+    color: var(--text-color-dark);
+}
+
+.option.wrong {
+    background-color: var(--wrong-answer-light) !important;
+    border-color: #f44336 !important; /* Red 500 */
+    color: var(--text-color-light);
+}
+
+.dark-theme .option.wrong {
+    background-color: var(--wrong-answer-dark) !important;
+    border-color: #ef5350 !important; /* Red 400 */
+    color: var(--text-color-dark);
+}
+
+#chapter-checkboxes label,
+#subject-chapter-options > div {
+    background-color: var(--option-bg-light);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px var(--shadow-light);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.dark-theme #chapter-checkboxes label,
+.dark-theme #subject-chapter-options > div {
+    background-color: var(--option-bg-dark);
+    box-shadow: 0 2px 4px var(--shadow-dark);
+}
+
+#chapter-checkboxes input[type="checkbox"] {
+    transform: scale(1.5); /* Make checkbox larger */
+    margin-right: 10px;
+}
+
+#subject-chapter-options select {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid var(--option-border-light);
+    background-color: var(--option-bg-light);
+    color: var(--text-color-light);
+}
+.dark-theme #subject-chapter-options select {
+    border: 1px solid var(--option-border-dark);
+    background-color: var(--option-bg-dark);
+    color: var(--text-color-dark);
+}
+
+.result-item {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px var(--shadow-light);
+    background-color: var(--option-bg-light);
+}
+.dark-theme .result-item {
+    box-shadow: 0 2px 4px var(--shadow-dark);
+    background-color: var(--option-bg-dark);
+}
+.result-item p {
+    margin-bottom: 0.5rem;
+}
+
+/* Modal specific styles */
+.modal-content.bg-transparent {
+    background-color: transparent !important; /* Ensure background is fully transparent */
+}
+.modal-body {
+    padding: 0; /* Remove default padding */
+}
+.modal-content img {
+    max-height: 90vh; /* Limit image height in modal */
+    width: auto; /* Allow width to adjust */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .options-container {
+        grid-template-columns: 1fr;
+    }
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .controls {
+        margin-top: 1rem;
+        justify-content: center;
+    }
+    .controls button {
+        margin-bottom: 0.5rem;
+    }
+}

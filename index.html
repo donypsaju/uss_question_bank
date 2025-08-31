@@ -4,484 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classroom Quiz</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Malayalam:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        [lang="ml"] body, [lang="ml"] .font-malayalam { font-family: 'Noto Sans Malayalam', sans-serif; }
-        .font-size-base { font-size: 1rem; }
-        .font-size-lg { font-size: 1.25rem; }
-        .font-size-xl { font-size: 1.5rem; }
-        .font-size-2xl { font-size: 1.875rem; }
-        .font-size-3xl { font-size: 2.25rem; }
-        ::-webkit-scrollbar { width: 0px; background: transparent; }
-        .btn { @apply px-6 py-3 rounded-lg font-semibold text-white transition-transform duration-200 ease-in-out transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed; }
-        .btn-primary { @apply bg-indigo-600 hover:bg-indigo-700; }
-        .btn-secondary { @apply bg-gray-600 hover:bg-gray-700; }
-        .btn-green { @apply bg-emerald-600 hover:bg-emerald-700; }
-        .btn-red { @apply bg-red-600 hover:bg-red-700; }
-        .option-btn { @apply w-full text-left p-2 border-2 border-gray-600 rounded-lg hover:bg-gray-700 hover:border-indigo-500 transition-colors duration-200; }
-        .option-btn.selected { @apply bg-indigo-800 border-indigo-500; }
-        .result-correct { @apply border-emerald-500 bg-emerald-900/50; }
-        .result-incorrect { @apply border-red-500 bg-red-900/50; }
-        /* Hide number input arrows */
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-          -webkit-appearance: none; 
-          margin: 0; 
-        }
-        input[type=number] {
-          -moz-appearance: textfield;
-        }
-    </style>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Manjari:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Stylesheet (You will need to create this file) -->
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-900 text-white overflow-hidden h-screen flex flex-col">
-
-    <!-- Main Container -->
-    <div id="app-container" class="flex-grow flex flex-col h-full">
-
-        <!-- ===== Setup Screen ===== -->
-        <div id="setup-screen" class="flex flex-col items-center justify-center h-full p-4 md:p-8">
-            <div class="w-full max-w-4xl text-center">
-                <h1 class="text-4xl md:text-6xl font-bold text-indigo-400 mb-8" data-lang-key="quiz_title">Classroom Quiz</h1>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <button id="complete-quiz-btn" class="btn btn-primary text-2xl py-8" data-lang-key="complete_quiz">Complete Quiz</button>
-                    <button id="subject-wise-btn" class="btn btn-secondary text-2xl py-8" data-lang-key="subject_wise_quiz">Subject-wise Quiz</button>
-                </div>
+<body>
+    <div class="app-container container my-4 p-4 shadow-lg rounded">
+        <div class="header d-flex justify-content-between align-items-center pb-3 mb-4 border-bottom">
+            <h1 class="mb-0">Classroom Quiz</h1>
+            <div class="controls d-flex align-items-center">
+                <button id="theme-switcher" class="btn btn-outline-secondary me-2" title="Toggle Theme"><i class="fas fa-adjust"></i></button>
+                <button id="lang-switcher" class="btn btn-outline-secondary me-2" title="Toggle Language"><i class="fas fa-language"></i></button>
+                <button id="font-increase" class="btn btn-outline-secondary me-2" title="Increase Font Size"><i class="fas fa-plus"></i></button>
+                <button id="font-decrease" class="btn btn-outline-secondary" title="Decrease Font Size"><i class="fas fa-minus"></i></button>
             </div>
         </div>
 
-        <!-- ===== Configuration Screen ===== -->
-        <div id="config-screen" class="hidden flex-col items-center justify-center h-full p-4 md:p-8">
-            <div class="w-full max-w-5xl bg-gray-800 p-6 rounded-lg shadow-xl">
-                <h2 id="config-title" class="text-3xl font-bold text-indigo-300 mb-6 text-center"></h2>
-                <div id="config-options" class="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
-                    <!-- Dynamic content will be injected here -->
-                </div>
-                <div class="mt-8 text-center">
-                    <button id="start-quiz-btn" class="btn btn-green text-3xl py-4 px-12" data-lang-key="start_quiz">Start Quiz</button>
-                </div>
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center">
+            <h2 class="mb-4">Welcome!</h2>
+            <button id="start-btn" class="btn btn-primary btn-lg mt-5 px-5 py-3">Start Quiz</button>
+        </div>
+
+        <!-- Quiz Mode Options -->
+        <div id="quiz-options" class="hidden text-center">
+            <button id="full-quiz-btn" class="btn btn-success btn-lg mx-2">Full Quiz (Quiz Time)</button>
+            <button id="subject-quiz-btn" class="btn btn-info btn-lg mx-2">Subject Wise Quiz (Class Time)</button>
+        </div>
+
+        <!-- Chapter Selection for Full Quiz -->
+        <div id="chapter-selection" class="hidden my-4">
+            <h2 class="text-center mb-4">Select Chapters for Full Quiz</h2>
+            <div id="chapter-checkboxes" class="d-flex flex-wrap justify-content-center gap-3 mb-4">
+                <!-- Chapter checkboxes will be injected here -->
+            </div>
+            <div class="text-center">
+                <button id="start-full-quiz-execution" class="btn btn-primary btn-lg">Start Full Quiz</button>
             </div>
         </div>
 
-        <!-- ===== Quiz Screen ===== -->
-        <div id="quiz-screen" class="hidden flex-col h-full p-4 md:p-8">
-            <div class="flex-grow flex flex-col items-center justify-center">
-                <div class="w-full max-w-5xl">
-                    <div class="flex items-center justify-end text-gray-400 mb-2 text-lg">
-                        <span data-lang-key="question_label">Question</span>
-                        <input type="number" id="question-jump-input" class="bg-gray-700 text-white w-20 text-center mx-2 rounded-md p-1">
-                        <span id="total-questions-span"></span>
+        <!-- Subject Selection for Subject-wise Quiz -->
+        <div id="subject-selection" class="hidden my-4">
+             <h2 class="text-center mb-4">Select a Subject</h2>
+             <div id="subject-buttons" class="d-flex flex-wrap justify-content-center gap-3 mb-4">
+                 <!-- Subject buttons will be injected here -->
+             </div>
+        </div>
+
+        <!-- Chapter & Question Count for Subject-wise Quiz -->
+        <div id="subject-chapter-selection" class="hidden my-4">
+            <h2 id="subject-chapter-title" class="text-center mb-4"></h2>
+            <div id="subject-chapter-options" class="row justify-content-center g-3 mb-4">
+                <!-- Subject chapter options will be injected here -->
+            </div>
+            <div class="text-center">
+                <button id="start-subject-quiz-execution" class="btn btn-primary btn-lg">Start Subject Quiz</button>
+            </div>
+        </div>
+
+        <!-- Main Quiz Container -->
+        <div id="quiz-container" class="hidden my-4">
+            <!-- Question Counter -->
+            <div class="d-flex justify-content-end mb-2">
+                 <span id="question-counter" class="badge bg-primary rounded-pill fs-6"></span>
+            </div>
+
+            <div id="question-image-container" class="text-center mb-3 hidden">
+                <img id="question-image" src="" alt="Question Image" class="img-fluid rounded shadow-sm" style="max-height: 400px; cursor: pointer;">
+            </div>
+            <h2 id="question" class="text-center mb-4 p-3 border rounded shadow-sm"></h2>
+            <div id="options" class="options-container row g-3">
+                <!-- Options will be injected here by JS -->
+            </div>
+            <div id="quiz-navigation" class="d-flex justify-content-end mt-4">
+                 <button id="reveal-answer-btn" class="btn btn-warning btn-lg me-2 hidden">Reveal Answer</button>
+                 <button id="next-btn" class="btn btn-primary btn-lg">Next</button>
+            </div>
+        </div>
+
+        <!-- Results Container -->
+        <div id="results-container" class="hidden my-4">
+            <h2 class="text-center mb-4">Quiz Results</h2>
+            <div id="answer-sheet" class="mb-4">
+                <!-- Answer sheet will be injected here -->
+            </div>
+            <div class="text-center">
+                <button id="restart-btn" class="btn btn-secondary btn-lg">Restart Quiz</button>
+            </div>
+        </div>
+
+        <!-- Image Modal -->
+        <div id="image-modal" class="modal fade" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content bg-transparent border-0">
+                    <div class="modal-header border-0 pb-0">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="bg-gray-800 p-6 md:p-8 rounded-xl shadow-2xl">
-                        <div id="question-image-container" class="mb-4 text-center"></div>
-                        <h2 id="question-text" class="text-2xl md:text-4xl font-semibold mb-8 text-center"></h2>
-                        <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                    <div class="modal-body d-flex justify-content-center align-items-center">
+                        <img class="modal-content img-fluid" id="modal-img" src="" alt="Enlarged Image">
                     </div>
                 </div>
             </div>
-            <div class="flex-shrink-0 text-center py-4 flex justify-center items-center space-x-4">
-                <button id="prev-question-btn" class="btn btn-secondary px-10" data-lang-key="previous">Previous</button>
-                <button id="finish-quiz-btn" class="btn btn-red px-10" data-lang-key="finish_quiz">Finish</button>
-                <button id="next-question-btn" class="btn btn-primary px-16" data-lang-key="next">Next</button>
-            </div>
-        </div>
-
-        <!-- ===== Results Screen ===== -->
-        <div id="results-screen" class="hidden flex-col h-full p-4 md:p-8">
-            <h1 class="text-3xl md:text-5xl font-bold text-center text-indigo-400 mb-4" data-lang-key="quiz_results">Quiz Results</h1>
-            <div id="score-container" class="text-2xl md:text-3xl font-semibold text-center mb-6"></div>
-            <div id="results-list" class="flex-grow overflow-y-auto bg-gray-800 p-4 rounded-lg"></div>
-            <div class="flex-shrink-0 text-center py-4">
-                <button id="restart-quiz-btn" class="btn btn-secondary" data-lang-key="restart_quiz">Restart Quiz</button>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Top Bar for Controls -->
-    <div class="absolute top-0 right-0 p-4 flex items-center space-x-4 bg-gray-900/50 rounded-bl-lg z-10">
-        <div class="flex items-center space-x-2">
-            <span class="text-lg font-medium" data-lang-key="font_size">Font:</span>
-            <button id="font-decrease-btn" class="bg-gray-700 hover:bg-gray-600 rounded-full w-8 h-8 flex items-center justify-center text-lg">-</button>
-            <button id="font-increase-btn" class="bg-gray-700 hover:bg-gray-600 rounded-full w-8 h-8 flex items-center justify-center text-lg">+</button>
-        </div>
-        <div class="flex items-center">
-            <span class="mr-2 text-lg font-medium">EN</span>
-            <label class="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" id="language-toggle" class="sr-only peer">
-                <div class="w-11 h-6 bg-gray-600 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-            </label>
-            <span class="ml-2 text-lg font-medium">മലയാളം</span>
         </div>
     </div>
 
-    <!-- Image Zoom Modal -->
-    <div id="image-zoom-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-        <img id="zoomed-image" src="" alt="Zoomed Question Image" class="max-w-full max-h-full object-contain">
-        <button id="close-zoom-modal" class="absolute top-4 right-4 text-white text-4xl font-bold">&times;</button>
-    </div>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const appState = {
-            currentScreen: 'setup', language: 'en', fontSize: 'lg', allQuestions: [], quizQuestions: [],
-            currentQuestionIndex: 0, userAnswers: [], quizMode: null, selections: {}, subjectChapterInfo: {}, allAvailableChapters: []
-        };
-
-        const FONT_SIZES = ['base', 'lg', 'xl', '2xl', '3xl'];
-        const SUBJECT_ORDER = ["Part I Malayalam", "Part II Malayalam", "Maths", "English", "Basic Science", "Social Science"];
-
-        const dom = {
-            appContainer: document.getElementById('app-container'),
-            screens: {
-                setup: document.getElementById('setup-screen'),
-                config: document.getElementById('config-screen'),
-                quiz: document.getElementById('quiz-screen'),
-                results: document.getElementById('results-screen'),
-            },
-            languageToggle: document.getElementById('language-toggle'),
-            configTitle: document.getElementById('config-title'),
-            configOptions: document.getElementById('config-options'),
-            questionText: document.getElementById('question-text'),
-            optionsContainer: document.getElementById('options-container'),
-            questionJumpInput: document.getElementById('question-jump-input'),
-            totalQuestionsSpan: document.getElementById('total-questions-span'),
-            resultsList: document.getElementById('results-list'),
-            scoreContainer: document.getElementById('score-container'),
-            imageContainer: document.getElementById('question-image-container'),
-            zoomModal: document.getElementById('image-zoom-modal'),
-            zoomedImage: document.getElementById('zoomed-image'),
-            prevBtn: document.getElementById('prev-question-btn'),
-            nextBtn: document.getElementById('next-question-btn'),
-        };
-
-        const translations = {
-            en: {
-                quiz_title: "Classroom Quiz", complete_quiz: "Complete Quiz", subject_wise_quiz: "Subject-wise Quiz",
-                start_quiz: "Start Quiz", next: "Next", previous: "Previous",
-                finish_quiz: "Finish", quiz_results: "Quiz Results", restart_quiz: "Restart Quiz", font_size: "Font:",
-                score_text: (score, total) => `Final Score: ${score} out of ${total}`,
-                question_label: "Question ", of_label: (total) => ` of ${total}`,
-                all_questions: "All", chapter_label: (chapter) => `Chapter ${chapter}`,
-                no_questions_selected: "Please select some chapters to start the quiz.",
-                config_title_complete: "Select Chapters for Complete Quiz",
-                config_title_subject: "Configure Subject Quiz", select_subject_prompt: "Select a Subject",
-            },
-            ml: {
-                quiz_title: "ക്ലാസ്സ്റൂം ക്വിസ്", complete_quiz: "സമ്പൂർണ്ണ ക്വിസ്", subject_wise_quiz: "വിഷയാടിസ്ഥാനത്തിലുള്ള ക്വിസ്",
-                start_quiz: "ക്വിസ് ആരംഭിക്കുക", next: "അടുത്തത്", previous: "മുമ്പത്തെ",
-                finish_quiz: "അവസാനിപ്പിക്കുക", quiz_results: "ക്വിസ് ഫലം", restart_quiz: "വീണ്ടും ആരംഭിക്കുക", font_size: "അക്ഷരവലിപ്പം:",
-                score_text: (score, total) => `അന്തിമ സ്കോർ: ${total}-ൽ ${score}`,
-                question_label: "ചോദ്യം ", of_label: (total) => ` / ${total}`,
-                all_questions: "എല്ലാം", chapter_label: (chapter) => `അദ്ധ്യായം ${chapter}`,
-                no_questions_selected: "ക്വിസ് ആരംഭിക്കുന്നതിന് ദയവായി ചില അധ്യായങ്ങൾ തിരഞ്ഞെടുക്കുക.",
-                config_title_complete: "സമ്പൂർണ്ണ ക്വിസിനായി അധ്യായങ്ങൾ തിരഞ്ഞെടുക്കുക",
-                config_title_subject: "വിഷയാടിസ്ഥാനത്തിലുള്ള ക്വിസ് കോൺഫിഗർ ചെയ്യുക", select_subject_prompt: "ഒരു വിഷയം തിരഞ്ഞെടുക്കുക",
-            }
-        };
-
-        const getTranslatedText = (key, ...args) => {
-            const text = translations[appState.language][key] || translations['en'][key];
-            return typeof text === 'function' ? text(...args) : text;
-        };
-
-        const shuffleArray = (array) => {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        };
-
-        const showScreen = (screenName) => {
-            Object.values(dom.screens).forEach(screen => screen.classList.add('hidden'));
-            dom.screens[screenName].classList.remove('hidden');
-            dom.screens[screenName].classList.add('flex');
-            appState.currentScreen = screenName;
-        };
-
-        const setLanguage = (lang) => {
-            const effectiveLang = translations[lang] ? lang : 'en';
-            appState.language = effectiveLang;
-            document.documentElement.lang = effectiveLang;
-            localStorage.setItem('quizLanguage', effectiveLang);
-            dom.languageToggle.checked = effectiveLang === 'ml';
-            document.querySelectorAll('[data-lang-key]').forEach(el => {
-                el.textContent = getTranslatedText(el.dataset.langKey);
-            });
-            if (appState.currentScreen === 'config') renderConfigScreen();
-            if (appState.currentScreen === 'quiz') displayQuestion();
-            if (appState.currentScreen === 'results') displayResults();
-        };
-
-        const setFontSize = (size) => {
-            appState.fontSize = size;
-            localStorage.setItem('quizFontSize', size);
-            FONT_SIZES.forEach(s => dom.appContainer.classList.remove(`font-size-${s}`));
-            dom.appContainer.classList.add(`font-size-${size}`);
-        };
-
-        const processQuestionData = () => {
-            const allChapters = new Set();
-            appState.subjectChapterInfo = appState.allQuestions.reduce((acc, q) => {
-                if (!acc[q.subject]) acc[q.subject] = new Set();
-                acc[q.subject].add(q.chapter);
-                allChapters.add(q.chapter);
-                return acc;
-            }, {});
-            appState.allAvailableChapters = Array.from(allChapters).sort((a,b) => a-b);
-        };
-
-        const renderConfigScreen = () => {
-            dom.configOptions.innerHTML = '';
-            appState.selections = {};
-
-            if (appState.quizMode === 'complete') {
-                dom.configTitle.textContent = getTranslatedText('config_title_complete');
-                const chaptersHtml = appState.allAvailableChapters.map(chapter => `
-                    <div class="flex items-center bg-gray-700 p-3 rounded-lg">
-                        <input type="checkbox" id="ch-complete-${chapter}" data-chapter="${chapter}" class="chapter-checkbox w-6 h-6 rounded text-indigo-500 bg-gray-900 border-gray-600 focus:ring-indigo-600 mr-4">
-                        <label for="ch-complete-${chapter}" class="text-xl font-semibold">${getTranslatedText('chapter_label', chapter)}</label>
-                    </div>`).join('');
-                dom.configOptions.innerHTML = chaptersHtml;
-
-            } else if (appState.quizMode === 'subject-wise') {
-                dom.configTitle.textContent = getTranslatedText('config_title_subject');
-                const subjects = Object.keys(appState.subjectChapterInfo);
-                const subjectSelectorHtml = `
-                    <select id="subject-selector" class="w-full bg-gray-900 border border-gray-600 rounded-md p-3 text-white text-xl">
-                        <option value="">${getTranslatedText('select_subject_prompt')}</option>
-                        ${subjects.map(s => `<option value="${s}">${s}</option>`).join('')}
-                    </select>
-                    <div id="chapter-config-container" class="mt-4 space-y-3"></div>`;
-                dom.configOptions.innerHTML = subjectSelectorHtml;
-            }
-        };
-        
-        const displayQuestion = (newIndex) => {
-            if (newIndex !== undefined) {
-                appState.currentQuestionIndex = newIndex;
-            }
-            if (appState.currentQuestionIndex >= appState.quizQuestions.length) {
-                displayResults();
-                return;
-            }
-            const q = appState.quizQuestions[appState.currentQuestionIndex];
-            const lang = appState.language;
-            dom.questionText.textContent = q[`${lang}_question`] || q.question;
-            const imagePath = q.image && q.image !== 'null' ? `./${q.image}` : null;
-            dom.imageContainer.innerHTML = imagePath ? `<img src="${imagePath}" alt="Question visual aid" class="max-h-60 mx-auto rounded-lg cursor-pointer transition-transform hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e2e8f0/334155?text=Image+Not+Found';">` : '';
-            if (imagePath) dom.imageContainer.querySelector('img').addEventListener('click', () => showImageZoom(imagePath));
-            
-            const options = [
-                { text: q[`${lang}_option1`] || q.option1 }, { text: q[`${lang}_option2`] || q.option2 },
-                { text: q[`${lang}_option3`] || q.option3 }, { text: q[`${lang}_option4`] || q.option4 },
-            ];
-            q.originalOptions = options;
-            dom.optionsContainer.innerHTML = '';
-            options.forEach((opt, index) => {
-                const optionLabel = String.fromCharCode(65 + index);
-                const button = document.createElement('button');
-                button.className = 'option-btn flex items-center space-x-4';
-                button.innerHTML = `<span class="bg-indigo-600 text-white font-bold rounded-md w-10 h-10 flex-shrink-0 flex items-center justify-center">${optionLabel}</span><span class="text-left">${opt.text}</span>`;
-                if (appState.userAnswers[appState.currentQuestionIndex] && appState.userAnswers[appState.currentQuestionIndex].text === opt.text) {
-                    button.classList.add('selected');
-                }
-                button.addEventListener('click', () => {
-                    dom.optionsContainer.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
-                    button.classList.add('selected');
-                    appState.userAnswers[appState.currentQuestionIndex] = { text: opt.text };
-                });
-                dom.optionsContainer.appendChild(button);
-            });
-            
-            dom.questionJumpInput.value = appState.currentQuestionIndex + 1;
-            dom.totalQuestionsSpan.textContent = getTranslatedText('of_label', appState.quizQuestions.length);
-            dom.prevBtn.disabled = appState.currentQuestionIndex === 0;
-            dom.nextBtn.disabled = appState.currentQuestionIndex === appState.quizQuestions.length - 1;
-        };
-
-        const displayResults = () => {
-            showScreen('results');
-            dom.resultsList.innerHTML = '';
-            let score = 0;
-            const questionsToShow = appState.quizQuestions.slice(0, appState.currentQuestionIndex + 1);
-
-            questionsToShow.forEach((q, index) => {
-                const lang = appState.language;
-                const correctAnswer = q[`${lang}_answer`] || q.answer;
-                const userAnswerText = appState.userAnswers[index] ? appState.userAnswers[index].text : null;
-                const isCorrect = userAnswerText === correctAnswer;
-                if (isCorrect) score++;
-
-                const resultCard = document.createElement('div');
-                resultCard.className = 'p-4 mb-4 bg-gray-900 rounded-lg';
-                let optionsHtml = '';
-                q.originalOptions.forEach((opt, idx) => {
-                    const optionLabel = String.fromCharCode(65 + idx);
-                    let optionClass = 'border-gray-600';
-                    if (opt.text === correctAnswer) optionClass = 'result-correct';
-                    else if (opt.text === userAnswerText) optionClass = 'result-incorrect';
-                    optionsHtml += `<div class="p-3 mt-2 border-2 rounded-lg ${optionClass} flex items-center space-x-4"><span class="bg-gray-700 text-white font-bold rounded-md w-10 h-10 flex-shrink-0 flex items-center justify-center">${optionLabel}</span><span>${opt.text}</span></div>`;
-                });
-                const imagePath = q.image && q.image !== 'null' ? `./${q.image}` : null;
-                resultCard.innerHTML = `
-                    <p class="font-semibold text-lg mb-2">${index + 1}. ${q[`${lang}_question`] || q.question}</p>
-                    ${imagePath ? `<img src="${imagePath}" class="max-h-40 rounded-md my-2" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e2e8f0/334155?text=Image+Not+Found';">` : ''}
-                    <div>${optionsHtml}</div>`;
-                dom.resultsList.appendChild(resultCard);
-            });
-            dom.scoreContainer.textContent = getTranslatedText('score_text', score, questionsToShow.length);
-        };
-
-        const showImageZoom = (src) => {
-            dom.zoomedImage.src = src;
-            dom.zoomModal.classList.remove('hidden');
-        };
-
-        const handleStartQuiz = () => {
-            let finalQuestions = [];
-            if (appState.quizMode === 'complete') {
-                const selectedChapters = Object.keys(appState.selections).filter(ch => appState.selections[ch]);
-                if(selectedChapters.length === 0) {
-                    alert(getTranslatedText('no_questions_selected'));
-                    return;
-                }
-                const questionsFromSelectedChapters = appState.allQuestions.filter(q => selectedChapters.includes(String(q.chapter)));
-                
-                const config = { "Part I Malayalam": 5, "Part II Malayalam": 5, "Maths": 10, "English": 5, "Basic Science": 10, "Social Science": 10 };
-                SUBJECT_ORDER.forEach(subject => {
-                    const count = config[subject];
-                    const subjectQuestions = questionsFromSelectedChapters.filter(q => q.subject === subject);
-                    finalQuestions.push(...shuffleArray(subjectQuestions).slice(0, count));
-                });
-            } else { // Subject-wise
-                const selectedSubject = appState.selections.subject;
-                if (selectedSubject && appState.selections.chapters) {
-                    let subjectQuestions = [];
-                    for (const chapter in appState.selections.chapters) {
-                        const countOrAll = appState.selections.chapters[chapter];
-                        const questionsFromChapter = appState.allQuestions.filter(q => q.subject === selectedSubject && String(q.chapter) === chapter);
-                        if (countOrAll === 'all') {
-                            subjectQuestions.push(...questionsFromChapter);
-                        } else if (countOrAll > 0) {
-                            subjectQuestions.push(...shuffleArray(questionsFromChapter).slice(0, countOrAll));
-                        }
-                    }
-                    finalQuestions = shuffleArray(subjectQuestions);
-                }
-            }
-
-            if (finalQuestions.length === 0) {
-                alert(getTranslatedText('no_questions_selected'));
-                return;
-            }
-            appState.quizQuestions = finalQuestions;
-            appState.currentQuestionIndex = 0;
-            appState.userAnswers = new Array(appState.quizQuestions.length).fill(null);
-            showScreen('quiz');
-            displayQuestion();
-        };
-
-        const resetApp = () => {
-            showScreen('setup');
-        };
-
-        const setupEventListeners = () => {
-            document.getElementById('complete-quiz-btn').addEventListener('click', () => {
-                appState.quizMode = 'complete';
-                renderConfigScreen();
-                showScreen('config');
-            });
-            document.getElementById('subject-wise-btn').addEventListener('click', () => {
-                appState.quizMode = 'subject-wise';
-                renderConfigScreen();
-                showScreen('config');
-            });
-            document.getElementById('start-quiz-btn').addEventListener('click', handleStartQuiz);
-            
-            dom.nextBtn.addEventListener('click', () => displayQuestion(appState.currentQuestionIndex + 1));
-            dom.prevBtn.addEventListener('click', () => displayQuestion(appState.currentQuestionIndex - 1));
-            document.getElementById('finish-quiz-btn').addEventListener('click', displayResults);
-            document.getElementById('restart-quiz-btn').addEventListener('click', resetApp);
-            dom.questionJumpInput.addEventListener('change', (e) => {
-                const num = parseInt(e.target.value, 10);
-                if (!isNaN(num) && num >= 1 && num <= appState.quizQuestions.length) {
-                    displayQuestion(num - 1);
-                } else {
-                    e.target.value = appState.currentQuestionIndex + 1;
-                }
-            });
-            
-            dom.languageToggle.addEventListener('change', (e) => setLanguage(e.target.checked ? 'ml' : 'en'));
-            document.getElementById('font-increase-btn').addEventListener('click', () => {
-                const currentIndex = FONT_SIZES.indexOf(appState.fontSize);
-                if (currentIndex < FONT_SIZES.length - 1) setFontSize(FONT_SIZES[currentIndex + 1]);
-            });
-            document.getElementById('font-decrease-btn').addEventListener('click', () => {
-                const currentIndex = FONT_SIZES.indexOf(appState.fontSize);
-                if (currentIndex > 0) setFontSize(FONT_SIZES[currentIndex - 1]);
-            });
-
-            document.getElementById('close-zoom-modal').addEventListener('click', () => dom.zoomModal.classList.add('hidden'));
-            dom.zoomModal.addEventListener('click', (e) => { if (e.target.id === 'image-zoom-modal') dom.zoomModal.classList.add('hidden'); });
-
-            dom.configOptions.addEventListener('change', (e) => {
-                if (appState.quizMode === 'complete' && e.target.matches('.chapter-checkbox')) {
-                    const chapter = e.target.dataset.chapter;
-                    appState.selections[chapter] = e.target.checked;
-                } else if (appState.quizMode === 'subject-wise') {
-                    if (e.target.matches('#subject-selector')) {
-                        const subject = e.target.value;
-                        appState.selections = { subject: subject, chapters: {} };
-                        const container = document.getElementById('chapter-config-container');
-                        if (!subject) {
-                            container.innerHTML = '';
-                            return;
-                        }
-                        const chapters = Array.from(appState.subjectChapterInfo[subject]).sort((a,b) => a-b);
-                        container.innerHTML = chapters.map(ch => `
-                            <div class="flex items-center justify-between bg-gray-700 p-3 rounded-lg">
-                                <label class="text-xl font-semibold">${getTranslatedText('chapter_label', ch)}</label>
-                                <select data-chapter="${ch}" class="chapter-select bg-gray-900 border border-gray-600 rounded-md p-2 text-white">
-                                    <option value="0">0</option><option value="5">5</option><option value="10">10</option>
-                                    <option value="all">${getTranslatedText('all_questions')}</option>
-                                </select>
-                            </div>`).join('');
-                    } else if (e.target.matches('.chapter-select')) {
-                        const chapter = e.target.dataset.chapter;
-                        if (!appState.selections.chapters) appState.selections.chapters = {};
-                        appState.selections.chapters[chapter] = e.target.value === 'all' ? 'all' : parseInt(e.target.value, 10);
-                    }
-                }
-            });
-        };
-
-        const init = async () => {
-            try {
-                const response = await fetch('questions.json');
-                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}. Make sure 'questions.json' is present.`);
-                appState.allQuestions = await response.json();
-                processQuestionData();
-
-                const savedLang = localStorage.getItem('quizLanguage') || 'en';
-                const savedFontSize = localStorage.getItem('quizFontSize') || 'lg';
-                
-                setupEventListeners();
-                setFontSize(savedFontSize);
-                setLanguage(savedLang); 
-                showScreen('setup');
-            } catch (error) {
-                console.error("Failed to load or initialize quiz:", error);
-                document.body.innerHTML = `<div class="h-screen w-full flex items-center justify-center bg-red-900 text-white text-xl p-8 text-center"><div><h2 class="text-3xl font-bold mb-4">Error: Could not load questions.</h2><p class="bg-red-800 p-4 rounded-lg">Please ensure a valid <strong>questions.json</strong> file exists in the same directory as this HTML file.</p><p class="mt-4 text-left text-sm text-red-200"><strong>Details:</strong> ${error.message}</p></div></div>`;
-            }
-        };
-
-        init();
-    });
-    </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom Script -->
+    <script src="script.js"></script>
 </body>
 </html>
