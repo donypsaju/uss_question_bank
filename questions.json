@@ -536,16 +536,16 @@
     "option3": "Ignored the external rituals of religions completely",
     "malayalam_option3": "മതങ്ങളുടെ ബാഹ്യമായ ആചാരങ്ങളെ പാടെ അവഗണിച്ചു",
     "option4": "Emphasise the importance of the Langar or community kitchen, where all classes of people could eat together",
-    "malayalam_option4": "എല്ലാ വിഭാഗം ആളുകൾക്കും ഒരുമിച്ച് ഭക്ഷണം കഴിക്കാവുന്ന ലംഗറിൻ്റെയോ കമ്മ്യൂണിറ്റി കിച്ചണിൻ്റെയോ പ്രാധാന്യം ഊന്നിപ്പറയുക",
+    "malayalam_option4": "എല്ലാ വിഭാഗം ആളുകൾക്കും ഒരുമിച്ച് ഭക്ഷണം കഴിക്കാൻ കഴിയുന്ന ലംഗറിൻ്റെയോ കമ്മ്യൂണിറ്റി കിച്ചണിൻ്റെയോ പ്രാധാന്യം ഊന്നിപ്പറയുക",
     "answer": "Emphasise the importance of the Langar or community kitchen, where all classes of people could eat together",
-    "malayalam_answer": "എല്ലാ വിഭാഗം ആളുകൾക്കും ഒരുമിച്ച് ഭക്ഷണം കഴിക്കാവുന്ന ലംഗറിൻ്റെയോ കമ്മ്യൂണിറ്റി കിച്ചണിൻ്റെയോ പ്രാധാന്യം ഊന്നിപ്പറയുക",
+    "malayalam_answer": "എല്ലാ വിഭാഗം ആളുകൾക്കും ഒരുമിച്ച് ഭക്ഷണം കഴിക്കാൻ കഴിയുന്ന ലംഗറിൻ്റെയോ കമ്മ്യൂണിറ്റി കിച്ചണിൻ്റെയോ പ്രാധാന്യം ഊന്നിപ്പറയുക",
     "subject": "Social Science",
     "chapter": 2,
     "image": "null"
   },
   {
     "question": "Which of the following is not true regarding the characteristic of the South Indian bhakti movement?",
-    "malayalam_question": "ദക്ഷിണേന്ത്യൻ ഭക്തി പ്രസ്ഥാനത്തിൻ്റെ സവിശേഷതയെ സംബന്ധിച്ച് ഇനിപ്പറയുന്നവയിൽ ശരിയല്ലാത്തത് ഏതാണ്?",
+    "malayalam_question": "ദക്ഷിണേന്ത്യൻ ഭക്തി പ്രസ്ഥാനത്തിൻ്റെ സവിശേഷത സംബന്ധിച്ച് ഇനിപ്പറയുന്നവയിൽ ശരിയല്ലാത്തത് ഏതാണ്?",
     "option1": "Deep devotion to the the beloved deity",
     "malayalam_option1": "പ്രിയപ്പെട്ട ദൈവത്തോടുള്ള അഗാധമായ ഭക്തി",
     "option2": "Composition and singing of devotional songs in vernacular language",
@@ -1696,7 +1696,7 @@
     "answer": "ബിമലേന്ദ്ര ചക്രവർത്തി",
     "malayalam_answer": "ബിമലേന്ദ്ര ചക്രവർത്തി",
     "subject": "Part I Malayalam",
-    "chapter": 3,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -1713,7 +1713,7 @@
     "answer": "പിക്ലുവിന്റെ ചേട്ടൻ",
     "malayalam_answer": "പിക്ലുവിന്റെ ചേട്ടൻ",
     "subject": "Part I Malayalam",
-    "chapter": 3,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -1730,7 +1730,7 @@
     "answer": "പൂമുഖം",
     "malayalam_answer": "പൂമുഖം",
     "subject": "Part I Malayalam",
-    "chapter": 3,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -1747,7 +1747,7 @@
     "answer": "കുമാരനാശാൻ",
     "malayalam_answer": "കുമാരനാശാൻ",
     "subject": "Part I Malayalam",
-    "chapter": 3,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -1764,7 +1764,7 @@
     "answer": "അമ്മ",
     "malayalam_answer": "അമ്മ",
     "subject": "Part I Malayalam",
-    "chapter": 3,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -1781,7 +1781,7 @@
     "answer": "ആശ്വസം",
     "malayalam_answer": "ആശ്വസം",
     "subject": "Part I Malayalam",
-    "chapter": 3,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -1798,7 +1798,7 @@
     "answer": "ചെറുവയൽ രാമൻ",
     "malayalam_answer": "ചെറുവയൽ രാമൻ",
     "subject": "Part II Malayalam",
-    "chapter": 3,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -1815,7 +1815,7 @@
     "answer": "എൺപതു ശതമാനം",
     "malayalam_answer": "എൺപതു ശതമാനം",
     "subject": "Part II Malayalam",
-    "chapter": 3,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -1832,7 +1832,7 @@
     "answer": "ആത്മകഥ",
     "malayalam_answer": "ആത്മകഥ",
     "subject": "Part II Malayalam",
-    "chapter": 3,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -1849,7 +1849,92 @@
     "answer": "ചങ്ങാതി നന്നായാൽ കണ്ണാടി വേണ്ട",
     "malayalam_answer": "ചങ്ങാതി നന്നായാൽ കണ്ണാടി വേണ്ട",
     "subject": "Part II Malayalam",
-    "chapter": 3,
+    "chapter": 1,
+    "image": "null"
+  },
+  {
+    "question": "What is 5 1/2 times of 10 litres?",
+    "malayalam_question": "10 ലിറ്ററിൻ്റെ 5 1/2 മടങ്ങ് എന്താണ്?",
+    "option1": "11 litres",
+    "malayalam_option1": "11 ലിറ്റർ",
+    "option2": "55 litres",
+    "malayalam_option2": "55 ലിറ്റർ",
+    "option3": "52 litres",
+    "malayalam_option3": "52 ലിറ്റർ",
+    "option4": "550 litres",
+    "malayalam_option4": "550 ലിറ്റർ",
+    "answer": "55 litres",
+    "malayalam_answer": "55 ലിറ്റർ",
+    "subject": "Maths",
+    "chapter": 4,
+    "image": "null"
+  },
+  {
+    "question": "How many 1/10 is added to make 3 1/2?",
+    "malayalam_question": "3 1/2 ആക്കാൻ എത്ര 1/10 ചേർത്തു?",
+    "option1": 35,
+    "malayalam_option1": "35",
+    "option2": 32,
+    "malayalam_option2": "32",
+    "option3": 15,
+    "malayalam_option3": "15",
+    "option4": 25,
+    "malayalam_option4": "25",
+    "answer": 35,
+    "malayalam_answer": "35",
+    "subject": "Maths",
+    "chapter": 4,
+    "image": "null"
+  },
+  {
+    "question": "The length of a ribbon is 3 1/5 times of the length of the small ribbon. What part of the length of the smaller ribbon is that of the larger ribbon?",
+    "malayalam_question": "ഒരു റിബണിൻ്റെ നീളം ചെറിയ റിബണിൻ്റെ നീളത്തിൻ്റെ 3 1/5 ഇരട്ടിയാണ്. ചെറിയ റിബണിൻ്റെ നീളത്തിൻ്റെ ഏത് ഭാഗമാണ് വലിയ റിബണിൻ്റെത്?",
+    "option1": "16/5",
+    "malayalam_option1": "16/5",
+    "option2": "14/5",
+    "malayalam_option2": "14/5",
+    "option3": "5/16",
+    "malayalam_option3": "5/16",
+    "option4": "1/5",
+    "malayalam_option4": "1/5",
+    "answer": "5/16",
+    "malayalam_answer": "5/16",
+    "subject": "Maths",
+    "chapter": 4,
+    "image": "null"
+  },
+  {
+    "question": "How many pieces, each of length 2 1/2 metres, can be cut off from a rope of length 37 1/2 metres?",
+    "malayalam_question": "37 1/2 മീറ്റർ നീളമുള്ള ഒരു കയറിൽ നിന്ന് 2 1/2 മീറ്റർ നീളമുള്ള എത്ര കഷണങ്ങൾ മുറിക്കാൻ കഴിയും?",
+    "option1": 15,
+    "malayalam_option1": "15",
+    "option2": 17,
+    "malayalam_option2": "17",
+    "option3": 35,
+    "malayalam_option3": "35",
+    "option4": 37,
+    "malayalam_option4": "37",
+    "answer": 15,
+    "malayalam_answer": "15",
+    "subject": "Maths",
+    "chapter": 4,
+    "image": "null"
+  },
+  {
+    "question": "Rama has 26 rupees with her. Leela has 12 rupees. Leela's money is how many times of Rama's money?",
+    "malayalam_question": "രാമയുടെ കൈയിൽ 26 രൂപയുണ്ട്. ലീലയ്ക്ക് 12 രൂപയുണ്ട്. രാമൻ്റെ പണത്തിൻ്റെ എത്ര മടങ്ങാണ് ലീലയുടെ പണം?",
+    "option1": "2 1/12",
+    "malayalam_option1": "2 1/12",
+    "option2": "2 5/6",
+    "malayalam_option2": "2 5/6",
+    "option3": "2 1/6",
+    "malayalam_option3": "2 1/6",
+    "option4": "6/16",
+    "malayalam_option4": "6/16",
+    "answer": "2 1/6",
+    "malayalam_answer": "2 1/6",
+    "subject": "Maths",
+    "chapter": 4,
     "image": "null"
   },
   {
@@ -1866,7 +1951,7 @@
     "answer": "രമണൻ",
     "malayalam_answer": "രമണൻ",
     "subject": "Part I Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -1883,7 +1968,7 @@
     "answer": "വള്ളത്തോൾ നാരായണമേനോൻ",
     "malayalam_answer": "വള്ളത്തോൾ നാരായണമേനോൻ",
     "subject": "Part I Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -1900,7 +1985,7 @@
     "answer": "കുന്നിനെ",
     "malayalam_answer": "കുന്നിനെ",
     "subject": "Part I Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -1917,7 +2002,7 @@
     "answer": "പല്ലവം",
     "malayalam_answer": "പല്ലവം",
     "subject": "Part I Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -1934,7 +2019,7 @@
     "answer": "ചിത്രയോഗം",
     "malayalam_answer": "ചിത്രയോഗം",
     "subject": "Part I Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -1951,7 +2036,7 @@
     "answer": "ഇലകൾ",
     "malayalam_answer": "ഇലകൾ",
     "subject": "Part I Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -1968,7 +2053,7 @@
     "answer": "കുഞ്ചൻ നമ്പ്യാർ",
     "malayalam_answer": "കുഞ്ചൻ നമ്പ്യാർ",
     "subject": "Part I Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -1985,7 +2070,7 @@
     "answer": "സത്യചന്ദ്രൻ പൊയിൽക്കാവ്",
     "malayalam_answer": "സത്യചന്ദ്രൻ പൊയിൽക്കാവ്",
     "subject": "Part I Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2002,7 +2087,7 @@
     "answer": "മുട്ടിച്ച് + ഒരു",
     "malayalam_answer": "മുട്ടിച്ച് + ഒരു",
     "subject": "Part I Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2019,7 +2104,7 @@
     "answer": "ശൈലം",
     "malayalam_answer": "ശൈലം",
     "subject": "Part I Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2036,7 +2121,7 @@
     "answer": "വിചിത്രമായ വർണ്ണം",
     "malayalam_answer": "വിചിത്രമായ വർണ്ണം",
     "subject": "Part I Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2053,7 +2138,7 @@
     "answer": "ചക്രവാളം, പച്ചില, മുകിൽ, ശില്പജ്ഞർ",
     "malayalam_answer": "ചക്രവാളം, പച്ചില, മുകിൽ, ശില്പജ്ഞർ",
     "subject": "Part I Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2070,7 +2155,7 @@
     "answer": "കേരള കലാമണ്ഡലം",
     "malayalam_answer": "കേരള കലാമണ്ഡലം",
     "subject": "Part I Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2087,7 +2172,7 @@
     "answer": "ദേശക്കുമ്മാട്ടി",
     "malayalam_answer": "ദേശക്കുമ്മാട്ടി",
     "subject": "Part II Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2104,7 +2189,7 @@
     "answer": "തള്ള",
     "malayalam_answer": "തള്ള",
     "subject": "Part II Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2121,7 +2206,7 @@
     "answer": "പർപ്പടകപ്പുല്ല്",
     "malayalam_answer": "പർപ്പടകപ്പുല്ല്",
     "subject": "Part II Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2138,7 +2223,7 @@
     "answer": "സി. ആർ. രാജഗോപാലൻ",
     "malayalam_answer": "സി. ആർ. രാജഗോപാലൻ",
     "subject": "Part II Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2155,7 +2240,7 @@
     "answer": "ആരാദനാലയം",
     "malayalam_answer": "ആരാദനാലയം",
     "subject": "Part II Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2172,7 +2257,7 @@
     "answer": "കഥാപാത്രം, കുമ്മാട്ടി, കൂട്ടായ്മ, കൃഷ്‌ണൻ",
     "malayalam_answer": "കഥാപാത്രം, കുമ്മാട്ടി, കൂട്ടായ്മ, കൃഷ്‌ണൻ",
     "subject": "Part II Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2189,7 +2274,7 @@
     "answer": "വിപുലമായ - വിപുലം + മായ",
     "malayalam_answer": "വിപുലമായ - വിപുലം + മായ",
     "subject": "Part II Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2206,7 +2291,7 @@
     "answer": "പരസ്യം",
     "malayalam_answer": "പരസ്യം",
     "subject": "Part II Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2223,7 +2308,7 @@
     "answer": "പടയണി",
     "malayalam_answer": "പടയണി",
     "subject": "Part II Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2240,7 +2325,7 @@
     "answer": "മേദിനി",
     "malayalam_answer": "മേദിനി",
     "subject": "Part II Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2257,7 +2342,7 @@
     "answer": "പന്നി",
     "malayalam_answer": "പന്നി",
     "subject": "Part II Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2274,7 +2359,7 @@
     "answer": "കോതാമ്മൂരിയാട്ടം",
     "malayalam_answer": "കോതാമ്മൂരിയാട്ടം",
     "subject": "Part II Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2291,7 +2376,7 @@
     "answer": "കേളികൊട്ടാണ് ഈ കലാരൂപത്തിന്റെ ആദ്യചടങ്ങ്",
     "malayalam_answer": "കേളികൊട്ടാണ് ഈ കലാരൂപത്തിന്റെ ആദ്യചടങ്ങ്",
     "subject": "Part II Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2308,7 +2393,7 @@
     "answer": "വീഥി",
     "malayalam_answer": "വീഥി",
     "subject": "Part II Malayalam",
-    "chapter": 2,
+    "chapter": 1,
     "image": "null"
   },
   {
@@ -2483,91 +2568,6 @@
   },
   {
     "question": "",
-    "malayalam_question": "#VALUE!",
-    "option1": "",
-    "malayalam_option1": "#VALUE!",
-    "option2": "",
-    "malayalam_option2": "#VALUE!",
-    "option3": "",
-    "malayalam_option3": "#VALUE!",
-    "option4": "",
-    "malayalam_option4": "#VALUE!",
-    "answer": "",
-    "malayalam_answer": "#VALUE!",
-    "subject": "",
-    "chapter": 0,
-    "image": "null"
-  },
-  {
-    "question": "",
-    "malayalam_question": "#VALUE!",
-    "option1": "",
-    "malayalam_option1": "#VALUE!",
-    "option2": "",
-    "malayalam_option2": "#VALUE!",
-    "option3": "",
-    "malayalam_option3": "#VALUE!",
-    "option4": "",
-    "malayalam_option4": "#VALUE!",
-    "answer": "",
-    "malayalam_answer": "#VALUE!",
-    "subject": "",
-    "chapter": 0,
-    "image": "null"
-  },
-  {
-    "question": "",
-    "malayalam_question": "#VALUE!",
-    "option1": "",
-    "malayalam_option1": "#VALUE!",
-    "option2": "",
-    "malayalam_option2": "#VALUE!",
-    "option3": "",
-    "malayalam_option3": "#VALUE!",
-    "option4": "",
-    "malayalam_option4": "#VALUE!",
-    "answer": "",
-    "malayalam_answer": "#VALUE!",
-    "subject": "",
-    "chapter": 0,
-    "image": "null"
-  },
-  {
-    "question": "",
-    "malayalam_question": "#VALUE!",
-    "option1": "",
-    "malayalam_option1": "#VALUE!",
-    "option2": "",
-    "malayalam_option2": "#VALUE!",
-    "option3": "",
-    "malayalam_option3": "#VALUE!",
-    "option4": "",
-    "malayalam_option4": "#VALUE!",
-    "answer": "",
-    "malayalam_answer": "#VALUE!",
-    "subject": "",
-    "chapter": 0,
-    "image": "null"
-  },
-  {
-    "question": "",
-    "malayalam_question": "#VALUE!",
-    "option1": "",
-    "malayalam_option1": "#VALUE!",
-    "option2": "",
-    "malayalam_option2": "#VALUE!",
-    "option3": "",
-    "malayalam_option3": "#VALUE!",
-    "option4": "",
-    "malayalam_option4": "#VALUE!",
-    "answer": "",
-    "malayalam_answer": "#VALUE!",
-    "subject": "",
-    "chapter": 0,
-    "image": "null"
-  },
-  {
-    "question": "",
     "malayalam_question": "",
     "option1": "",
     "malayalam_option1": "",
@@ -19380,87 +19380,87 @@
     "image": "null"
   },
   {
-    "question": "#VALUE!",
+    "question": "",
     "malayalam_question": "",
-    "option1": "#VALUE!",
+    "option1": "",
     "malayalam_option1": "#VALUE!",
-    "option2": "#VALUE!",
+    "option2": "",
     "malayalam_option2": "",
-    "option3": "#VALUE!",
+    "option3": "",
     "malayalam_option3": "",
-    "option4": "#VALUE!",
+    "option4": "",
     "malayalam_option4": "",
-    "answer": "#VALUE!",
+    "answer": "",
     "malayalam_answer": "",
-    "subject": "#VALUE!",
+    "subject": "",
     "chapter": 0,
     "image": "null"
   },
   {
-    "question": "#VALUE!",
+    "question": "",
     "malayalam_question": "",
-    "option1": "#VALUE!",
+    "option1": "",
     "malayalam_option1": "#VALUE!",
-    "option2": "#VALUE!",
+    "option2": "",
     "malayalam_option2": "",
-    "option3": "#VALUE!",
+    "option3": "",
     "malayalam_option3": "",
-    "option4": "#VALUE!",
+    "option4": "",
     "malayalam_option4": "",
-    "answer": "#VALUE!",
+    "answer": "",
     "malayalam_answer": "",
-    "subject": "#VALUE!",
+    "subject": "",
     "chapter": 0,
     "image": "null"
   },
   {
-    "question": "#VALUE!",
+    "question": "",
     "malayalam_question": "",
-    "option1": "#VALUE!",
+    "option1": "",
     "malayalam_option1": "#VALUE!",
-    "option2": "#VALUE!",
+    "option2": "",
     "malayalam_option2": "",
-    "option3": "#VALUE!",
+    "option3": "",
     "malayalam_option3": "",
-    "option4": "#VALUE!",
+    "option4": "",
     "malayalam_option4": "",
-    "answer": "#VALUE!",
+    "answer": "",
     "malayalam_answer": "",
-    "subject": "#VALUE!",
+    "subject": "",
     "chapter": 0,
     "image": "null"
   },
   {
-    "question": "#VALUE!",
+    "question": "",
     "malayalam_question": "",
-    "option1": "#VALUE!",
+    "option1": "",
     "malayalam_option1": "#VALUE!",
-    "option2": "#VALUE!",
+    "option2": "",
     "malayalam_option2": "",
-    "option3": "#VALUE!",
+    "option3": "",
     "malayalam_option3": "",
-    "option4": "#VALUE!",
+    "option4": "",
     "malayalam_option4": "",
-    "answer": "#VALUE!",
+    "answer": "",
     "malayalam_answer": "",
-    "subject": "#VALUE!",
+    "subject": "",
     "chapter": 0,
     "image": "null"
   },
   {
-    "question": "#VALUE!",
+    "question": "",
     "malayalam_question": "",
-    "option1": "#VALUE!",
+    "option1": "",
     "malayalam_option1": "#VALUE!",
-    "option2": "#VALUE!",
+    "option2": "",
     "malayalam_option2": "",
-    "option3": "#VALUE!",
+    "option3": "",
     "malayalam_option3": "",
-    "option4": "#VALUE!",
+    "option4": "",
     "malayalam_option4": "",
-    "answer": "#VALUE!",
+    "answer": "",
     "malayalam_answer": "",
-    "subject": "#VALUE!",
+    "subject": "",
     "chapter": 0,
     "image": "null"
   },
