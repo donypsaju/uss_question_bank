@@ -1,51 +1,38 @@
-/* --- Base and Font --- */
-body {
-    font-family: 'Manjari', sans-serif;
-    /* Font size is now controlled directly by JavaScript */
+:root {
+    --bs-body-font-family: 'Manjari', sans-serif;
 }
 
-/* --- CRITICAL LAYOUT FIX --- */
 main {
-    overflow-y: auto; /* Allows this area to scroll if content is too tall */
+    overflow-y: auto;
 }
 
-/* --- Dynamic Question Height --- */
-#question {
-    /* No height or display properties needed; block behavior is best for wrapping text */
-    word-break: break-word; /* Ensures long words don't overflow */
-}
-
-/* --- Option Styling --- */
 .option {
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .option:hover {
     transform: translateY(-3px);
-    box-shadow: var(--bs-box-shadow-lg) !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
 }
 
-/* --- Theme-Aware Answer State Colors (using Bootstrap CSS Variables) --- */
+.option.disabled {
+    pointer-events: none;
+    opacity: 0.9;
+}
+
 .option.correct {
     background-color: var(--bs-success-bg-subtle) !important;
     border-color: var(--bs-success-border-subtle) !important;
-    color: var(--bs-emphasis-color) !important;
 }
 
 .option.wrong {
     background-color: var(--bs-danger-bg-subtle) !important;
     border-color: var(--bs-danger-border-subtle) !important;
-    color: var(--bs-emphasis-color) !important;
 }
 
-/* --- Hide footer elements when not in a quiz --- */
-footer #question-counter:empty,
-footer #quiz-navigation.d-none {
-    visibility: hidden;
-}
-
-footer #quiz-navigation.d-none {
-    display: none !important;
+/* Ensure chart is responsive */
+#history-chart {
+    max-height: 400px;
 }
 

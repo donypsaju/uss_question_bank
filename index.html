@@ -4,114 +4,183 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classroom Quiz</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Google Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Manjari:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Custom Stylesheet -->
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="d-flex flex-column vh-100 bg-body-tertiary">
+<body style="font-size: 20px;">
 
-    <!-- Header -->
-    <header class="p-3 border-bottom shadow-sm bg-body">
-        <div class="container-fluid d-flex justify-content-between align-items-center">
-            <h1 class="h4 mb-0">Classroom Quiz</h1>
-            <div class="controls d-flex align-items-center">
-                <button id="theme-switcher" class="btn btn-outline-secondary me-2" title="Toggle Theme"><i class="fas fa-adjust"></i></button>
-                <button id="lang-switcher" class="btn btn-outline-secondary me-2" title="Toggle Language"><i class="fas fa-language"></i></button>
-                <div class="btn-group">
-                    <button id="font-decrease" class="btn btn-outline-secondary" title="Decrease Font Size"><i class="fas fa-minus"></i></button>
-                    <button id="font-increase" class="btn btn-outline-secondary" title="Increase Font Size"><i class="fas fa-plus"></i></button>
+    <div class="d-flex flex-column vh-100">
+        <!-- Header -->
+        <header class="p-3 border-bottom shadow-sm">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="h4 mb-0">Classroom Quiz</h1>
+                <div class="controls d-flex align-items-center">
+                    <button id="theme-switcher" class="btn btn-outline-secondary btn-sm me-2" title="Toggle Theme">🎨</button>
+                    <button id="lang-switcher" class="btn btn-outline-secondary btn-sm me-2" title="Toggle Language">🌐</button>
+                    <button id="font-increase" class="btn btn-outline-secondary btn-sm me-2" title="Increase Font Size">A+</button>
+                    <button id="font-decrease" class="btn btn-outline-secondary btn-sm" title="Decrease Font Size">A-</button>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- Main Content Area (Dynamically changes) -->
-    <main class="flex-grow-1 d-flex flex-column justify-content-center container-fluid p-3 p-sm-4">
-        
-        <!-- All screens (start, options, quiz, results) will be shown here -->
-        <div id="start-screen" class="text-center">
-            <h2 class="display-4 mb-4">Welcome!</h2>
-            <button id="start-btn" class="btn btn-primary btn-lg mt-5 px-5 py-3">Start Quiz</button>
-        </div>
-
-        <div id="quiz-options" class="d-none text-center">
-            <button id="full-quiz-btn" class="btn btn-success btn-lg mx-2">Full Quiz (Quiz Time)</button>
-            <button id="subject-quiz-btn" class="btn btn-info btn-lg mx-2">Subject Wise Quiz (Class Time)</button>
-        </div>
-        
-        <div id="chapter-selection" class="d-none my-4">
-             <h2 class="text-center mb-4">Select Chapters for Full Quiz</h2>
-             <div id="chapter-checkboxes" class="d-flex flex-wrap justify-content-center gap-3 mb-4"></div>
-             <div class="text-center">
-                 <button id="start-full-quiz-execution" class="btn btn-primary btn-lg">Start Full Quiz</button>
-             </div>
-        </div>
-
-        <div id="subject-selection" class="d-none my-4">
-              <h2 class="text-center mb-4">Select a Subject</h2>
-              <div id="subject-buttons" class="d-flex flex-wrap justify-content-center gap-3 mb-4"></div>
-        </div>
-
-        <div id="subject-chapter-selection" class="d-none my-4">
-             <h2 id="subject-chapter-title" class="text-center mb-4"></h2>
-             <div id="subject-chapter-options" class="row justify-content-center g-3 mb-4"></div>
-             <div class="text-center">
-                 <button id="start-subject-quiz-execution" class="btn btn-primary btn-lg">Start Subject Quiz</button>
-             </div>
-        </div>
-
-        <!-- Quiz Container -->
-        <div id="quiz-container" class="d-none w-100">
-            <div id="question-image-container" class="text-center mb-3 d-none">
-                <img id="question-image" src="" alt="Question Image" class="img-fluid rounded shadow-sm" style="max-height: 30vh; cursor: pointer;">
-            </div>
-            <div id="question" class="h2 p-4 mb-4 rounded bg-body shadow-sm"></div>
-            <div id="options" class="options-container row g-3"></div>
-        </div>
-
-        <!-- Results Container -->
-        <div id="results-container" class="d-none my-4">
-             <h2 class="text-center mb-4">Quiz Results</h2>
-             <div id="answer-sheet" class="mb-4"></div>
-             <div class="text-center">
-                 <button id="restart-btn" class="btn btn-secondary btn-lg">Restart Quiz</button>
-             </div>
-        </div>
-    </main>
-
-    <!-- Navigation Footer -->
-    <footer class="p-3 border-top bg-body">
-        <div class="container-fluid d-flex justify-content-between align-items-center">
-            <span id="question-counter" class="badge bg-secondary rounded-pill fs-6"></span>
-            <div id="quiz-navigation" class="d-flex justify-content-end">
-                <button id="reveal-answer-btn" class="btn btn-warning btn-lg me-2 d-none">Reveal Answer</button>
-                <button id="next-btn" class="btn btn-primary btn-lg">Next Question</button>
-            </div>
-        </div>
-    </footer>
-    
-    <!-- Image Modal -->
-    <div id="image-modal" class="modal fade" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content bg-transparent border-0">
-                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 p-3" data-bs-dismiss="modal" aria-label="Close" style="z-index: 1;"></button>
-                <div class="modal-body d-flex justify-content-center align-items-center">
-                    <img class="modal-content img-fluid" id="modal-img" src="" alt="Enlarged Image">
+        <!-- Main Content -->
+        <main class="flex-grow-1 overflow-y-auto">
+            <!-- Start Screen -->
+            <div id="start-screen" class="container text-center d-flex flex-column justify-content-center h-100">
+                <h2>Welcome!</h2>
+                <p class="lead">Choose a quiz mode to begin.</p>
+                <div class="mt-4">
+                    <button id="start-student-quiz-btn" class="btn btn-primary btn-lg mx-2">Student Practice</button>
+                    <button id="start-teacher-quiz-btn" class="btn btn-success btn-lg mx-2">Teacher Classroom</button>
+                    <button id="view-history-btn" class="btn btn-info btn-lg mx-2">View Past Results</button>
                 </div>
             </div>
-        </div>
+
+            <!-- Student Quiz Container -->
+            <div id="student-quiz-container" class="container py-4 d-none">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span id="student-question-counter" class="badge bg-primary rounded-pill fs-6"></span>
+                    <span id="student-timer" class="badge bg-secondary rounded-pill fs-6">00:00</span>
+                    <span id="student-score-counter" class="badge bg-success rounded-pill fs-6"></span>
+                </div>
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h4 id="student-question" class="card-title text-center mb-4" style="min-height: 100px;"></h4>
+                        <div id="student-options" class="row g-3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Results Container -->
+            <div id="student-results-container" class="container py-4 text-center d-none">
+                <div class="card shadow">
+                    <div class="card-body" id="student-results-summary"></div>
+                    <div class="card-footer">
+                        <button id="student-restart-btn" class="btn btn-secondary">Back to Main Menu</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Container -->
+            <div id="history-container" class="container py-4 d-none">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="mb-0">Past Results</h2>
+                    <button id="back-to-menu-btn" class="btn btn-secondary">Back to Menu</button>
+                </div>
+
+                <!-- Analytics Dashboard (Conditional) -->
+                <div id="history-analytics" class="d-none">
+                    <div class="row g-4 mb-4">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card text-center h-100 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Average Score</h5>
+                                    <p id="avg-score" class="display-4 fw-bold mb-0"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card text-center h-100 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Strongest Subject</h5>
+                                    <p id="strong-subject" class="h2 text-success fw-bold mb-0"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                             <div class="card text-center h-100 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Needs Improvement</h5>
+                                    <p id="weak-subject" class="h2 text-warning fw-bold mb-0"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Score Progress</h5>
+                            <canvas id="history-chart"></canvas>
+                        </div>
+                    </div>
+                     <div class="card shadow-sm mb-4">
+                        <div class="card-body" id="history-suggestions">
+                            <!-- Suggestions will be injected here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="history-list"></div>
+            </div>
+
+            <!-- Teacher Quiz Container -->
+            <div id="teacher-quiz-container" class="container py-4 d-none">
+                <!-- Teacher Quiz Options -->
+                <div id="teacher-quiz-options" class="text-center">
+                    <h2>Teacher Mode</h2>
+                    <p class="lead">Select a quiz type.</p>
+                    <button id="full-quiz-btn" class="btn btn-primary mx-2">Full Quiz</button>
+                    <button id="subject-quiz-btn" class="btn btn-info mx-2">Subject Wise Quiz</button>
+                </div>
+
+                <!-- Chapter Selection (Full Quiz) -->
+                <div id="chapter-selection" class="d-none">
+                    <h4 class="text-center mb-3">Select Chapters for Full Quiz</h4>
+                    <div id="chapter-checkboxes" class="d-flex flex-wrap justify-content-center gap-2 mb-3"></div>
+                    <div class="text-center">
+                        <button id="start-full-quiz-execution" class="btn btn-success">Start Full Quiz</button>
+                    </div>
+                </div>
+
+                <!-- Subject Selection -->
+                <div id="subject-selection" class="d-none">
+                    <h4 class="text-center mb-3">Select a Subject</h4>
+                    <div id="subject-buttons" class="d-flex flex-wrap justify-content-center gap-2"></div>
+                </div>
+                
+                <!-- Chapter Selection (Subject Quiz) -->
+                <div id="subject-chapter-selection" class="d-none">
+                    <h4 id="subject-chapter-title" class="text-center mb-3"></h4>
+                    <div id="subject-chapter-options" class="row g-2 justify-content-center mb-3"></div>
+                     <div class="text-center">
+                        <button id="start-subject-quiz-execution" class="btn btn-success">Start Subject Quiz</button>
+                    </div>
+                </div>
+                
+                <!-- Teacher Quiz View -->
+                <div id="teacher-quiz-view" class="d-none">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span id="teacher-question-counter" class="badge bg-primary rounded-pill fs-6"></span>
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h4 id="teacher-question" class="card-title text-center mb-4" style="min-height: 100px;"></h4>
+                            <div id="teacher-options" class="row g-3"></div>
+                        </div>
+                        <div class="card-footer text-end">
+                            <button id="reveal-answer-btn" class="btn btn-warning mx-2">Reveal Answer</button>
+                            <button id="teacher-next-btn" class="btn btn-primary">Next Question</button>
+                        </div>
+                    </div>
+                </div>
+                
+                 <!-- Teacher Results Container -->
+                <div id="teacher-results-container" class="d-none text-center">
+                     <div class="card shadow">
+                        <div class="card-header"><h3>Quiz Complete</h3></div>
+                        <div class="card-body text-start" id="teacher-answer-sheet"></div>
+                        <div class="card-footer">
+                            <button id="teacher-restart-btn" class="btn btn-secondary">Back to Main Menu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
