@@ -562,7 +562,7 @@
   },
   {
     "question": "Who among the following poets belong to the Nayanars?",
-    "malayalam_question": "താഴെപ്പറയുന്നവരിൽ ആരാണ് നായനാരിൽ പെട്ട കവി?",
+    "malayalam_question": "താഴെപ്പറയുന്നവരിൽ ആരാണ് നായനാരുടെ കീഴിലുള്ള കവി?",
     "option1": "Kulasekhara Alvar",
     "malayalam_option1": "കുലശേഖര ആൾവാർ",
     "option2": "Appar",
@@ -970,7 +970,7 @@
   },
   {
     "question": "Many ideas and provisions of Indian constitution owes to which of these following Act of the British India?",
-    "malayalam_question": "ഇന്ത്യൻ ഭരണഘടനയുടെ നിരവധി ആശയങ്ങളും വ്യവസ്ഥകളും ബ്രിട്ടീഷ് ഇന്ത്യയുടെ ഇനിപ്പറയുന്ന ഏത് നിയമത്തോട് കടപ്പെട്ടിരിക്കുന്നു?",
+    "malayalam_question": "ഇന്ത്യൻ ഭരണഘടനയിലെ നിരവധി ആശയങ്ങളും വ്യവസ്ഥകളും ബ്രിട്ടീഷ് ഇന്ത്യയുടെ ഇനിപ്പറയുന്ന ഏത് നിയമത്തോട് കടപ്പെട്ടിരിക്കുന്നു?",
     "option1": "Government of India Act 1919",
     "malayalam_option1": "ഗവൺമെൻ്റ് ഓഫ് ഇന്ത്യ ആക്റ്റ് 1919",
     "option2": "Government of India Act 1935",
@@ -1199,9 +1199,9 @@
     "option3": "Stops water",
     "malayalam_option3": "വെള്ളം നിർത്തുന്നു",
     "option4": " Forms water",
-    "malayalam_option4": " വെള്ളം രൂപപ്പെടുത്തുന്നു",
+    "malayalam_option4": " ജലം രൂപപ്പെടുത്തുന്നു",
     "answer": "Forms water ",
-    "malayalam_answer": "വെള്ളം രൂപപ്പെടുത്തുന്നു ",
+    "malayalam_answer": "ജലം രൂപപ്പെടുത്തുന്നു ",
     "subject": "Basic Science",
     "chapter": 2,
     "image": "null"
@@ -1497,7 +1497,7 @@
   },
   {
     "question": "Take pathinugham water in three different test tubes. Add five drops of vinegar, Tamarind water and lemon juice, respectively to it. What is the colour change?",
-    "malayalam_question": "മൂന്ന് വ്യത്യസ്‌ത പരീക്ഷണ ട്യൂബുകളിലായി പാതിന്നുഗം വെള്ളം എടുക്കുക. ഇതിലേക്ക് യഥാക്രമം അഞ്ച് തുള്ളി വിനാഗിരി, പുളിവെള്ളം, നാരങ്ങ നീര് എന്നിവ ചേർക്കുക. എന്താണ് നിറം മാറ്റം?",
+    "malayalam_question": "മൂന്ന് വ്യത്യസ്‌ത ടെസ്റ്റ് ട്യൂബുകളിലായി പാത്തിനുഗം വെള്ളം എടുക്കുക. ഇതിലേക്ക് യഥാക്രമം അഞ്ച് തുള്ളി വിനാഗിരി, പുളിവെള്ളം, നാരങ്ങ നീര് എന്നിവ ചേർക്കുക. എന്താണ് നിറം മാറ്റം?",
     "option1": "Green",
     "malayalam_option1": "പച്ച",
     "option2": "Blue",
@@ -2160,7 +2160,7 @@
   },
   {
     "question": "The light ray falls on a mirror is called incident ray and the ray that bounces back is called the reflected ray. Then what is the line drawn perpendicular to the surface of the mirror from the point of incidence, called?",
-    "malayalam_question": "കണ്ണാടിയിൽ പതിക്കുന്ന പ്രകാശകിരണത്തെ സംഭവകിരണമെന്നും പിന്നിലേക്ക് കുതിക്കുന്ന രശ്മിയെ പ്രതിഫലിച്ച കിരണമെന്നും വിളിക്കുന്നു. അപ്പോൾ സംഭവത്തിൻ്റെ പോയിൻ്റിൽ നിന്ന് കണ്ണാടിയുടെ ഉപരിതലത്തിലേക്ക് ലംബമായി വരച്ച രേഖയെ എന്താണ് വിളിക്കുന്നത്?",
+    "malayalam_question": "കണ്ണാടിയിൽ പതിക്കുന്ന പ്രകാശകിരണത്തെ സംഭവകിരണമെന്നും പിന്നിലേക്ക് കുതിക്കുന്ന കിരണത്തെ പ്രതിഫലിച്ച കിരണമെന്നും വിളിക്കുന്നു. അപ്പോൾ സംഭവബിന്ദുവിൽ നിന്ന് കണ്ണാടിയുടെ ഉപരിതലത്തിലേക്ക് ലംബമായി വരച്ച വരയെ എന്താണ് വിളിക്കുന്നത്?",
     "option1": "Angle of incidence",
     "malayalam_option1": "സംഭവത്തിൻ്റെ ആംഗിൾ",
     "option2": "Angle of reflection",
@@ -2194,7 +2194,7 @@
   },
   {
     "question": "A child made a beautiful periscope. But he couldn't see anything when looked through it. But when he changed the mirror used in it with another type, it worked. Can you guess the mirror he used secondly?",
-    "malayalam_question": "ഒരു കുട്ടി മനോഹരമായ ഒരു പെരിസ്കോപ്പ് ഉണ്ടാക്കി. പക്ഷെ അതിലൂടെ നോക്കിയപ്പോൾ ഒന്നും കാണാൻ കഴിഞ്ഞില്ല. എന്നാൽ അതിൽ ഉപയോഗിച്ചിരുന്ന കണ്ണാടി മറ്റൊരു തരത്തിൽ മാറ്റിയപ്പോൾ അത് പ്രവർത്തിച്ചു. അവൻ രണ്ടാമതായി ഉപയോഗിച്ച കണ്ണാടി നിങ്ങൾക്ക് ഊഹിക്കാമോ?",
+    "malayalam_question": "ഒരു കുട്ടി മനോഹരമായ പെരിസ്കോപ്പ് ഉണ്ടാക്കി. പക്ഷെ അതിലൂടെ നോക്കിയപ്പോൾ ഒന്നും കാണാൻ കഴിഞ്ഞില്ല. എന്നാൽ അതിൽ ഉപയോഗിച്ചിരുന്ന കണ്ണാടി മറ്റൊരു തരത്തിൽ മാറ്റിയപ്പോൾ അത് പ്രവർത്തിച്ചു. അവൻ രണ്ടാമതായി ഉപയോഗിച്ച കണ്ണാടി നിങ്ങൾക്ക് ഊഹിക്കാമോ?",
     "option1": "Concave mirror",
     "malayalam_option1": "കോൺകേവ് കണ്ണാടി",
     "option2": "Plane mirror",
@@ -2211,7 +2211,7 @@
   },
   {
     "question": "We can see amazing visuals in a kaleidoscope due to multiple reflection. Which mirror is used in the making of kaleidoscope?",
-    "malayalam_question": "ഒന്നിലധികം പ്രതിഫലനം മൂലം നമുക്ക് കാലിഡോസ്കോപ്പിൽ അതിശയകരമായ ദൃശ്യങ്ങൾ കാണാൻ കഴിയും. കാലിഡോസ്കോപ്പ് നിർമ്മാണത്തിൽ ഉപയോഗിക്കുന്ന കണ്ണാടി ഏത്?",
+    "malayalam_question": "ഒന്നിലധികം പ്രതിഫലനം കാരണം നമുക്ക് ഒരു കാലിഡോസ്കോപ്പിൽ അതിശയകരമായ ദൃശ്യങ്ങൾ കാണാൻ കഴിയും. കാലിഡോസ്കോപ്പ് നിർമ്മാണത്തിൽ ഉപയോഗിക്കുന്ന കണ്ണാടി ഏത്?",
     "option1": "Concave mirror",
     "malayalam_option1": "കോൺകേവ് കണ്ണാടി",
     "option2": "Plane mirror",
@@ -2234,7 +2234,7 @@
     "option2": "The angle of reflection will be double of the angle of incidence",
     "malayalam_option2": "പ്രതിഫലനത്തിൻ്റെ കോൺ സംഭവത്തിൻ്റെ കോണിൻ്റെ ഇരട്ടിയായിരിക്കും",
     "option3": "The angle of incidence will be higher than the angle of reflection",
-    "malayalam_option3": "പ്രതിഫലനത്തിൻ്റെ കോണിനേക്കാൾ ഉയർന്നതായിരിക്കും സംഭവത്തിൻ്റെ കോൺ",
+    "malayalam_option3": "പ്രതിഫലനത്തിൻ്റെ കോണിനേക്കാൾ ഉയർന്നതായിരിക്കും സംഭവങ്ങളുടെ കോൺ",
     "option4": "The angle of incidence will be lesser than the angle of reflection",
     "malayalam_option4": "സംഭവങ്ങളുടെ ആംഗിൾ പ്രതിഫലനത്തിൻ്റെ കോണിനേക്കാൾ കുറവായിരിക്കും",
     "answer": "The angle of incidence and the angle of reflection are always the same",
@@ -2551,7 +2551,7 @@
   },
   {
     "question": "Who was the First Malayalee women to become Director General of the Botanical Survey of India?",
-    "malayalam_question": "ബൊട്ടാണിക്കൽ സർവേ ഓഫ് ഇന്ത്യയുടെ ഡയറക്ടർ ജനറലായ ആദ്യ മലയാളി വനിത?",
+    "malayalam_question": "ബൊട്ടാണിക്കൽ സർവ്വേ ഓഫ് ഇന്ത്യയുടെ ഡയറക്ടർ ജനറൽ ആയ ആദ്യ മലയാളി വനിത?",
     "option1": "Shakuntala Devi",
     "malayalam_option1": "ശകുന്തള ദേവി",
     "option2": "Dr. Poonnen Lukose",
@@ -2687,7 +2687,7 @@
   },
   {
     "question": "Who was the social reformer nominated to Sri Moolam Prana Sabha in 1921 and 1931",
-    "malayalam_question": "1921ലും 1931ലും ശ്രീമൂലം പ്രാണസഭയിലേക്ക് നാമനിർദ്ദേശം ചെയ്യപ്പെട്ട സാമൂഹ്യപരിഷ്കർത്താവ്?",
+    "malayalam_question": "1921-ലും 1931-ലും ശ്രീമൂലം പ്രാണസഭയിലേക്ക് നാമനിർദ്ദേശം ചെയ്യപ്പെട്ട സാമൂഹ്യപരിഷ്കർത്താവ്?",
     "option1": "Vakati Abdul Khadar Moulavi",
     "malayalam_option1": "വക്കാടി അബ്ദുൽ ഖാദർ മൗലവി",
     "option2": "Sree Narayana Guru",
