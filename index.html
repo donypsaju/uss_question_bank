@@ -32,7 +32,8 @@
             <div id="start-screen" class="container text-center d-flex flex-column justify-content-center h-100">
                 <h2>Welcome!</h2>
                 <p class="lead">Choose a quiz mode to begin.</p>
-                <div class="mt-4">
+                <p id="loading-message" class="text-muted">Loading questions...</p>
+                <div id="main-menu-buttons" class="mt-4 visually-hidden">
                     <button id="start-student-quiz-btn" class="btn btn-primary btn-lg mx-2">Student Practice</button>
                     <button id="start-teacher-quiz-btn" class="btn btn-success btn-lg mx-2">Teacher Classroom</button>
                     <button id="view-history-btn" class="btn btn-info btn-lg mx-2">View Past Results</button>
@@ -123,6 +124,9 @@
                     <p class="lead">Select a quiz type.</p>
                     <button id="full-quiz-btn" class="btn btn-primary mx-2">Full Quiz</button>
                     <button id="subject-quiz-btn" class="btn btn-info mx-2">Subject Wise Quiz</button>
+                    <div class="mt-4">
+                        <button class="btn btn-secondary teacher-back-to-menu">Back to Main Menu</button>
+                    </div>
                 </div>
 
                 <!-- Chapter Selection (Full Quiz) -->
@@ -130,7 +134,8 @@
                     <h4 class="text-center mb-3">Select Chapters for Full Quiz</h4>
                     <div id="chapter-checkboxes" class="d-flex flex-wrap justify-content-center gap-2 mb-3"></div>
                     <div class="text-center">
-                        <button id="start-full-quiz-execution" class="btn btn-success">Start Full Quiz</button>
+                        <button id="start-full-quiz-execution" class="btn btn-success me-2">Start Full Quiz</button>
+                        <button class="btn btn-secondary teacher-back-btn" data-target="teacher-quiz-options">Back</button>
                     </div>
                 </div>
 
@@ -138,6 +143,9 @@
                 <div id="subject-selection" class="d-none">
                     <h4 class="text-center mb-3">Select a Subject</h4>
                     <div id="subject-buttons" class="d-flex flex-wrap justify-content-center gap-2"></div>
+                    <div class="text-center mt-4">
+                         <button class="btn btn-secondary teacher-back-btn" data-target="teacher-quiz-options">Back</button>
+                    </div>
                 </div>
                 
                 <!-- Chapter Selection (Subject Quiz) -->
@@ -145,7 +153,8 @@
                     <h4 id="subject-chapter-title" class="text-center mb-3"></h4>
                     <div id="subject-chapter-options" class="row g-2 justify-content-center mb-3"></div>
                      <div class="text-center">
-                        <button id="start-subject-quiz-execution" class="btn btn-success">Start Subject Quiz</button>
+                        <button id="start-subject-quiz-execution" class="btn btn-success me-2">Start Subject Quiz</button>
+                        <button class="btn btn-secondary teacher-back-btn" data-target="subject-selection">Back</button>
                     </div>
                 </div>
                 

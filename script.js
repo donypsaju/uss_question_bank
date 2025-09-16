@@ -8,9 +8,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let historyChart = null; // Chart instance variable
 
     // --- INITIALIZATION ---
-    fetch('questions.json').then(res => res.json()).then(data => {
-        allQuestions = data;
-    });
+    fetch('questions.json')
+        .then(res => res.json())
+        .then(data => {
+            allQuestions = data;
+            // Enable the main menu now that questions are loaded
+            document.getElementById('loading-message').classList.add('d-none');
+            document.getElementById('main-menu-buttons').classList.remove('visually-hidden');
+        })
+        .catch(error => {
+            console.error("Failed to load questions.json:", error);
+            document.getElementById('loading-message').textContent = "Error: Could not load questions.";
+            document.getElementById('loading-message').classList.add('text-danger');
+        });
+        
     applyTheme();
     applyFontSize();
 
@@ -192,7 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
             listEl.innerHTML = `<p class="text-center">You haven't completed any quizzes yet.</p>`;
             analyticsEl.classList.add('d-none');
         } else {
-            // Display individual quiz cards
             listEl.innerHTML = history.map(res => `
                 <div class="card shadow-sm mb-3">
                     <div class="card-body">
@@ -204,7 +214,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>`).join('');
 
-            // If more than 2 quizzes, show analytics
             if (history.length > 2) {
                 analyticsEl.classList.remove('d-none');
                 const analytics = calculateHistoryAnalytics(history);
@@ -220,32 +229,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function calculateHistoryAnalytics(history) {
         const subjectData = {};
-        let totalScores = 0;
-        let totalQuestions = 0;
-
+        let totalScores = 0, totalQuestions = 0;
         history.forEach(res => {
             totalScores += res.score;
             totalQuestions += res.total;
             Object.entries(res.details).forEach(([subject, data]) => {
-                if (!subjectData[subject]) {
-                    subjectData[subject] = { correct: 0, total: 0 };
-                }
+                if (!subjectData[subject]) subjectData[subject] = { correct: 0, total: 0 };
                 subjectData[subject].correct += data.correct;
                 subjectData[subject].total += (data.correct + data.wrong);
             });
         });
-
-        const subjectAccuracy = Object.entries(subjectData).map(([subject, data]) => ({
-            subject,
-            accuracy: (data.correct / data.total) * 100
-        }));
-
+        const subjectAccuracy = Object.entries(subjectData).map(([subject, data]) => ({ subject, accuracy: (data.correct / data.total) * 100 }));
         subjectAccuracy.sort((a, b) => b.accuracy - a.accuracy);
-
         return {
             averageScore: ((totalScores / totalQuestions) * 100).toFixed(0),
-            strongestSubject: subjectAccuracy.length > 0 ? subjectAccuracy[0] : { subject: 'N/A', accuracy: 0 },
-            weakestSubject: subjectAccuracy.length > 0 ? subjectAccuracy[subjectAccuracy.length - 1] : { subject: 'N/A', accuracy: 0 }
+            strongestSubject: subjectAccuracy[0] || { subject: 'N/A' },
+            weakestSubject: subjectAccuracy[subjectAccuracy.length - 1] || { subject: 'N/A' }
         };
     }
 
@@ -256,50 +255,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderHistoryChart(history) {
-        if (historyChart) {
-            historyChart.destroy();
-        }
+        if (historyChart) historyChart.destroy();
         const ctx = document.getElementById('history-chart').getContext('2d');
-        const reversedHistory = [...history].reverse(); // Oldest to newest
-        
+        const reversedHistory = [...history].reverse();
         historyChart = new Chart(ctx, {
             type: 'line',
-            data: {
-                labels: reversedHistory.map((_, index) => `Quiz ${index + 1}`),
-                datasets: [{
-                    label: 'Score %',
-                    data: reversedHistory.map(res => (res.score / res.total) * 100),
-                    fill: true,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100
-                    }
-                }
-            }
+            data: { labels: reversedHistory.map((_, i) => `Quiz ${i + 1}`), datasets: [{ label: 'Score %', data: reversedHistory.map(res => (res.score / res.total) * 100), fill: true, borderColor: 'rgb(75, 192, 192)', tension: 0.1 }] },
+            options: { scales: { y: { beginAtZero: true, max: 100 } } }
         });
     }
 
     function renderHistorySuggestions(analytics) {
-        const suggestionsEl = document.getElementById('history-suggestions');
-        let suggestionsHTML = `<h5 class="card-title">Suggestions for Improvement</h5>`;
-        suggestionsHTML += `<ul class="list-unstyled">`;
-        
-        if (analytics.strongestSubject && analytics.strongestSubject.accuracy > 85) {
-            suggestionsHTML += `<li>✅ You're excelling in <strong>${analytics.strongestSubject.subject}</strong>. Fantastic work, keep reinforcing that knowledge!</li>`;
-        }
-        if (analytics.weakestSubject && analytics.weakestSubject.accuracy < 60) {
-            suggestionsHTML += `<li>🎯 Your results suggest focusing more on <strong>${analytics.weakestSubject.subject}</strong>. Reviewing notes or doing extra practice in this area could boost your overall score significantly.</li>`;
-        }
-        suggestionsHTML += `<li>⏱️ Remember, consistent practice is key. Try to maintain a steady pace during the quiz to manage your time effectively across all subjects.</li>`;
-        suggestionsHTML += `</ul>`;
-        
-        suggestionsEl.innerHTML = suggestionsHTML;
+        let html = `<h5 class="card-title">Suggestions for Improvement</h5><ul class="list-unstyled">`;
+        if (analytics.strongestSubject.accuracy > 85) html += `<li>✅ You're excelling in <strong>${analytics.strongestSubject.subject}</strong>. Fantastic work!</li>`;
+        if (analytics.weakestSubject.accuracy < 60) html += `<li>🎯 Your results suggest focusing more on <strong>${analytics.weakestSubject.subject}</strong>. Extra practice here could boost your score.</li>`;
+        html += `<li>⏱️ Consistent practice is key. Try to maintain a steady pace to manage your time effectively.</li></ul>`;
+        document.getElementById('history-suggestions').innerHTML = html;
     }
 
     // --- TEACHER QUIZ LOGIC ---
@@ -307,17 +278,21 @@ document.addEventListener('DOMContentLoaded', () => {
         questions: [],
         currentIndex: 0,
         mode: '',
+        currentSubject: '',
         displayStates: {},
         userAnswers: []
     };
 
+    document.querySelectorAll('.teacher-back-to-menu').forEach(btn => btn.addEventListener('click', () => showScreen('start-screen')));
+    document.querySelectorAll('.teacher-back-btn').forEach(btn => btn.addEventListener('click', (e) => showScreen('teacher-quiz-container', e.target.dataset.target)));
+    
     document.getElementById('full-quiz-btn').addEventListener('click', setupTeacherFullQuiz);
     document.getElementById('subject-quiz-btn').addEventListener('click', setupTeacherSubjectQuiz);
     document.getElementById('start-full-quiz-execution').addEventListener('click', startTeacherFullQuiz);
     document.getElementById('start-subject-quiz-execution').addEventListener('click', startTeacherSubjectQuiz);
     document.getElementById('teacher-next-btn').addEventListener('click', nextTeacherQuestion);
     document.getElementById('reveal-answer-btn').addEventListener('click', revealTeacherAnswer);
-    document.getElementById('teacher-restart-btn').addEventListener('click', () => showScreen('start-screen'));
+    document.getElementById('teacher-restart-btn').addEventListener('click', () => showScreen('teacher-quiz-container', 'teacher-quiz-options'));
 
     function setupTeacherFullQuiz() {
         teacherQuizState.mode = 'full';
@@ -340,26 +315,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function selectTeacherSubject(subject) {
+        teacherQuizState.currentSubject = subject; // Store the selected subject
         document.getElementById('subject-chapter-title').textContent = `Select Chapters for ${subject}`;
         const chapters = [...new Set(allQuestions.filter(q => q.subject === subject).map(q => q.chapter))].sort((a, b) => a - b);
         const optionsContainer = document.getElementById('subject-chapter-options');
         optionsContainer.innerHTML = `
-            <div class="col-12 mb-3">
-                <button class="btn btn-sm btn-secondary" id="teacher-select-all-chapters">Select/Deselect All</button>
-            </div>
-            ${chapters.map(ch => `
-                <div class="col-auto">
-                    <label class="btn btn-outline-secondary">
-                        <input type="checkbox" class="form-check-input" value="${ch}"> Chapter ${ch}
-                    </label>
-                </div>`).join('')}
-            <div class="col-12 mt-3">
-                <label>Questions per chapter: 
-                    <select id="teacher-question-count" class="form-select d-inline-block w-auto">
-                        <option value="5">5</option><option value="10">10</option><option value="all">All</option>
-                    </select>
-                </label>
-            </div>`;
+            <div class="col-12 mb-3"><button class="btn btn-sm btn-secondary" id="teacher-select-all-chapters">Select/Deselect All</button></div>
+            ${chapters.map(ch => `<div class="col-auto"><label class="btn btn-outline-secondary"><input type="checkbox" class="form-check-input" value="${ch}"> Chapter ${ch}</label></div>`).join('')}
+            <div class="col-12 mt-3"><label>Questions per chapter: <select id="teacher-question-count" class="form-select d-inline-block w-auto"><option value="5">5</option><option value="10">10</option><option value="all">All</option></select></label></div>`;
         document.getElementById('teacher-select-all-chapters').addEventListener('click', () => {
             const checkboxes = optionsContainer.querySelectorAll('input[type="checkbox"]');
             const allChecked = Array.from(checkboxes).every(cb => cb.checked);
@@ -383,9 +346,8 @@ document.addEventListener('DOMContentLoaded', () => {
         teacherQuizState.questions = [];
         const selectedChapters = Array.from(document.querySelectorAll('#subject-chapter-options input:checked')).map(cb => parseInt(cb.value));
         const count = document.getElementById('teacher-question-count').value;
-        const subject = document.getElementById('subject-chapter-title').textContent.replace('Select Chapters for ', '');
         selectedChapters.forEach(chapter => {
-            let chapterQuestions = allQuestions.filter(q => q.subject === subject && q.chapter === chapter);
+            let chapterQuestions = allQuestions.filter(q => q.subject === teacherQuizState.currentSubject && q.chapter === chapter);
             teacherQuizState.questions.push(...shuffleArray(chapterQuestions).slice(0, count === 'all' ? undefined : parseInt(count)));
         });
         teacherQuizState.questions = shuffleArray(teacherQuizState.questions);
@@ -407,6 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('teacher-question').textContent = q[currentLanguage === 'english' ? 'question' : 'malayalam_question'];
         const optionsEl = document.getElementById('teacher-options');
         optionsEl.innerHTML = '';
+        teacherQuizState.displayStates[teacherQuizState.currentIndex] = [];
         shuffleArray(['option1', 'option2', 'option3', 'option4']).forEach((optKey, index) => {
             const label = ['A', 'B', 'C', 'D'][index];
             const optionText = q[currentLanguage === 'english' ? optKey : `malayalam_${optKey}`];
