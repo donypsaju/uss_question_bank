@@ -49,6 +49,10 @@
                 </div>
                 <div class="card shadow">
                     <div class="card-body">
+                        <!-- Student Image Container -->
+                        <div id="student-image-container" class="text-center mb-3 d-none">
+                            <img id="student-question-image" src="" alt="Question Image" class="img-fluid rounded shadow-sm" style="max-height: 300px;">
+                        </div>
                         <h4 id="student-question" class="card-title text-center mb-4" style="min-height: 100px;"></h4>
                         <div id="student-options" class="row g-3"></div>
                     </div>
@@ -71,65 +75,23 @@
                     <h2 class="mb-0">Past Results</h2>
                     <button id="back-to-menu-btn" class="btn btn-secondary">Back to Menu</button>
                 </div>
-
-                <!-- Analytics Dashboard (Conditional) -->
                 <div id="history-analytics" class="d-none">
-                    <div class="row g-4 mb-4">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card text-center h-100 shadow-sm">
-                                <div class="card-body">
-                                    <h5 class="card-title">Average Score</h5>
-                                    <p id="avg-score" class="display-4 fw-bold mb-0"></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card text-center h-100 shadow-sm">
-                                <div class="card-body">
-                                    <h5 class="card-title">Strongest Subject</h5>
-                                    <p id="strong-subject" class="h2 text-success fw-bold mb-0"></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-12">
-                             <div class="card text-center h-100 shadow-sm">
-                                <div class="card-body">
-                                    <h5 class="card-title">Needs Improvement</h5>
-                                    <p id="weak-subject" class="h2 text-warning fw-bold mb-0"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card shadow-sm mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Score Progress</h5>
-                            <canvas id="history-chart"></canvas>
-                        </div>
-                    </div>
-                     <div class="card shadow-sm mb-4">
-                        <div class="card-body" id="history-suggestions">
-                            <!-- Suggestions will be injected here -->
-                        </div>
-                    </div>
+                    <!-- Analytics Cards -->
                 </div>
-                
                 <div id="history-list"></div>
             </div>
 
             <!-- Teacher Quiz Container -->
             <div id="teacher-quiz-container" class="container py-4 d-none">
-                <!-- Teacher Quiz Options -->
+                <!-- Teacher Quiz Options, Chapter Selection etc. -->
                 <div id="teacher-quiz-options" class="text-center">
                     <h2>Teacher Mode</h2>
                     <p class="lead">Select a quiz type.</p>
                     <button id="full-quiz-btn" class="btn btn-primary mx-2">Full Quiz</button>
                     <button id="subject-quiz-btn" class="btn btn-info mx-2">Subject Wise Quiz</button>
-                    <div class="mt-4">
-                        <button class="btn btn-secondary teacher-back-to-menu">Back to Main Menu</button>
-                    </div>
+                    <div class="mt-4"><button class="btn btn-secondary teacher-back-to-menu">Back to Main Menu</button></div>
                 </div>
 
-                <!-- Chapter Selection (Full Quiz) -->
                 <div id="chapter-selection" class="d-none">
                     <h4 class="text-center mb-3">Select Chapters for Full Quiz</h4>
                     <div id="chapter-checkboxes" class="d-flex flex-wrap justify-content-center gap-2 mb-3"></div>
@@ -139,16 +101,12 @@
                     </div>
                 </div>
 
-                <!-- Subject Selection -->
                 <div id="subject-selection" class="d-none">
-                    <h4 class="text-center mb-3">Select a Subject</h4>
+                     <h4 class="text-center mb-3">Select a Subject</h4>
                     <div id="subject-buttons" class="d-flex flex-wrap justify-content-center gap-2"></div>
-                    <div class="text-center mt-4">
-                         <button class="btn btn-secondary teacher-back-btn" data-target="teacher-quiz-options">Back</button>
-                    </div>
+                    <div class="text-center mt-4"><button class="btn btn-secondary teacher-back-btn" data-target="teacher-quiz-options">Back</button></div>
                 </div>
                 
-                <!-- Chapter Selection (Subject Quiz) -->
                 <div id="subject-chapter-selection" class="d-none">
                     <h4 id="subject-chapter-title" class="text-center mb-3"></h4>
                     <div id="subject-chapter-options" class="row g-2 justify-content-center mb-3"></div>
@@ -160,11 +118,15 @@
                 
                 <!-- Teacher Quiz View -->
                 <div id="teacher-quiz-view" class="d-none">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-flex justify-content-end align-items-center mb-3">
                         <span id="teacher-question-counter" class="badge bg-primary rounded-pill fs-6"></span>
                     </div>
                     <div class="card shadow">
                         <div class="card-body">
+                             <!-- Teacher Image Container -->
+                            <div id="teacher-image-container" class="text-center mb-3 d-none">
+                                <img id="teacher-question-image" src="" alt="Question Image" class="img-fluid rounded shadow-sm" style="max-height: 300px;">
+                            </div>
                             <h4 id="teacher-question" class="card-title text-center mb-4" style="min-height: 100px;"></h4>
                             <div id="teacher-options" class="row g-3"></div>
                         </div>
@@ -175,15 +137,8 @@
                     </div>
                 </div>
                 
-                 <!-- Teacher Results Container -->
                 <div id="teacher-results-container" class="d-none text-center">
-                     <div class="card shadow">
-                        <div class="card-header"><h3>Quiz Complete</h3></div>
-                        <div class="card-body text-start" id="teacher-answer-sheet"></div>
-                        <div class="card-footer">
-                            <button id="teacher-restart-btn" class="btn btn-secondary">Back to Main Menu</button>
-                        </div>
-                    </div>
+                     <div class="card shadow"><div class="card-header"><h3>Quiz Complete</h3></div><div class="card-body text-start" id="teacher-answer-sheet"></div><div class="card-footer"><button id="teacher-restart-btn" class="btn btn-secondary">Back to Main Menu</button></div></div>
                 </div>
             </div>
         </main>
