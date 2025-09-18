@@ -562,7 +562,7 @@
   },
   {
     "question": "Who among the following poets belong to the Nayanars?",
-    "malayalam_question": "താഴെപ്പറയുന്നവരിൽ ആരാണ് നായനാരിൽ പെട്ട കവി?",
+    "malayalam_question": "താഴെപ്പറയുന്നവരിൽ ആരാണ് നായനാരുടെ കീഴിലുള്ള കവി?",
     "option1": "Kulasekhara Alvar",
     "malayalam_option1": "കുലശേഖര ആൾവാർ",
     "option2": "Appar",
@@ -908,11 +908,11 @@
     "option2": "Champaran Satyagraha of 1917",
     "malayalam_option2": "1917ലെ ചമ്പാരൻ സത്യാഗ്രഹം",
     "option3": "First Independence War of 1857",
-    "malayalam_option3": "1857-ലെ ഒന്നാം സ്വാതന്ത്ര്യസമരം",
+    "malayalam_option3": "1857ലെ ഒന്നാം സ്വാതന്ത്ര്യസമരം",
     "option4": "Kheda Satyagraha of 1918",
     "malayalam_option4": "1918-ലെ ഖേഡ സത്യാഗ്രഹം",
     "answer": "First Independence War of 1857",
-    "malayalam_answer": "1857-ലെ ഒന്നാം സ്വാതന്ത്ര്യസമരം",
+    "malayalam_answer": "1857ലെ ഒന്നാം സ്വാതന്ത്ര്യസമരം",
     "subject": "Social Science",
     "chapter": 3,
     "image": "null"
@@ -970,7 +970,7 @@
   },
   {
     "question": "Many ideas and provisions of Indian constitution owes to which of these following Act of the British India?",
-    "malayalam_question": "ഇന്ത്യൻ ഭരണഘടനയുടെ നിരവധി ആശയങ്ങളും വ്യവസ്ഥകളും ബ്രിട്ടീഷ് ഇന്ത്യയുടെ ഇനിപ്പറയുന്ന ഏത് നിയമത്തോട് കടപ്പെട്ടിരിക്കുന്നു?",
+    "malayalam_question": "ഇന്ത്യൻ ഭരണഘടനയിലെ നിരവധി ആശയങ്ങളും വ്യവസ്ഥകളും ബ്രിട്ടീഷ് ഇന്ത്യയുടെ ഇനിപ്പറയുന്ന ഏത് നിയമത്തോട് കടപ്പെട്ടിരിക്കുന്നു?",
     "option1": "Government of India Act 1919",
     "malayalam_option1": "ഗവൺമെൻ്റ് ഓഫ് ഇന്ത്യ ആക്റ്റ് 1919",
     "option2": "Government of India Act 1935",
@@ -1127,7 +1127,7 @@
     "option1": "Fundamental Rights",
     "malayalam_option1": "മൗലികാവകാശങ്ങൾ",
     "option2": "The right to vote",
-    "malayalam_option2": "വോട്ടവകാശം",
+    "malayalam_option2": "വോട്ട് ചെയ്യാനുള്ള അവകാശം",
     "option3": "Civil rights",
     "malayalam_option3": "പൗരാവകാശങ്ങൾ",
     "option4": "Human rights",
@@ -1582,7 +1582,7 @@
   },
   {
     "question": "Which is the device that is used to make a circuit work when needed?",
-    "malayalam_question": "ആവശ്യമുള്ളപ്പോൾ ഒരു സർക്യൂട്ട് പ്രവർത്തിക്കാൻ ഉപയോഗിക്കുന്ന ഉപകരണം ഏതാണ്?",
+    "malayalam_question": "ആവശ്യമുള്ളപ്പോൾ സർക്യൂട്ട് പ്രവർത്തിക്കാൻ ഉപയോഗിക്കുന്ന ഉപകരണം ഏതാണ്?",
     "option1": "Buzzer",
     "malayalam_option1": "ബസർ",
     "option2": "Switch",
@@ -2075,7 +2075,7 @@
   },
   {
     "question": "The area of a rectangle is 12 1/5 sq.cm. If one side is 3 2/5 cm, find the length of other side.",
-    "malayalam_question": "ഒരു ദീർഘചതുരത്തിൻ്റെ വിസ്തീർണ്ണം 12 1/5 ച.സെ.മീ. ഒരു വശം 3 2/5 സെൻ്റീമീറ്റർ ആണെങ്കിൽ, മറുവശത്തിൻ്റെ നീളം കണ്ടെത്തുക.",
+    "malayalam_question": "ഒരു ദീർഘചതുരത്തിൻ്റെ വിസ്തീർണ്ണം 12 1/5 ച.സെ.മീ. ഒരു വശം 3 2/5 സെൻ്റീമീറ്റർ ആണെങ്കിൽ, മറുവശത്തെ നീളം കണ്ടെത്തുക.",
     "option1": "3 10/17 cm",
     "malayalam_option1": "3 10/17 സെ.മീ",
     "option2": "2 10/7 cm",
@@ -2143,7 +2143,7 @@
   },
   {
     "question": "Which of the following statements has no connection with plane mirror?",
-    "malayalam_question": "പ്ലെയിൻ മിററുമായി ബന്ധമില്ലാത്ത ഇനിപ്പറയുന്ന പ്രസ്താവനകളിൽ ഏതാണ്?",
+    "malayalam_question": "താഴെപ്പറയുന്നവയിൽ ഏതാണ് വിമാന കണ്ണാടിയുമായി ബന്ധമില്ലാത്തത്?",
     "option1": "A mirror with a plane surface is plane mirror",
     "malayalam_option1": "പ്ലെയിൻ പ്രതലമുള്ള ഒരു കണ്ണാടിയാണ് പ്ലെയിൻ മിറർ",
     "option2": "Lateral inversion occurs",
@@ -2381,7 +2381,7 @@
   },
   {
     "question": "Why are different patterns formed in the kaleidoscope?",
-    "malayalam_question": "എന്തുകൊണ്ടാണ് കാലിഡോസ്കോപ്പിൽ വ്യത്യസ്ത പാറ്റേണുകൾ രൂപപ്പെടുന്നത്?",
+    "malayalam_question": "കാലിഡോസ്കോപ്പിൽ വ്യത്യസ്ത പാറ്റേണുകൾ രൂപപ്പെടുന്നത് എന്തുകൊണ്ട്?",
     "option1": "Due to diffused reflection ",
     "malayalam_option1": "വ്യാപിച്ച പ്രതിഫലനം കാരണം ",
     "option2": "Due to multiple reflection",
@@ -2423,9 +2423,9 @@
     "option3": "Speed of the ambulance is more",
     "malayalam_option3": "ആംബുലൻസിൻ്റെ വേഗത കൂടുതലാണ്",
     "option4": "The drivers of vehicles in front can read it correctly through the rear-view mirror.",
-    "malayalam_option4": "മുന്നിലുള്ള വാഹനങ്ങളുടെ ഡ്രൈവർമാർക്ക് പിൻവ്യൂ മിററിലൂടെ അത് കൃത്യമായി വായിക്കാനാകും.",
+    "malayalam_option4": "മുന്നിലുള്ള വാഹനങ്ങളുടെ ഡ്രൈവർമാർക്ക് പിൻവ്യൂ മിററിലൂടെ അത് കൃത്യമായി വായിക്കാൻ കഴിയും.",
     "answer": "The drivers of vehicles in front can read it correctly through the rear-view mirror.",
-    "malayalam_answer": "മുന്നിലുള്ള വാഹനങ്ങളുടെ ഡ്രൈവർമാർക്ക് പിൻവ്യൂ മിററിലൂടെ അത് കൃത്യമായി വായിക്കാനാകും.",
+    "malayalam_answer": "മുന്നിലുള്ള വാഹനങ്ങളുടെ ഡ്രൈവർമാർക്ക് പിൻവ്യൂ മിററിലൂടെ അത് കൃത്യമായി വായിക്കാൻ കഴിയും.",
     "subject": "Basic Science",
     "chapter": 4,
     "image": "null"
@@ -2551,7 +2551,7 @@
   },
   {
     "question": "Who was the First Malayalee women to become Director General of the Botanical Survey of India?",
-    "malayalam_question": "ബൊട്ടാണിക്കൽ സർവ്വേ ഓഫ് ഇന്ത്യയുടെ ഡയറക്ടർ ജനറൽ ആയ ആദ്യ മലയാളി വനിത?",
+    "malayalam_question": "ബൊട്ടാണിക്കൽ സർവേ ഓഫ് ഇന്ത്യയുടെ ഡയറക്ടർ ജനറലായ ആദ്യ മലയാളി വനിത?",
     "option1": "Shakuntala Devi",
     "malayalam_option1": "ശകുന്തളാ ദേവി",
     "option2": "Dr. Poonnen Lukose",
