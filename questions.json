@@ -392,7 +392,7 @@
   },
   {
     "question": "Draw a line 8 cm long and an angle of 30° at the right end. How many triangle can be drawn with the third side as 5 cm?",
-    "malayalam_question": "വലത് അറ്റത്ത് 8 സെൻ്റീമീറ്റർ നീളവും 30 ഡിഗ്രി കോണും വരയ്ക്കുക. മൂന്നാമത്തെ വശം 5 സെൻ്റിമീറ്ററായി എത്ര ത്രികോണങ്ങൾ വരയ്ക്കാം?",
+    "malayalam_question": "വലത് അറ്റത്ത് 8 സെൻ്റീമീറ്റർ നീളവും 30° കോണും വരയ്ക്കുക. മൂന്നാമത്തെ വശം 5 സെൻ്റിമീറ്ററായി എത്ര ത്രികോണങ്ങൾ വരയ്ക്കാം?",
     "option1": 1,
     "malayalam_option1": "1",
     "option2": 2,
@@ -409,7 +409,7 @@
   },
   {
     "question": "Draw a line 8 cm long and an angle of 30° at the right end. How many triangle can be drawn with the third side as 4 cm?",
-    "malayalam_question": "വലത് അറ്റത്ത് 8 സെൻ്റീമീറ്റർ നീളവും 30 ഡിഗ്രി കോണും വരയ്ക്കുക. മൂന്നാമത്തെ വശം 4 സെൻ്റിമീറ്ററായി എത്ര ത്രികോണങ്ങൾ വരയ്ക്കാം?",
+    "malayalam_question": "വലത് അറ്റത്ത് 8 സെൻ്റീമീറ്റർ നീളവും 30° കോണും വരയ്ക്കുക. മൂന്നാമത്തെ വശം 4 സെൻ്റിമീറ്ററായി എത്ര ത്രികോണങ്ങൾ വരയ്ക്കാം?",
     "option1": 1,
     "malayalam_option1": "1",
     "option2": 2,
@@ -528,7 +528,7 @@
   },
   {
     "question": "Which of the following is not among Kabir’s ideas?",
-    "malayalam_question": "ഇനിപ്പറയുന്നവയിൽ കബീറിൻ്റെ ആശയങ്ങളിൽ ഉൾപ്പെടാത്തത് ഏതാണ്?",
+    "malayalam_question": "താഴെപ്പറയുന്നവയിൽ ഏതാണ് കബീറിൻ്റെ ആശയങ്ങളിൽ ഉൾപ്പെടാത്തത്?",
     "option1": "Criticized all kinds of discrimination based on caste, religion, legacy, wealth, etc",
     "malayalam_option1": "ജാതി, മതം, പൈതൃകം, സമ്പത്ത് മുതലായവയെ അടിസ്ഥാനമാക്കിയുള്ള എല്ലാത്തരം വിവേചനങ്ങളെയും വിമർശിച്ചു",
     "option2": "Not believed in idol worship",
@@ -536,9 +536,9 @@
     "option3": "Ignored the external rituals of religions completely",
     "malayalam_option3": "മതങ്ങളുടെ ബാഹ്യമായ ആചാരങ്ങളെ പാടെ അവഗണിച്ചു",
     "option4": "Emphasise the importance of the Langar or community kitchen, where all classes of people could eat together",
-    "malayalam_option4": "എല്ലാ വിഭാഗം ആളുകൾക്കും ഒരുമിച്ച് ഭക്ഷണം കഴിക്കാവുന്ന ലംഗറിൻ്റെയോ കമ്മ്യൂണിറ്റി കിച്ചണിൻ്റെയോ പ്രാധാന്യം ഊന്നിപ്പറയുക",
+    "malayalam_option4": "എല്ലാ വിഭാഗം ആളുകൾക്കും ഒരുമിച്ച് ഭക്ഷണം കഴിക്കാൻ കഴിയുന്ന ലംഗറിൻ്റെയോ കമ്മ്യൂണിറ്റി കിച്ചണിൻ്റെയോ പ്രാധാന്യം ഊന്നിപ്പറയുക",
     "answer": "Emphasise the importance of the Langar or community kitchen, where all classes of people could eat together",
-    "malayalam_answer": "എല്ലാ വിഭാഗം ആളുകൾക്കും ഒരുമിച്ച് ഭക്ഷണം കഴിക്കാവുന്ന ലംഗറിൻ്റെയോ കമ്മ്യൂണിറ്റി കിച്ചണിൻ്റെയോ പ്രാധാന്യം ഊന്നിപ്പറയുക",
+    "malayalam_answer": "എല്ലാ വിഭാഗം ആളുകൾക്കും ഒരുമിച്ച് ഭക്ഷണം കഴിക്കാൻ കഴിയുന്ന ലംഗറിൻ്റെയോ കമ്മ്യൂണിറ്റി കിച്ചണിൻ്റെയോ പ്രാധാന്യം ഊന്നിപ്പറയുക",
     "subject": "Social Science",
     "chapter": 2,
     "image": "null"
@@ -908,11 +908,11 @@
     "option2": "Champaran Satyagraha of 1917",
     "malayalam_option2": "1917ലെ ചമ്പാരൻ സത്യാഗ്രഹം",
     "option3": "First Independence War of 1857",
-    "malayalam_option3": "1857-ലെ ഒന്നാം സ്വാതന്ത്ര്യസമരം",
+    "malayalam_option3": "1857ലെ ഒന്നാം സ്വാതന്ത്ര്യസമരം",
     "option4": "Kheda Satyagraha of 1918",
     "malayalam_option4": "1918-ലെ ഖേഡ സത്യാഗ്രഹം",
     "answer": "First Independence War of 1857",
-    "malayalam_answer": "1857-ലെ ഒന്നാം സ്വാതന്ത്ര്യസമരം",
+    "malayalam_answer": "1857ലെ ഒന്നാം സ്വാതന്ത്ര്യസമരം",
     "subject": "Social Science",
     "chapter": 3,
     "image": "null"
@@ -987,7 +987,7 @@
   },
   {
     "question": "Who was the chairman of the constituent assembly?",
-    "malayalam_question": "ഭരണഘടനാ നിർമ്മാണ സഭയുടെ അധ്യക്ഷൻ ആരായിരുന്നു?",
+    "malayalam_question": "ഭരണഘടനാ അസംബ്ലിയുടെ അധ്യക്ഷൻ ആരായിരുന്നു?",
     "option1": "Jawaharlal Nehru",
     "malayalam_option1": "ജവഹർലാൽ നെഹ്‌റു",
     "option2": "Dr. Rajendra Prasad.",
@@ -1127,7 +1127,7 @@
     "option1": "Fundamental Rights",
     "malayalam_option1": "മൗലികാവകാശങ്ങൾ",
     "option2": "The right to vote",
-    "malayalam_option2": "വോട്ടവകാശം",
+    "malayalam_option2": "വോട്ട് ചെയ്യാനുള്ള അവകാശം",
     "option3": "Civil rights",
     "malayalam_option3": "പൗരാവകാശങ്ങൾ",
     "option4": "Human rights",
@@ -1199,9 +1199,9 @@
     "option3": "Stops water",
     "malayalam_option3": "വെള്ളം നിർത്തുന്നു",
     "option4": " Forms water",
-    "malayalam_option4": " ജലം രൂപപ്പെടുത്തുന്നു",
+    "malayalam_option4": " വെള്ളം രൂപപ്പെടുത്തുന്നു",
     "answer": "Forms water ",
-    "malayalam_answer": "ജലം രൂപപ്പെടുത്തുന്നു ",
+    "malayalam_answer": "വെള്ളം രൂപപ്പെടുത്തുന്നു ",
     "subject": "Basic Science",
     "chapter": 2,
     "image": "null"
@@ -1497,7 +1497,7 @@
   },
   {
     "question": "Take pathinugham water in three different test tubes. Add five drops of vinegar, Tamarind water and lemon juice, respectively to it. What is the colour change?",
-    "malayalam_question": "മൂന്ന് വ്യത്യസ്‌ത ടെസ്റ്റ് ട്യൂബുകളിലായി പാത്തിനുഗം വെള്ളം എടുക്കുക. ഇതിലേക്ക് യഥാക്രമം അഞ്ച് തുള്ളി വിനാഗിരി, പുളിവെള്ളം, നാരങ്ങ നീര് എന്നിവ ചേർക്കുക. എന്താണ് നിറം മാറ്റം?",
+    "malayalam_question": "മൂന്ന് വ്യത്യസ്‌ത ടെസ്റ്റ് ട്യൂബുകളിൽ പാതിനൂം വെള്ളം എടുക്കുക. ഇതിലേക്ക് യഥാക്രമം അഞ്ച് തുള്ളി വിനാഗിരി, പുളിവെള്ളം, നാരങ്ങ നീര് എന്നിവ ചേർക്കുക. എന്താണ് നിറം മാറ്റം?",
     "option1": "Green",
     "malayalam_option1": "പച്ച",
     "option2": "Blue",
@@ -2160,7 +2160,7 @@
   },
   {
     "question": "The light ray falls on a mirror is called incident ray and the ray that bounces back is called the reflected ray. Then what is the line drawn perpendicular to the surface of the mirror from the point of incidence, called?",
-    "malayalam_question": "കണ്ണാടിയിൽ പതിക്കുന്ന പ്രകാശകിരണത്തെ സംഭവകിരണമെന്നും പിന്നിലേക്ക് കുതിക്കുന്ന രശ്മിയെ പ്രതിഫലിച്ച കിരണമെന്നും വിളിക്കുന്നു. അപ്പോൾ സംഭവത്തിൻ്റെ പോയിൻ്റിൽ നിന്ന് കണ്ണാടിയുടെ ഉപരിതലത്തിലേക്ക് ലംബമായി വരച്ച രേഖയെ എന്താണ് വിളിക്കുന്നത്?",
+    "malayalam_question": "കണ്ണാടിയിൽ പതിക്കുന്ന പ്രകാശകിരണത്തെ സംഭവകിരണമെന്നും പിന്നിലേക്ക് കുതിക്കുന്ന കിരണത്തെ പ്രതിഫലിച്ച കിരണമെന്നും വിളിക്കുന്നു. അപ്പോൾ സംഭവത്തിൻ്റെ പോയിൻ്റിൽ നിന്ന് കണ്ണാടിയുടെ ഉപരിതലത്തിലേക്ക് ലംബമായി വരച്ച രേഖയെ എന്താണ് വിളിക്കുന്നത്?",
     "option1": "Angle of incidence",
     "malayalam_option1": "സംഭവത്തിൻ്റെ ആംഗിൾ",
     "option2": "Angle of reflection",
@@ -2194,7 +2194,7 @@
   },
   {
     "question": "A child made a beautiful periscope. But he couldn't see anything when looked through it. But when he changed the mirror used in it with another type, it worked. Can you guess the mirror he used secondly?",
-    "malayalam_question": "ഒരു കുട്ടി മനോഹരമായ ഒരു പെരിസ്കോപ്പ് ഉണ്ടാക്കി. പക്ഷെ അതിലൂടെ നോക്കിയപ്പോൾ ഒന്നും കാണാൻ കഴിഞ്ഞില്ല. എന്നാൽ അതിൽ ഉപയോഗിച്ചിരുന്ന കണ്ണാടി മറ്റൊരു തരത്തിൽ മാറ്റിയപ്പോൾ അത് പ്രവർത്തിച്ചു. അവൻ രണ്ടാമതായി ഉപയോഗിച്ച കണ്ണാടി നിങ്ങൾക്ക് ഊഹിക്കാമോ?",
+    "malayalam_question": "ഒരു കുട്ടി മനോഹരമായ പെരിസ്കോപ്പ് ഉണ്ടാക്കി. പക്ഷെ അതിലൂടെ നോക്കിയപ്പോൾ ഒന്നും കാണാൻ കഴിഞ്ഞില്ല. എന്നാൽ അതിൽ ഉപയോഗിച്ചിരുന്ന കണ്ണാടി മറ്റൊരു തരത്തിൽ മാറ്റിയപ്പോൾ അത് പ്രവർത്തിച്ചു. അവൻ രണ്ടാമതായി ഉപയോഗിച്ച കണ്ണാടി നിങ്ങൾക്ക് ഊഹിക്കാൻ കഴിയുമോ?",
     "option1": "Concave mirror",
     "malayalam_option1": "കോൺകേവ് കണ്ണാടി",
     "option2": "Plane mirror",
@@ -2211,7 +2211,7 @@
   },
   {
     "question": "We can see amazing visuals in a kaleidoscope due to multiple reflection. Which mirror is used in the making of kaleidoscope?",
-    "malayalam_question": "ഒന്നിലധികം പ്രതിഫലനം മൂലം ഒരു കാലിഡോസ്കോപ്പിൽ നമുക്ക് അതിശയകരമായ ദൃശ്യങ്ങൾ കാണാൻ കഴിയും. കാലിഡോസ്കോപ്പ് നിർമ്മാണത്തിൽ ഉപയോഗിക്കുന്ന കണ്ണാടി ഏത്?",
+    "malayalam_question": "ഒന്നിലധികം പ്രതിഫലനം മൂലം നമുക്ക് കാലിഡോസ്കോപ്പിൽ അതിശയകരമായ ദൃശ്യങ്ങൾ കാണാൻ കഴിയും. കാലിഡോസ്കോപ്പ് നിർമ്മാണത്തിൽ ഉപയോഗിക്കുന്ന കണ്ണാടി ഏത്?",
     "option1": "Concave mirror",
     "malayalam_option1": "കോൺകേവ് കണ്ണാടി",
     "option2": "Plane mirror",
@@ -2262,7 +2262,7 @@
   },
   {
     "question": "What is the reason for getting light inside the rooms during the day",
-    "malayalam_question": "പകൽ സമയത്ത് മുറികൾക്കുള്ളിൽ വെളിച്ചം ലഭിക്കാനുള്ള കാരണം എന്താണ്",
+    "malayalam_question": "പകൽ സമയത്ത് മുറികൾക്കുള്ളിൽ വെളിച്ചം ലഭിക്കാൻ കാരണം എന്താണ്",
     "option1": "Regular reflection",
     "malayalam_option1": "പതിവ് പ്രതിഫലനം",
     "option2": "Diffused reflection",
@@ -2330,7 +2330,7 @@
   },
   {
     "question": "What a smooth surface angle of incidence is 20°. Then what is the angle of reflection?",
-    "malayalam_question": "എത്ര മിനുസമാർന്ന ഉപരിതല കോണാണ് 20°. അപ്പോൾ പ്രതിഫലനത്തിൻ്റെ കോൺ എന്താണ്?",
+    "malayalam_question": "എത്ര സുഗമമായ ഉപരിതല കോണാണ് 20°. അപ്പോൾ പ്രതിഫലനത്തിൻ്റെ കോൺ എന്താണ്?",
     "option1": "10 degree",
     "malayalam_option1": "10 ഡിഗ്രി",
     "option2": "30 degree",
@@ -2423,9 +2423,9 @@
     "option3": "Speed of the ambulance is more",
     "malayalam_option3": "ആംബുലൻസിൻ്റെ വേഗത കൂടുതലാണ്",
     "option4": "The drivers of vehicles in front can read it correctly through the rear-view mirror.",
-    "malayalam_option4": "മുന്നിലുള്ള വാഹനങ്ങളുടെ ഡ്രൈവർമാർക്ക് പിൻവ്യൂ മിററിലൂടെ അത് കൃത്യമായി വായിക്കാനാകും.",
+    "malayalam_option4": "മുന്നിലുള്ള വാഹനങ്ങളുടെ ഡ്രൈവർമാർക്ക് പിൻവ്യൂ മിററിലൂടെ ഇത് കൃത്യമായി വായിക്കാനാകും.",
     "answer": "The drivers of vehicles in front can read it correctly through the rear-view mirror.",
-    "malayalam_answer": "മുന്നിലുള്ള വാഹനങ്ങളുടെ ഡ്രൈവർമാർക്ക് പിൻവ്യൂ മിററിലൂടെ അത് കൃത്യമായി വായിക്കാനാകും.",
+    "malayalam_answer": "മുന്നിലുള്ള വാഹനങ്ങളുടെ ഡ്രൈവർമാർക്ക് പിൻവ്യൂ മിററിലൂടെ ഇത് കൃത്യമായി വായിക്കാനാകും.",
     "subject": "Basic Science",
     "chapter": 4,
     "image": "null"
@@ -2551,7 +2551,7 @@
   },
   {
     "question": "Who was the First Malayalee women to become Director General of the Botanical Survey of India?",
-    "malayalam_question": "ബൊട്ടാണിക്കൽ സർവ്വേ ഓഫ് ഇന്ത്യയുടെ ഡയറക്ടർ ജനറൽ ആയ ആദ്യ മലയാളി വനിത?",
+    "malayalam_question": "ബൊട്ടാണിക്കൽ സർവേ ഓഫ് ഇന്ത്യയുടെ ഡയറക്ടർ ജനറലായ ആദ്യ മലയാളി വനിത?",
     "option1": "Shakuntala Devi",
     "malayalam_option1": "ശകുന്തള ദേവി",
     "option2": "Dr. Poonnen Lukose",
@@ -2602,7 +2602,7 @@
   },
   {
     "question": "The social reformer who established school in Kerala for the oppressed class in 1905.",
-    "malayalam_question": "1905-ൽ അടിച്ചമർത്തപ്പെട്ടവർക്കായി കേരളത്തിൽ വിദ്യാലയം സ്ഥാപിച്ച സാമൂഹിക പരിഷ്കർത്താവ്.",
+    "malayalam_question": "1905-ൽ അടിച്ചമർത്തപ്പെട്ട വിഭാഗങ്ങൾക്കായി കേരളത്തിൽ വിദ്യാലയം സ്ഥാപിച്ച സാമൂഹിക പരിഷ്കർത്താവ്.",
     "option1": "Sahodaran Ayyappan",
     "malayalam_option1": "സഹോദരൻ അയ്യപ്പൻ",
     "option2": "Vegbhatananda",
@@ -2687,7 +2687,7 @@
   },
   {
     "question": "Who was the social reformer nominated to Sri Moolam Prana Sabha in 1921 and 1931",
-    "malayalam_question": "1921-ലും 1931-ലും ശ്രീമൂലം പ്രാണസഭയിലേക്ക് നാമനിർദ്ദേശം ചെയ്യപ്പെട്ട സാമൂഹ്യപരിഷ്കർത്താവ്?",
+    "malayalam_question": "1921ലും 1931ലും ശ്രീമൂലം പ്രാണസഭയിലേക്ക് നാമനിർദ്ദേശം ചെയ്യപ്പെട്ട സാമൂഹ്യപരിഷ്കർത്താവ്?",
     "option1": "Vakati Abdul Khadar Moulavi",
     "malayalam_option1": "വക്കാടി അബ്ദുൽ ഖാദർ മൗലവി",
     "option2": "Sree Narayana Guru",
@@ -2797,9 +2797,9 @@
     "option3": "Tribals",
     "malayalam_option3": "ആദിവാസികൾ",
     "option4": "The rich",
-    "malayalam_option4": "സമ്പന്നർ",
+    "malayalam_option4": "ധനികർ",
     "answer": "The rich",
-    "malayalam_answer": "സമ്പന്നർ",
+    "malayalam_answer": "ധനികർ",
     "subject": "Social Science",
     "chapter": 4,
     "image": ""
