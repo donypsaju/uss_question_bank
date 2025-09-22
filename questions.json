@@ -35,7 +35,7 @@
   },
   {
     "question": "A farmer planted 31 mango seedlings in a row at a distance of 1 1/2 metre. What is the distance between the first chance the last mango seedling ?",
-    "malayalam_question": "ഒരു കർഷകൻ 1 1/2 മീറ്റർ അകലത്തിൽ ഒരു നിരയിൽ 31 മാവിന് തൈകൾ നട്ടു. ആദ്യ അവസരത്തിൽ അവസാനത്തെ മാവിന് തൈ തമ്മിലുള്ള അകലം എന്താണ്?",
+    "malayalam_question": "ഒരു കർഷകൻ 1 1/2 മീറ്റർ അകലത്തിൽ തുടർച്ചയായി 31 മാവിന് തൈകൾ നട്ടു. ആദ്യ അവസരത്തിൽ അവസാനത്തെ മാവിന് തൈ തമ്മിലുള്ള അകലം എന്താണ്?",
     "option1": "3 metre",
     "malayalam_option1": "3 മീറ്റർ",
     "option2": "45 metre",
@@ -69,7 +69,7 @@
   },
   {
     "question": "You have seen that vinegar is added to pickles for preservation .Which of the following acid is present in vinegar?",
-    "malayalam_question": "അച്ചാറുകളിൽ സൂക്ഷിച്ചു വയ്ക്കാൻ വിനാഗിരി ചേർക്കുന്നത് നിങ്ങൾ കണ്ടിട്ടുണ്ട് .വിനാഗിരിയിൽ അടങ്ങിയിരിക്കുന്ന ആസിഡ് ഏത്",
+    "malayalam_question": "സൂക്ഷിച്ചു വയ്ക്കാൻ അച്ചാറുകളിൽ വിനാഗിരി ചേർക്കുന്നത് നിങ്ങൾ കണ്ടിട്ടുണ്ടാകും .വിനാഗിരിയിൽ അടങ്ങിയിരിക്കുന്ന ആസിഡ് ഏത്?",
     "option1": "Citric acid",
     "malayalam_option1": "സിട്രിക് ആസിഡ്",
     "option2": "Lactic acid",
@@ -109,7 +109,7 @@
     "option2": "Because acids and metals react to produce carbon dioxide",
     "malayalam_option2": "കാരണം ആസിഡുകളും ലോഹങ്ങളും കാർബൺ ഡൈ ഓക്സൈഡ് ഉത്പാദിപ്പിക്കാൻ പ്രതിപ്രവർത്തിക്കുന്നു",
     "option3": "Acids and metals react to produce nitrogen",
-    "malayalam_option3": "ആസിഡുകളും ലോഹങ്ങളും നൈട്രജൻ ഉത്പാദിപ്പിക്കാൻ പ്രതിപ്രവർത്തിക്കുന്നു",
+    "malayalam_option3": "ആസിഡുകളും ലോഹങ്ങളും പ്രതിപ്രവർത്തിച്ച് നൈട്രജൻ ഉത്പാദിപ്പിക്കുന്നു",
     "option4": "Acids and metals react to produce sulphuric acid",
     "malayalam_option4": "ആസിഡുകളും ലോഹങ്ങളും പ്രതിപ്രവർത്തിച്ച് സൾഫ്യൂറിക് ആസിഡ് ഉണ്ടാക്കുന്നു",
     "answer": "Because acids and metals react to produce hydrogen",
@@ -205,7 +205,7 @@
   },
   {
     "question": "In a class, there are 40 students out of these 3/4 of 1/2 of total students are girls. How many girls are there in the class?",
-    "malayalam_question": "ഒരു ക്ലാസിൽ, ഈ 3/4 കുട്ടികളിൽ 40 കുട്ടികളുണ്ട്, മൊത്തം വിദ്യാർത്ഥികളിൽ 1/2 പെൺകുട്ടികളാണ്. ക്ലാസ്സിൽ എത്ര പെൺകുട്ടികളുണ്ട്?",
+    "malayalam_question": "ഒരു ക്ലാസിൽ, ഈ 3/4 വിദ്യാർത്ഥികളിൽ 40 കുട്ടികളുണ്ട്, മൊത്തം വിദ്യാർത്ഥികളിൽ 1/2 പെൺകുട്ടികളാണ്. ക്ലാസ്സിൽ എത്ര പെൺകുട്ടികളുണ്ട്?",
     "option1": 20,
     "malayalam_option1": "20",
     "option2": 25,
@@ -290,7 +290,7 @@
   },
   {
     "question": "The sides of a triangle are natural numbers and the length of two sides are 29 cm and 1 cm. What is the length of the third side?",
-    "malayalam_question": "ഒരു ത്രികോണത്തിൻ്റെ വശങ്ങൾ സ്വാഭാവിക സംഖ്യകളാണ്, രണ്ട് വശങ്ങളുടെ നീളം 29 സെൻ്റിമീറ്ററും 1 സെൻ്റിമീറ്ററുമാണ്. മൂന്നാമത്തെ വശത്തിൻ്റെ നീളം എത്രയാണ്?",
+    "malayalam_question": "ഒരു ത്രികോണത്തിൻ്റെ വശങ്ങൾ സ്വാഭാവിക സംഖ്യകളാണ്, രണ്ട് വശങ്ങളുടെ നീളം 29 സെൻ്റിമീറ്ററും 1 സെൻ്റിമീറ്ററുമാണ്. മൂന്നാമത്തെ വശത്തിൻ്റെ നീളം എന്താണ്?",
     "option1": "29 cm",
     "malayalam_option1": "29 സെ.മീ",
     "option2": "28 cm",
@@ -392,7 +392,7 @@
   },
   {
     "question": "Draw a line 8 cm long and an angle of 30° at the right end. How many triangle can be drawn with the third side as 5 cm?",
-    "malayalam_question": "വലത് അറ്റത്ത് 8 സെൻ്റീമീറ്റർ നീളവും 30 ഡിഗ്രി കോണും വരയ്ക്കുക. മൂന്നാമത്തെ വശം 5 സെൻ്റിമീറ്ററായി എത്ര ത്രികോണങ്ങൾ വരയ്ക്കാം?",
+    "malayalam_question": "വലത് അറ്റത്ത് 8 സെൻ്റീമീറ്റർ നീളവും 30° കോണും വരയ്ക്കുക. മൂന്നാമത്തെ വശം 5 സെൻ്റിമീറ്ററായി എത്ര ത്രികോണങ്ങൾ വരയ്ക്കാം?",
     "option1": 1,
     "malayalam_option1": "1",
     "option2": 2,
@@ -409,7 +409,7 @@
   },
   {
     "question": "Draw a line 8 cm long and an angle of 30° at the right end. How many triangle can be drawn with the third side as 4 cm?",
-    "malayalam_question": "വലത് അറ്റത്ത് 8 സെൻ്റീമീറ്റർ നീളവും 30 ഡിഗ്രി കോണും വരയ്ക്കുക. മൂന്നാമത്തെ വശം 4 സെൻ്റിമീറ്ററായി എത്ര ത്രികോണങ്ങൾ വരയ്ക്കാം?",
+    "malayalam_question": "വലത് അറ്റത്ത് 8 സെൻ്റീമീറ്റർ നീളവും 30° കോണും വരയ്ക്കുക. മൂന്നാമത്തെ വശം 4 സെൻ്റിമീറ്ററായി എത്ര ത്രികോണങ്ങൾ വരയ്ക്കാം?",
     "option1": 1,
     "malayalam_option1": "1",
     "option2": 2,
@@ -562,7 +562,7 @@
   },
   {
     "question": "Who among the following poets belong to the Nayanars?",
-    "malayalam_question": "താഴെപ്പറയുന്നവരിൽ ആരാണ് നായനാരിൽ പെട്ട കവി?",
+    "malayalam_question": "താഴെപ്പറയുന്നവരിൽ ആരാണ് നായനാരുടെ കീഴിലുള്ള കവി?",
     "option1": "Kulasekhara Alvar",
     "malayalam_option1": "കുലശേഖര ആൾവാർ",
     "option2": "Appar",
@@ -772,7 +772,7 @@
     "option2": "Kabir",
     "malayalam_option2": "കബീർ",
     "option3": "Karaikal Ammayar",
-    "malayalam_option3": "കാരക്കൽ അമ്മയാർ",
+    "malayalam_option3": "കാരയ്ക്കൽ അമ്മയാർ",
     "option4": "Guru Nanak",
     "malayalam_option4": "ഗുരു നാനാക്ക്",
     "answer": "Kabir",
@@ -806,7 +806,7 @@
     "option2": "Andal",
     "malayalam_option2": "ആണ്ടാൾ",
     "option3": "Karaikal Ammayar",
-    "malayalam_option3": "കാരക്കൽ അമ്മയാർ",
+    "malayalam_option3": "കാരയ്ക്കൽ അമ്മയാർ",
     "option4": "Mirabai",
     "malayalam_option4": "മീരാഭായി",
     "answer": "Andal",
@@ -908,11 +908,11 @@
     "option2": "Champaran Satyagraha of 1917",
     "malayalam_option2": "1917ലെ ചമ്പാരൻ സത്യാഗ്രഹം",
     "option3": "First Independence War of 1857",
-    "malayalam_option3": "1857-ലെ ഒന്നാം സ്വാതന്ത്ര്യസമരം",
+    "malayalam_option3": "1857ലെ ഒന്നാം സ്വാതന്ത്ര്യസമരം",
     "option4": "Kheda Satyagraha of 1918",
     "malayalam_option4": "1918-ലെ ഖേഡ സത്യാഗ്രഹം",
     "answer": "First Independence War of 1857",
-    "malayalam_answer": "1857-ലെ ഒന്നാം സ്വാതന്ത്ര്യസമരം",
+    "malayalam_answer": "1857ലെ ഒന്നാം സ്വാതന്ത്ര്യസമരം",
     "subject": "Social Science",
     "chapter": 3,
     "image": "null"
@@ -1199,9 +1199,9 @@
     "option3": "Stops water",
     "malayalam_option3": "വെള്ളം നിർത്തുന്നു",
     "option4": " Forms water",
-    "malayalam_option4": " വെള്ളം രൂപപ്പെടുത്തുന്നു",
+    "malayalam_option4": " ജലം രൂപപ്പെടുത്തുന്നു",
     "answer": "Forms water ",
-    "malayalam_answer": "വെള്ളം രൂപപ്പെടുത്തുന്നു ",
+    "malayalam_answer": "ജലം രൂപപ്പെടുത്തുന്നു ",
     "subject": "Basic Science",
     "chapter": 2,
     "image": "null"
@@ -1497,7 +1497,7 @@
   },
   {
     "question": "Take pathinugham water in three different test tubes. Add five drops of vinegar, Tamarind water and lemon juice, respectively to it. What is the colour change?",
-    "malayalam_question": "മൂന്ന് വ്യത്യസ്‌ത ടെസ്റ്റ് ട്യൂബുകളിലായി പാത്തിനുഗം വെള്ളം എടുക്കുക. ഇതിലേക്ക് യഥാക്രമം അഞ്ച് തുള്ളി വിനാഗിരി, പുളിവെള്ളം, നാരങ്ങ നീര് എന്നിവ ചേർക്കുക. എന്താണ് നിറം മാറ്റം?",
+    "malayalam_question": "മൂന്ന് വ്യത്യസ്‌ത ടെസ്റ്റ് ട്യൂബുകളിൽ പാതിനൂം വെള്ളം എടുക്കുക. ഇതിലേക്ക് യഥാക്രമം അഞ്ച് തുള്ളി വിനാഗിരി, പുളിവെള്ളം, നാരങ്ങ നീര് എന്നിവ ചേർക്കുക. എന്താണ് നിറം മാറ്റം?",
     "option1": "Green",
     "malayalam_option1": "പച്ച",
     "option2": "Blue",
@@ -1582,7 +1582,7 @@
   },
   {
     "question": "Which is the device that is used to make a circuit work when needed?",
-    "malayalam_question": "ആവശ്യമുള്ളപ്പോൾ ഒരു സർക്യൂട്ട് പ്രവർത്തിക്കാൻ ഉപയോഗിക്കുന്ന ഉപകരണം ഏതാണ്?",
+    "malayalam_question": "ആവശ്യമുള്ളപ്പോൾ സർക്യൂട്ട് പ്രവർത്തിക്കാൻ ഉപയോഗിക്കുന്ന ഉപകരണം ഏതാണ്?",
     "option1": "Buzzer",
     "malayalam_option1": "ബസർ",
     "option2": "Switch",
@@ -1956,7 +1956,7 @@
   },
   {
     "question": "The area of a rectangle is 9 4/5 sq.cm, breadth 4 1/5 cm. What is its length? (In cm)",
-    "malayalam_question": "ഒരു ദീർഘചതുരത്തിൻ്റെ വിസ്തീർണ്ണം 9 4/5 ചതുരശ്ര സെ.മീ, വീതി 4 1/5 സെ.മീ. അതിൻ്റെ നീളം എന്താണ്? (സെ.മീ)",
+    "malayalam_question": "ഒരു ദീർഘചതുരത്തിൻ്റെ വിസ്തീർണ്ണം 9 4/5 ചതുരശ്ര സെ.മീ, വീതി 4 1/5 സെ.മീ. അതിൻ്റെ നീളം എന്താണ്? (സെ.മീ.)",
     "option1": "2 2/3",
     "malayalam_option1": "2 2/3",
     "option2": "3 1/7",
@@ -2143,7 +2143,7 @@
   },
   {
     "question": "Which of the following statements has no connection with plane mirror?",
-    "malayalam_question": "താഴെപ്പറയുന്നവയിൽ ഏതാണ് വിമാന കണ്ണാടിയുമായി ബന്ധമില്ലാത്തത്?",
+    "malayalam_question": "പ്ലെയിൻ മിററുമായി ബന്ധമില്ലാത്ത ഇനിപ്പറയുന്ന പ്രസ്താവനകളിൽ ഏതാണ്?",
     "option1": "A mirror with a plane surface is plane mirror",
     "malayalam_option1": "പ്ലെയിൻ പ്രതലമുള്ള ഒരു കണ്ണാടിയാണ് പ്ലെയിൻ മിറർ",
     "option2": "Lateral inversion occurs",
@@ -2194,7 +2194,7 @@
   },
   {
     "question": "A child made a beautiful periscope. But he couldn't see anything when looked through it. But when he changed the mirror used in it with another type, it worked. Can you guess the mirror he used secondly?",
-    "malayalam_question": "ഒരു കുട്ടി മനോഹരമായ പെരിസ്കോപ്പ് ഉണ്ടാക്കി. പക്ഷെ അതിലൂടെ നോക്കിയപ്പോൾ ഒന്നും കാണാൻ കഴിഞ്ഞില്ല. എന്നാൽ അതിൽ ഉപയോഗിച്ചിരുന്ന കണ്ണാടി മറ്റൊരു തരത്തിൽ മാറ്റിയപ്പോൾ അത് പ്രവർത്തിച്ചു. അവൻ രണ്ടാമതായി ഉപയോഗിച്ച കണ്ണാടി നിങ്ങൾക്ക് ഊഹിക്കാമോ?",
+    "malayalam_question": "ഒരു കുട്ടി മനോഹരമായ ഒരു പെരിസ്കോപ്പ് ഉണ്ടാക്കി. പക്ഷെ അതിലൂടെ നോക്കിയപ്പോൾ ഒന്നും കാണാൻ കഴിഞ്ഞില്ല. എന്നാൽ അതിൽ ഉപയോഗിച്ചിരുന്ന കണ്ണാടി മറ്റൊരു തരത്തിൽ മാറ്റിയപ്പോൾ അത് പ്രവർത്തിച്ചു. അവൻ രണ്ടാമതായി ഉപയോഗിച്ച കണ്ണാടി നിങ്ങൾക്ക് ഊഹിക്കാൻ കഴിയുമോ?",
     "option1": "Concave mirror",
     "malayalam_option1": "കോൺകേവ് കണ്ണാടി",
     "option2": "Plane mirror",
@@ -2211,7 +2211,7 @@
   },
   {
     "question": "We can see amazing visuals in a kaleidoscope due to multiple reflection. Which mirror is used in the making of kaleidoscope?",
-    "malayalam_question": "ഒന്നിലധികം പ്രതിഫലനം മൂലം ഒരു കാലിഡോസ്കോപ്പിൽ നമുക്ക് അതിശയകരമായ ദൃശ്യങ്ങൾ കാണാൻ കഴിയും. കാലിഡോസ്കോപ്പ് നിർമ്മാണത്തിൽ ഉപയോഗിക്കുന്ന കണ്ണാടി ഏത്?",
+    "malayalam_question": "ഒന്നിലധികം പ്രതിഫലനം കാരണം നമുക്ക് ഒരു കാലിഡോസ്കോപ്പിൽ അതിശയകരമായ ദൃശ്യങ്ങൾ കാണാൻ കഴിയും. കാലിഡോസ്കോപ്പ് നിർമ്മാണത്തിൽ ഉപയോഗിക്കുന്ന കണ്ണാടി ഏത്?",
     "option1": "Concave mirror",
     "malayalam_option1": "കോൺകേവ് കണ്ണാടി",
     "option2": "Plane mirror",
@@ -2262,7 +2262,7 @@
   },
   {
     "question": "What is the reason for getting light inside the rooms during the day",
-    "malayalam_question": "പകൽ സമയത്ത് മുറികൾക്കുള്ളിൽ വെളിച്ചം ലഭിക്കാൻ കാരണം എന്താണ്",
+    "malayalam_question": "പകൽ സമയത്ത് മുറികൾക്കുള്ളിൽ വെളിച്ചം ലഭിക്കാനുള്ള കാരണം എന്താണ്",
     "option1": "Regular reflection",
     "malayalam_option1": "പതിവ് പ്രതിഫലനം",
     "option2": "Diffused reflection",
@@ -2279,7 +2279,7 @@
   },
   {
     "question": "What is the incident angle and the reflected angle when a Ray of light falls normally on a plane mirror",
-    "malayalam_question": "ഒരു പ്ലെയിൻ മിററിൽ സാധാരണയായി ഒരു പ്രകാശകിരണം പതിക്കുമ്പോൾ സംഭവകോണും പ്രതിഫലിക്കുന്ന കോണും എന്താണ്?",
+    "malayalam_question": "സാധാരണയായി ഒരു പ്ലെയിൻ മിററിൽ ഒരു പ്രകാശകിരണം പതിക്കുമ്പോൾ സംഭവകോണും പ്രതിഫലിക്കുന്ന കോണും എന്താണ്?",
     "option1": "180 degree",
     "malayalam_option1": "180 ഡിഗ്രി",
     "option2": "360 degree",
@@ -2330,7 +2330,7 @@
   },
   {
     "question": "What a smooth surface angle of incidence is 20°. Then what is the angle of reflection?",
-    "malayalam_question": "എത്ര മിനുസമാർന്ന ഉപരിതല കോണാണ് 20°. അപ്പോൾ പ്രതിഫലനത്തിൻ്റെ കോൺ എന്താണ്?",
+    "malayalam_question": "എത്ര സുഗമമായ ഉപരിതല കോണാണ് 20°. അപ്പോൾ പ്രതിഫലനത്തിൻ്റെ കോൺ എന്താണ്?",
     "option1": "10 degree",
     "malayalam_option1": "10 ഡിഗ്രി",
     "option2": "30 degree",
@@ -2381,7 +2381,7 @@
   },
   {
     "question": "Why are different patterns formed in the kaleidoscope?",
-    "malayalam_question": "എന്തുകൊണ്ടാണ് കാലിഡോസ്കോപ്പിൽ വ്യത്യസ്ത പാറ്റേണുകൾ രൂപപ്പെടുന്നത്?",
+    "malayalam_question": "കാലിഡോസ്കോപ്പിൽ വ്യത്യസ്ത പാറ്റേണുകൾ രൂപപ്പെടുന്നത് എന്തുകൊണ്ട്?",
     "option1": "Due to diffused reflection ",
     "malayalam_option1": "വ്യാപിച്ച പ്രതിഫലനം കാരണം ",
     "option2": "Due to multiple reflection",
@@ -2602,7 +2602,7 @@
   },
   {
     "question": "The social reformer who established school in Kerala for the oppressed class in 1905.",
-    "malayalam_question": "1905-ൽ അടിച്ചമർത്തപ്പെട്ടവർക്കായി കേരളത്തിൽ വിദ്യാലയം സ്ഥാപിച്ച സാമൂഹിക പരിഷ്കർത്താവ്.",
+    "malayalam_question": "1905-ൽ അടിച്ചമർത്തപ്പെട്ട വിഭാഗങ്ങൾക്കായി കേരളത്തിൽ വിദ്യാലയം സ്ഥാപിച്ച സാമൂഹിക പരിഷ്കർത്താവ്.",
     "option1": "Sahodaran Ayyappan",
     "malayalam_option1": "സഹോദരൻ അയ്യപ്പൻ",
     "option2": "Vegbhatananda",
