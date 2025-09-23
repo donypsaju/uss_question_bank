@@ -117,6 +117,94 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    window.selectStudentAnswer = function(selectedOptionEl) {
+        const isCorrect = selectedOptionEl.dataset.correct === 'true';
+        const q = studentQuizState.questions[studentQuizState.currentIndex];
+        if (!studentQuizState.results[q.subject]) {
+            studentQuizState.results[q.subject] = { correct: 0, wrong: 0 };
+        }
+
+        if (isCorrect) {
+            studentQuizState.score++;
+            selectedOptionEl.classList.add('correct');
+            studentQuizState.results[q.subject].correct++;
+        } else {
+            selectedOptionEl.classList.add('wrong');
+            studentQuizState.results[q.subject].wrong++;
+        }
+        document.getElementById('student-score-counter').textContent = `${studentQuizState.score} / ${studentQuizState.questions.length}`;
+        document.querySelectorAll('#student-options .option').forEach(opt => {
+            opt.classList.add('disabled');
+            if (opt.dataset.correct === 'true' && !isCorrect) {
+                opt.classList.add('correct');
+            }
+        });
+        setTimeout(advanceToNextStudentQuestion, 2000);
+    }
+
+    function advanceToNextStudentQuestion() {
+        studentQuizState.currentIndex++;
+        if (studentQuizState.currentIndex < studentQuizState.questions.length) {
+            displayStudentQuestion();
+        } else {
+            endStudentQuiz();
+        }
+    }
+
+    function startStudentTimer() {
+        const timerEl = document.getElementById('student-timer');
+        clearInterval(studentQuizState.timer);
+        studentQuizState.timer = setInterval(() => {
+            studentQuizState.timeLeft--;
+            const minutes = Math.floor(studentQuizState.timeLeft / 60).toString().padStart(2, '0');
+            const seconds = (studentQuizState.timeLeft % 60).toString().padStart(2, '0');
+            timerEl.textContent = `${minutes}:${seconds}`;
+            if (studentQuizState.timeLeft <= 0) {
+                endStudentQuiz();
+            }
+        }, 1000);
+    }
+
+    function endStudentQuiz() {
+        clearInterval(studentQuizState.timer);
+        const history = JSON.parse(localStorage.getItem('quizHistory')) || [];
+        const resultData = {
+            date: new Date().toLocaleString(),
+            score: studentQuizState.score,
+            total: studentQuizState.questions.length,
+            details: studentQuizState.results
+        };
+        history.unshift(resultData);
+        localStorage.setItem('quizHistory', JSON.stringify(history.slice(0, 10)));
+        const summaryEl = document.getElementById('student-results-summary');
+        const percentage = (studentQuizState.score / studentQuizState.questions.length) * 100;
+        let resultMessage = (percentage >= 70) 
+            ? `<h3 class="text-success">Congratulations, You've Passed!</h3><p>You have achieved the score needed to pass the scholarship exam.</p>`
+            : `<h3 class="text-warning">Keep Practicing!</h3><p>You're getting closer. Keep up the great work!</p>`;
+
+        let detailsHtml = `<ul class="list-group list-group-flush">`;
+        Object.entries(studentQuizState.results).forEach(([subject, data]) => {
+            detailsHtml += `<li class="list-group-item d-flex justify-content-between align-items-center">
+                ${subject}
+                <span>
+                    <span class="badge bg-success me-2">${data.correct} Correct</span>
+                    <span class="badge bg-danger">${data.wrong} Wrong</span>
+                </span>
+            </li>`;
+        });
+        detailsHtml += `</ul>`;
+        summaryEl.innerHTML = `
+            ${resultMessage}
+            <h4 class="card-title mt-4">Final Score: ${studentQuizState.score} / ${studentQuizState.questions.length}</h4>
+            <hr>
+            <h5 class="text-start mt-3">Subject Breakdown:</h5>
+            ${detailsHtml}`;
+        showScreen('student-results-container');
+    }
+
+    document.getElementById('student-restart-btn').addEventListener('click', () => showScreen('start-screen'));
+
+
     // --- HISTORY & ANALYTICS LOGIC ---
     function showHistory() {
         const history = JSON.parse(localStorage.getItem('quizHistory')) || [];
