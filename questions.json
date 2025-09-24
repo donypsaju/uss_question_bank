@@ -205,7 +205,7 @@
   },
   {
     "question": "In a class, there are 40 students out of these 3/4 of 1/2 of total students are girls. How many girls are there in the class?",
-    "malayalam_question": "ഒരു ക്ലാസിൽ, ഈ 3/4 കുട്ടികളിൽ 40 കുട്ടികളുണ്ട്, മൊത്തം വിദ്യാർത്ഥികളിൽ 1/2 പെൺകുട്ടികളാണ്. ക്ലാസ്സിൽ എത്ര പെൺകുട്ടികളുണ്ട്?",
+    "malayalam_question": "ഒരു ക്ലാസിൽ, ഈ 3/4 വിദ്യാർത്ഥികളിൽ 40 കുട്ടികളുണ്ട്, മൊത്തം വിദ്യാർത്ഥികളിൽ 1/2 പെൺകുട്ടികളാണ്. ക്ലാസ്സിൽ എത്ര പെൺകുട്ടികളുണ്ട്?",
     "option1": 20,
     "malayalam_option1": "20",
     "option2": 25,
@@ -987,7 +987,7 @@
   },
   {
     "question": "Who was the chairman of the constituent assembly?",
-    "malayalam_question": "ഭരണഘടനാ നിർമ്മാണ സഭയുടെ അധ്യക്ഷൻ ആരായിരുന്നു?",
+    "malayalam_question": "ഭരണഘടനാ അസംബ്ലിയുടെ അധ്യക്ഷൻ ആരായിരുന്നു?",
     "option1": "Jawaharlal Nehru",
     "malayalam_option1": "ജവഹർലാൽ നെഹ്‌റു",
     "option2": "Dr. Rajendra Prasad.",
@@ -2262,7 +2262,7 @@
   },
   {
     "question": "What is the reason for getting light inside the rooms during the day",
-    "malayalam_question": "പകൽ സമയത്ത് മുറികൾക്കുള്ളിൽ വെളിച്ചം ലഭിക്കാൻ കാരണം എന്താണ്",
+    "malayalam_question": "പകൽ സമയത്ത് മുറികൾക്കുള്ളിൽ വെളിച്ചം ലഭിക്കാനുള്ള കാരണം എന്താണ്",
     "option1": "Regular reflection",
     "malayalam_option1": "പതിവ് പ്രതിഫലനം",
     "option2": "Diffused reflection",
@@ -2381,7 +2381,7 @@
   },
   {
     "question": "Why are different patterns formed in the kaleidoscope?",
-    "malayalam_question": "എന്തുകൊണ്ടാണ് കാലിഡോസ്കോപ്പിൽ വ്യത്യസ്ത പാറ്റേണുകൾ രൂപപ്പെടുന്നത്?",
+    "malayalam_question": "കാലിഡോസ്കോപ്പിൽ വ്യത്യസ്ത പാറ്റേണുകൾ രൂപപ്പെടുന്നത് എന്തുകൊണ്ട്?",
     "option1": "Due to diffused reflection ",
     "malayalam_option1": "വ്യാപിച്ച പ്രതിഫലനം കാരണം ",
     "option2": "Due to multiple reflection",
