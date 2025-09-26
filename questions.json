@@ -120,7 +120,7 @@
   },
   {
     "question": "Which type of material is ideal for vessels to prepare food containing buttermilk or sour items?",
-    "malayalam_question": "മോര് അല്ലെങ്കിൽ പുളിച്ച ഇനങ്ങൾ അടങ്ങിയ ഭക്ഷണം തയ്യാറാക്കാൻ ഏത് തരം മെറ്റീരിയലാണ് പാത്രങ്ങൾക്ക് അനുയോജ്യം?",
+    "malayalam_question": "മോര് അല്ലെങ്കിൽ പുളിച്ച ഇനങ്ങൾ അടങ്ങിയ ഭക്ഷണം തയ്യാറാക്കാൻ പാത്രങ്ങൾക്ക് അനുയോജ്യമായ ഏത് തരം മെറ്റീരിയലാണ്?",
     "option1": "Stainless steel",
     "malayalam_option1": "സ്റ്റെയിൻലെസ്സ് സ്റ്റീൽ",
     "option2": "Aluminium",
@@ -1548,7 +1548,7 @@
   },
   {
     "question": "Which of the following is not a conductor?",
-    "malayalam_question": "ഇനിപ്പറയുന്നവയിൽ കണ്ടക്ടർ അല്ലാത്തത് ഏതാണ്?",
+    "malayalam_question": "ഇനിപ്പറയുന്നവയിൽ ഏതാണ് കണ്ടക്ടർ അല്ലാത്തത്?",
     "option1": "Steel plate",
     "malayalam_option1": "സ്റ്റീൽ പ്ലേറ്റ്",
     "option2": "Steel bar",
@@ -2279,7 +2279,7 @@
   },
   {
     "question": "What is the incident angle and the reflected angle when a Ray of light falls normally on a plane mirror",
-    "malayalam_question": "ഒരു പ്ലെയിൻ മിററിൽ സാധാരണയായി ഒരു പ്രകാശകിരണം പതിക്കുമ്പോൾ സംഭവകോണും പ്രതിഫലിക്കുന്ന കോണും എന്താണ്?",
+    "malayalam_question": "സാധാരണയായി ഒരു പ്ലെയിൻ മിററിൽ ഒരു പ്രകാശകിരണം പതിക്കുമ്പോൾ സംഭവകോണും പ്രതിഫലിക്കുന്ന കോണും എന്താണ്?",
     "option1": "180 degree",
     "malayalam_option1": "180 ഡിഗ്രി",
     "option2": "360 degree",
