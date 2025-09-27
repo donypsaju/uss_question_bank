@@ -35,7 +35,7 @@
   },
   {
     "question": "A farmer planted 31 mango seedlings in a row at a distance of 1 1/2 metre. What is the distance between the first chance the last mango seedling ?",
-    "malayalam_question": "ഒരു കർഷകൻ 1 1/2 മീറ്റർ അകലത്തിൽ ഒരു നിരയിൽ 31 മാവിന് തൈകൾ നട്ടു. ആദ്യ അവസരത്തിൽ അവസാനത്തെ മാവിന് തൈ തമ്മിലുള്ള അകലം എന്താണ്?",
+    "malayalam_question": "ഒരു കർഷകൻ 1 1/2 മീറ്റർ അകലത്തിൽ തുടർച്ചയായി 31 മാവിന് തൈകൾ നട്ടു. ആദ്യ അവസരത്തിൽ അവസാനത്തെ മാവിന് തൈ തമ്മിലുള്ള അകലം എന്താണ്?",
     "option1": "3 metre",
     "malayalam_option1": "3 മീറ്റർ",
     "option2": "45 metre",
@@ -69,7 +69,7 @@
   },
   {
     "question": "You have seen that vinegar is added to pickles for preservation .Which of the following acid is present in vinegar?",
-    "malayalam_question": "സൂക്ഷിച്ചു വയ്ക്കാൻ അച്ചാറുകളിൽ വിനാഗിരി ചേർക്കുന്നത് നിങ്ങൾ കണ്ടിട്ടുണ്ടാകും .വിനാഗിരിയിൽ അടങ്ങിയിരിക്കുന്ന ആസിഡ് ഏത്?",
+    "malayalam_question": "അച്ചാറുകളിൽ സൂക്ഷിച്ചു വയ്ക്കാൻ വിനാഗിരി ചേർക്കുന്നത് നിങ്ങൾ കണ്ടിട്ടുണ്ട് .വിനാഗിരിയിൽ അടങ്ങിയിരിക്കുന്ന ആസിഡ് ഏത്",
     "option1": "Citric acid",
     "malayalam_option1": "സിട്രിക് ആസിഡ്",
     "option2": "Lactic acid",
@@ -120,7 +120,7 @@
   },
   {
     "question": "Which type of material is ideal for vessels to prepare food containing buttermilk or sour items?",
-    "malayalam_question": "മോര് അല്ലെങ്കിൽ പുളിച്ച ഇനങ്ങൾ അടങ്ങിയ ഭക്ഷണം തയ്യാറാക്കാൻ ഏത് തരം മെറ്റീരിയലാണ് പാത്രങ്ങൾക്ക് അനുയോജ്യം?",
+    "malayalam_question": "മോര് അല്ലെങ്കിൽ പുളിച്ച ഇനങ്ങൾ അടങ്ങിയ ഭക്ഷണം തയ്യാറാക്കാൻ പാത്രങ്ങൾക്ക് അനുയോജ്യമായ ഏത് തരം മെറ്റീരിയലാണ്?",
     "option1": "Stainless steel",
     "malayalam_option1": "സ്റ്റെയിൻലെസ്സ് സ്റ്റീൽ",
     "option2": "Aluminium",
@@ -205,7 +205,7 @@
   },
   {
     "question": "In a class, there are 40 students out of these 3/4 of 1/2 of total students are girls. How many girls are there in the class?",
-    "malayalam_question": "ഒരു ക്ലാസിൽ, ഈ 3/4 കുട്ടികളിൽ 40 കുട്ടികളുണ്ട്, മൊത്തം വിദ്യാർത്ഥികളിൽ 1/2 പെൺകുട്ടികളാണ്. ക്ലാസ്സിൽ എത്ര പെൺകുട്ടികളുണ്ട്?",
+    "malayalam_question": "ഒരു ക്ലാസിൽ, ഈ 3/4 വിദ്യാർത്ഥികളിൽ 40 കുട്ടികളുണ്ട്, മൊത്തം വിദ്യാർത്ഥികളിൽ 1/2 പെൺകുട്ടികളാണ്. ക്ലാസ്സിൽ എത്ര പെൺകുട്ടികളുണ്ട്?",
     "option1": 20,
     "malayalam_option1": "20",
     "option2": 25,
@@ -290,7 +290,7 @@
   },
   {
     "question": "The sides of a triangle are natural numbers and the length of two sides are 29 cm and 1 cm. What is the length of the third side?",
-    "malayalam_question": "ഒരു ത്രികോണത്തിൻ്റെ വശങ്ങൾ സ്വാഭാവിക സംഖ്യകളാണ്, രണ്ട് വശങ്ങളുടെ നീളം 29 സെൻ്റിമീറ്ററും 1 സെൻ്റിമീറ്ററുമാണ്. മൂന്നാമത്തെ വശത്തിൻ്റെ നീളം എത്രയാണ്?",
+    "malayalam_question": "ഒരു ത്രികോണത്തിൻ്റെ വശങ്ങൾ സ്വാഭാവിക സംഖ്യകളാണ്, രണ്ട് വശങ്ങളുടെ നീളം 29 സെൻ്റിമീറ്ററും 1 സെൻ്റിമീറ്ററുമാണ്. മൂന്നാമത്തെ വശത്തിൻ്റെ നീളം എന്താണ്?",
     "option1": "29 cm",
     "malayalam_option1": "29 സെ.മീ",
     "option2": "28 cm",
@@ -545,7 +545,7 @@
   },
   {
     "question": "Which of the following is not true regarding the characteristic of the South Indian bhakti movement?",
-    "malayalam_question": "ദക്ഷിണേന്ത്യൻ ഭക്തി പ്രസ്ഥാനത്തിൻ്റെ സവിശേഷതയെ സംബന്ധിച്ച് ഇനിപ്പറയുന്നവയിൽ ശരിയല്ലാത്തത് ഏതാണ്?",
+    "malayalam_question": "ദക്ഷിണേന്ത്യൻ ഭക്തി പ്രസ്ഥാനത്തിൻ്റെ സവിശേഷത സംബന്ധിച്ച് ഇനിപ്പറയുന്നവയിൽ ശരിയല്ലാത്തത് ഏതാണ്?",
     "option1": "Deep devotion to the the beloved deity",
     "malayalam_option1": "പ്രിയപ്പെട്ട ദൈവത്തോടുള്ള അഗാധമായ ഭക്തി",
     "option2": "Composition and singing of devotional songs in vernacular language",
@@ -562,7 +562,7 @@
   },
   {
     "question": "Who among the following poets belong to the Nayanars?",
-    "malayalam_question": "താഴെപ്പറയുന്നവരിൽ ആരാണ് നായനാരിൽ പെട്ട കവി?",
+    "malayalam_question": "താഴെപ്പറയുന്നവരിൽ ആരാണ് നായനാർ വിഭാഗത്തിലുള്ളത്?",
     "option1": "Kulasekhara Alvar",
     "malayalam_option1": "കുലശേഖര ആൾവാർ",
     "option2": "Appar",
@@ -579,7 +579,7 @@
   },
   {
     "question": "Which of the following is the wrong pair?",
-    "malayalam_question": "ഇനിപ്പറയുന്നവയിൽ തെറ്റായ ജോഡി ഏതാണ്?",
+    "malayalam_question": "ഇനിപ്പറയുന്നവയിൽ ഏതാണ് തെറ്റായ ജോഡി?",
     "option1": "Andal - Tamil Nadu",
     "malayalam_option1": "ആണ്ടാൾ - തമിഴ്നാട്",
     "option2": "Mirabai - Rajasthan",
@@ -970,7 +970,7 @@
   },
   {
     "question": "Many ideas and provisions of Indian constitution owes to which of these following Act of the British India?",
-    "malayalam_question": "ഇന്ത്യൻ ഭരണഘടനയുടെ നിരവധി ആശയങ്ങളും വ്യവസ്ഥകളും ബ്രിട്ടീഷ് ഇന്ത്യയുടെ ഇനിപ്പറയുന്ന ഏത് നിയമത്തോട് കടപ്പെട്ടിരിക്കുന്നു?",
+    "malayalam_question": "ഇന്ത്യൻ ഭരണഘടനയിലെ നിരവധി ആശയങ്ങളും വ്യവസ്ഥകളും ബ്രിട്ടീഷ് ഇന്ത്യയുടെ ഇനിപ്പറയുന്ന ഏത് നിയമത്തോട് കടപ്പെട്ടിരിക്കുന്നു?",
     "option1": "Government of India Act 1919",
     "malayalam_option1": "ഗവൺമെൻ്റ് ഓഫ് ഇന്ത്യ ആക്റ്റ് 1919",
     "option2": "Government of India Act 1935",
@@ -1199,9 +1199,9 @@
     "option3": "Stops water",
     "malayalam_option3": "വെള്ളം നിർത്തുന്നു",
     "option4": " Forms water",
-    "malayalam_option4": " ജലം രൂപപ്പെടുത്തുന്നു",
+    "malayalam_option4": " വെള്ളം രൂപപ്പെടുത്തുന്നു",
     "answer": "Forms water ",
-    "malayalam_answer": "ജലം രൂപപ്പെടുത്തുന്നു ",
+    "malayalam_answer": "വെള്ളം രൂപപ്പെടുത്തുന്നു ",
     "subject": "Basic Science",
     "chapter": 2,
     "image": "null"
@@ -1352,7 +1352,7 @@
     "option3": "After two weeks",
     "malayalam_option3": "രണ്ടാഴ്ചയ്ക്ക് ശേഷം",
     "option4": "Just after unmoulding",
-    "malayalam_option4": "അൺമോൾഡിങ്ങിനു ശേഷം മാത്രം",
+    "malayalam_option4": "മോൾഡിംഗ് കഴിഞ്ഞ് മാത്രം",
     "answer": "After two weeks",
     "malayalam_answer": "രണ്ടാഴ്ചയ്ക്ക് ശേഷം",
     "subject": "Basic Science",
@@ -1956,7 +1956,7 @@
   },
   {
     "question": "The area of a rectangle is 9 4/5 sq.cm, breadth 4 1/5 cm. What is its length? (In cm)",
-    "malayalam_question": "ഒരു ദീർഘചതുരത്തിൻ്റെ വിസ്തീർണ്ണം 9 4/5 ചതുരശ്ര സെ.മീ, വീതി 4 1/5 സെ.മീ. അതിൻ്റെ നീളം എന്താണ്? (സെ.മീ)",
+    "malayalam_question": "ഒരു ദീർഘചതുരത്തിൻ്റെ വിസ്തീർണ്ണം 9 4/5 ചതുരശ്ര സെ.മീ, വീതി 4 1/5 സെ.മീ. അതിൻ്റെ നീളം എന്താണ്? (സെ.മീ.)",
     "option1": "2 2/3",
     "malayalam_option1": "2 2/3",
     "option2": "3 1/7",
@@ -2143,7 +2143,7 @@
   },
   {
     "question": "Which of the following statements has no connection with plane mirror?",
-    "malayalam_question": "പ്ലെയിൻ മിററുമായി ബന്ധമില്ലാത്ത ഇനിപ്പറയുന്ന പ്രസ്താവനകളിൽ ഏതാണ്?",
+    "malayalam_question": "താഴെപ്പറയുന്നവയിൽ ഏതാണ് വിമാന കണ്ണാടിയുമായി ബന്ധമില്ലാത്തത്?",
     "option1": "A mirror with a plane surface is plane mirror",
     "malayalam_option1": "പ്ലെയിൻ പ്രതലമുള്ള ഒരു കണ്ണാടിയാണ് പ്ലെയിൻ മിറർ",
     "option2": "Lateral inversion occurs",
@@ -2194,7 +2194,7 @@
   },
   {
     "question": "A child made a beautiful periscope. But he couldn't see anything when looked through it. But when he changed the mirror used in it with another type, it worked. Can you guess the mirror he used secondly?",
-    "malayalam_question": "ഒരു കുട്ടി മനോഹരമായ പെരിസ്കോപ്പ് ഉണ്ടാക്കി. പക്ഷെ അതിലൂടെ നോക്കിയപ്പോൾ ഒന്നും കാണാൻ കഴിഞ്ഞില്ല. എന്നാൽ അതിൽ ഉപയോഗിച്ചിരുന്ന കണ്ണാടി മറ്റൊരു തരത്തിൽ മാറ്റിയപ്പോൾ അത് പ്രവർത്തിച്ചു. അവൻ രണ്ടാമതായി ഉപയോഗിച്ച കണ്ണാടി നിങ്ങൾക്ക് ഊഹിക്കാമോ?",
+    "malayalam_question": "ഒരു കുട്ടി മനോഹരമായ ഒരു പെരിസ്കോപ്പ് ഉണ്ടാക്കി. പക്ഷെ അതിലൂടെ നോക്കിയപ്പോൾ ഒന്നും കാണാൻ കഴിഞ്ഞില്ല. എന്നാൽ അതിൽ ഉപയോഗിച്ചിരുന്ന കണ്ണാടി മറ്റൊരു തരത്തിൽ മാറ്റിയപ്പോൾ അത് പ്രവർത്തിച്ചു. അവൻ രണ്ടാമതായി ഉപയോഗിച്ച കണ്ണാടി നിങ്ങൾക്ക് ഊഹിക്കാൻ കഴിയുമോ?",
     "option1": "Concave mirror",
     "malayalam_option1": "കോൺകേവ് കണ്ണാടി",
     "option2": "Plane mirror",
@@ -2211,7 +2211,7 @@
   },
   {
     "question": "We can see amazing visuals in a kaleidoscope due to multiple reflection. Which mirror is used in the making of kaleidoscope?",
-    "malayalam_question": "ഒന്നിലധികം പ്രതിഫലനം മൂലം നമുക്ക് കാലിഡോസ്കോപ്പിൽ അതിശയകരമായ ദൃശ്യങ്ങൾ കാണാൻ കഴിയും. കാലിഡോസ്കോപ്പ് നിർമ്മാണത്തിൽ ഉപയോഗിക്കുന്ന കണ്ണാടി ഏത്?",
+    "malayalam_question": "ഒന്നിലധികം പ്രതിഫലനം മൂലം ഒരു കാലിഡോസ്കോപ്പിൽ നമുക്ക് അതിശയകരമായ ദൃശ്യങ്ങൾ കാണാൻ കഴിയും. കാലിഡോസ്കോപ്പ് നിർമ്മാണത്തിൽ ഉപയോഗിക്കുന്ന കണ്ണാടി ഏത്?",
     "option1": "Concave mirror",
     "malayalam_option1": "കോൺകേവ് കണ്ണാടി",
     "option2": "Plane mirror",
@@ -2234,9 +2234,9 @@
     "option2": "The angle of reflection will be double of the angle of incidence",
     "malayalam_option2": "പ്രതിഫലനത്തിൻ്റെ കോൺ സംഭവത്തിൻ്റെ കോണിൻ്റെ ഇരട്ടിയായിരിക്കും",
     "option3": "The angle of incidence will be higher than the angle of reflection",
-    "malayalam_option3": "പ്രതിഫലനത്തിൻ്റെ കോണിനേക്കാൾ ഉയർന്നതായിരിക്കും സംഭവത്തിൻ്റെ കോൺ",
+    "malayalam_option3": "പ്രതിഫലനത്തിൻ്റെ കോണിനേക്കാൾ ഉയർന്നതായിരിക്കും സംഭവങ്ങളുടെ കോൺ",
     "option4": "The angle of incidence will be lesser than the angle of reflection",
-    "malayalam_option4": "സംഭവങ്ങളുടെ ആംഗിൾ പ്രതിഫലനത്തിൻ്റെ കോണിനേക്കാൾ കുറവായിരിക്കും",
+    "malayalam_option4": "സംഭവങ്ങളുടെ കോൺ പ്രതിഫലനത്തിൻ്റെ കോണിനേക്കാൾ കുറവായിരിക്കും",
     "answer": "The angle of incidence and the angle of reflection are always the same",
     "malayalam_answer": "സംഭവങ്ങളുടെ കോണും പ്രതിഫലനത്തിൻ്റെ കോണും എല്ലായ്പ്പോഴും ഒരുപോലെയാണ്",
     "subject": "Basic Science",
@@ -2262,7 +2262,7 @@
   },
   {
     "question": "What is the reason for getting light inside the rooms during the day",
-    "malayalam_question": "പകൽ സമയത്ത് മുറികൾക്കുള്ളിൽ വെളിച്ചം ലഭിക്കാൻ കാരണം എന്താണ്",
+    "malayalam_question": "പകൽ സമയത്ത് മുറികൾക്കുള്ളിൽ വെളിച്ചം ലഭിക്കാനുള്ള കാരണം എന്താണ്",
     "option1": "Regular reflection",
     "malayalam_option1": "പതിവ് പ്രതിഫലനം",
     "option2": "Diffused reflection",
@@ -2381,7 +2381,7 @@
   },
   {
     "question": "Why are different patterns formed in the kaleidoscope?",
-    "malayalam_question": "കാലിഡോസ്കോപ്പിൽ വ്യത്യസ്ത പാറ്റേണുകൾ രൂപപ്പെടുന്നത് എന്തുകൊണ്ട്?",
+    "malayalam_question": "എന്തുകൊണ്ടാണ് കാലിഡോസ്കോപ്പിൽ വ്യത്യസ്ത പാറ്റേണുകൾ രൂപപ്പെടുന്നത്?",
     "option1": "Due to diffused reflection ",
     "malayalam_option1": "വ്യാപിച്ച പ്രതിഫലനം കാരണം ",
     "option2": "Due to multiple reflection",
@@ -2423,9 +2423,9 @@
     "option3": "Speed of the ambulance is more",
     "malayalam_option3": "ആംബുലൻസിൻ്റെ വേഗത കൂടുതലാണ്",
     "option4": "The drivers of vehicles in front can read it correctly through the rear-view mirror.",
-    "malayalam_option4": "മുന്നിലുള്ള വാഹനങ്ങളുടെ ഡ്രൈവർമാർക്ക് പിൻവ്യൂ മിററിലൂടെ അത് കൃത്യമായി വായിക്കാൻ കഴിയും.",
+    "malayalam_option4": "മുന്നിലുള്ള വാഹനങ്ങളുടെ ഡ്രൈവർമാർക്ക് പിൻവ്യൂ മിററിലൂടെ അത് കൃത്യമായി വായിക്കാനാകും.",
     "answer": "The drivers of vehicles in front can read it correctly through the rear-view mirror.",
-    "malayalam_answer": "മുന്നിലുള്ള വാഹനങ്ങളുടെ ഡ്രൈവർമാർക്ക് പിൻവ്യൂ മിററിലൂടെ അത് കൃത്യമായി വായിക്കാൻ കഴിയും.",
+    "malayalam_answer": "മുന്നിലുള്ള വാഹനങ്ങളുടെ ഡ്രൈവർമാർക്ക് പിൻവ്യൂ മിററിലൂടെ അത് കൃത്യമായി വായിക്കാനാകും.",
     "subject": "Basic Science",
     "chapter": 4,
     "image": "null"
@@ -2466,7 +2466,7 @@
   },
   {
     "question": "Which of the following is the wrong pair?",
-    "malayalam_question": "ഇനിപ്പറയുന്നവയിൽ തെറ്റായ ജോഡി ഏതാണ്?",
+    "malayalam_question": "ഇനിപ്പറയുന്നവയിൽ ഏതാണ് തെറ്റായ ജോഡി?",
     "option1": "Jyoti Rao Phule - Satyashodhak Samaj",
     "malayalam_option1": "ജ്യോതി റാവു ഫൂലെ - സത്യശോധക് സമാജ്",
     "option2": "Ayyankali - Sadhujana paripalana sangham",
@@ -2553,7 +2553,7 @@
     "question": "Who was the First Malayalee women to become Director General of the Botanical Survey of India?",
     "malayalam_question": "ബൊട്ടാണിക്കൽ സർവ്വേ ഓഫ് ഇന്ത്യയുടെ ഡയറക്ടർ ജനറൽ ആയ ആദ്യ മലയാളി വനിത?",
     "option1": "Shakuntala Devi",
-    "malayalam_option1": "ശകുന്തള ദേവി",
+    "malayalam_option1": "ശകുന്തളാ ദേവി",
     "option2": "Dr. Poonnen Lukose",
     "malayalam_option2": "ഡോ.പുന്നേൻ ലൂക്കോസ്",
     "option3": "E K Janaki Ammal",
@@ -2602,7 +2602,7 @@
   },
   {
     "question": "The social reformer who established school in Kerala for the oppressed class in 1905.",
-    "malayalam_question": "1905-ൽ അടിച്ചമർത്തപ്പെട്ട വിഭാഗങ്ങൾക്കായി കേരളത്തിൽ സ്കൂൾ സ്ഥാപിച്ച സാമൂഹിക പരിഷ്കർത്താവ്.",
+    "malayalam_question": "1905-ൽ അടിച്ചമർത്തപ്പെട്ടവർക്കായി കേരളത്തിൽ വിദ്യാലയം സ്ഥാപിച്ച സാമൂഹിക പരിഷ്കർത്താവ്.",
     "option1": "Sahodaran Ayyappan",
     "malayalam_option1": "സഹോദരൻ അയ്യപ്പൻ",
     "option2": "Vegbhatananda",
@@ -2687,7 +2687,7 @@
   },
   {
     "question": "Who was the social reformer nominated to Sri Moolam Prana Sabha in 1921 and 1931",
-    "malayalam_question": "1921ലും 1931ലും ശ്രീമൂലം പ്രാണസഭയിലേക്ക് നാമനിർദ്ദേശം ചെയ്യപ്പെട്ട സാമൂഹ്യപരിഷ്കർത്താവ്?",
+    "malayalam_question": "1921-ലും 1931-ലും ശ്രീമൂലം പ്രാണസഭയിലേക്ക് നാമനിർദ്ദേശം ചെയ്യപ്പെട്ട സാമൂഹ്യപരിഷ്കർത്താവ്?",
     "option1": "Vakati Abdul Khadar Moulavi",
     "malayalam_option1": "വക്കാടി അബ്ദുൽ ഖാദർ മൗലവി",
     "option2": "Sree Narayana Guru",
