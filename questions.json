@@ -392,7 +392,7 @@
   },
   {
     "question": "Draw a line 8 cm long and an angle of 30° at the right end. How many triangle can be drawn with the third side as 5 cm?",
-    "malayalam_question": "വലത് അറ്റത്ത് 8 സെൻ്റീമീറ്റർ നീളവും 30° കോണും വരയ്ക്കുക. മൂന്നാമത്തെ വശം 5 സെൻ്റിമീറ്ററായി എത്ര ത്രികോണങ്ങൾ വരയ്ക്കാം?",
+    "malayalam_question": "വലത് അറ്റത്ത് 8 സെൻ്റീമീറ്റർ നീളവും 30 ഡിഗ്രി കോണും വരയ്ക്കുക. മൂന്നാമത്തെ വശം 5 സെൻ്റിമീറ്ററായി എത്ര ത്രികോണങ്ങൾ വരയ്ക്കാം?",
     "option1": 1,
     "malayalam_option1": "1",
     "option2": 2,
@@ -409,7 +409,7 @@
   },
   {
     "question": "Draw a line 8 cm long and an angle of 30° at the right end. How many triangle can be drawn with the third side as 4 cm?",
-    "malayalam_question": "വലത് അറ്റത്ത് 8 സെൻ്റീമീറ്റർ നീളവും 30° കോണും വരയ്ക്കുക. മൂന്നാമത്തെ വശം 4 സെൻ്റിമീറ്ററായി എത്ര ത്രികോണങ്ങൾ വരയ്ക്കാം?",
+    "malayalam_question": "വലത് അറ്റത്ത് 8 സെൻ്റീമീറ്റർ നീളവും 30 ഡിഗ്രി കോണും വരയ്ക്കുക. മൂന്നാമത്തെ വശം 4 സെൻ്റിമീറ്ററായി എത്ര ത്രികോണങ്ങൾ വരയ്ക്കാം?",
     "option1": 1,
     "malayalam_option1": "1",
     "option2": 2,
@@ -545,7 +545,7 @@
   },
   {
     "question": "Which of the following is not true regarding the characteristic of the South Indian bhakti movement?",
-    "malayalam_question": "ദക്ഷിണേന്ത്യൻ ഭക്തി പ്രസ്ഥാനത്തിൻ്റെ സവിശേഷത സംബന്ധിച്ച് ഇനിപ്പറയുന്നവയിൽ ശരിയല്ലാത്തത് ഏതാണ്?",
+    "malayalam_question": "ദക്ഷിണേന്ത്യൻ ഭക്തി പ്രസ്ഥാനത്തിൻ്റെ സവിശേഷതയെ സംബന്ധിച്ച് ഇനിപ്പറയുന്നവയിൽ ശരിയല്ലാത്തത് ഏതാണ്?",
     "option1": "Deep devotion to the the beloved deity",
     "malayalam_option1": "പ്രിയപ്പെട്ട ദൈവത്തോടുള്ള അഗാധമായ ഭക്തി",
     "option2": "Composition and singing of devotional songs in vernacular language",
@@ -772,7 +772,7 @@
     "option2": "Kabir",
     "malayalam_option2": "കബീർ",
     "option3": "Karaikal Ammayar",
-    "malayalam_option3": "കാരയ്ക്കൽ അമ്മയാർ",
+    "malayalam_option3": "കാരക്കൽ അമ്മയാർ",
     "option4": "Guru Nanak",
     "malayalam_option4": "ഗുരു നാനാക്ക്",
     "answer": "Kabir",
@@ -806,7 +806,7 @@
     "option2": "Andal",
     "malayalam_option2": "ആണ്ടാൾ",
     "option3": "Karaikal Ammayar",
-    "malayalam_option3": "കാരയ്ക്കൽ അമ്മയാർ",
+    "malayalam_option3": "കാരക്കൽ അമ്മയാർ",
     "option4": "Mirabai",
     "malayalam_option4": "മീരാഭായി",
     "answer": "Andal",
@@ -908,11 +908,11 @@
     "option2": "Champaran Satyagraha of 1917",
     "malayalam_option2": "1917ലെ ചമ്പാരൻ സത്യാഗ്രഹം",
     "option3": "First Independence War of 1857",
-    "malayalam_option3": "1857ലെ ഒന്നാം സ്വാതന്ത്ര്യസമരം",
+    "malayalam_option3": "1857-ലെ ഒന്നാം സ്വാതന്ത്ര്യസമരം",
     "option4": "Kheda Satyagraha of 1918",
     "malayalam_option4": "1918-ലെ ഖേഡ സത്യാഗ്രഹം",
     "answer": "First Independence War of 1857",
-    "malayalam_answer": "1857ലെ ഒന്നാം സ്വാതന്ത്ര്യസമരം",
+    "malayalam_answer": "1857-ലെ ഒന്നാം സ്വാതന്ത്ര്യസമരം",
     "subject": "Social Science",
     "chapter": 3,
     "image": "null"
@@ -970,7 +970,7 @@
   },
   {
     "question": "Many ideas and provisions of Indian constitution owes to which of these following Act of the British India?",
-    "malayalam_question": "ഇന്ത്യൻ ഭരണഘടനയുടെ നിരവധി ആശയങ്ങളും വ്യവസ്ഥകളും ബ്രിട്ടീഷ് ഇന്ത്യയുടെ ഇനിപ്പറയുന്ന ഏത് നിയമത്തോട് കടപ്പെട്ടിരിക്കുന്നു?",
+    "malayalam_question": "ഇന്ത്യൻ ഭരണഘടനയിലെ നിരവധി ആശയങ്ങളും വ്യവസ്ഥകളും ബ്രിട്ടീഷ് ഇന്ത്യയുടെ ഇനിപ്പറയുന്ന ഏത് നിയമത്തോട് കടപ്പെട്ടിരിക്കുന്നു?",
     "option1": "Government of India Act 1919",
     "malayalam_option1": "ഗവൺമെൻ്റ് ഓഫ് ഇന്ത്യ ആക്റ്റ് 1919",
     "option2": "Government of India Act 1935",
@@ -1199,9 +1199,9 @@
     "option3": "Stops water",
     "malayalam_option3": "വെള്ളം നിർത്തുന്നു",
     "option4": " Forms water",
-    "malayalam_option4": " വെള്ളം രൂപപ്പെടുത്തുന്നു",
+    "malayalam_option4": " ജലം രൂപപ്പെടുത്തുന്നു",
     "answer": "Forms water ",
-    "malayalam_answer": "വെള്ളം രൂപപ്പെടുത്തുന്നു ",
+    "malayalam_answer": "ജലം രൂപപ്പെടുത്തുന്നു ",
     "subject": "Basic Science",
     "chapter": 2,
     "image": "null"
@@ -1497,7 +1497,7 @@
   },
   {
     "question": "Take pathinugham water in three different test tubes. Add five drops of vinegar, Tamarind water and lemon juice, respectively to it. What is the colour change?",
-    "malayalam_question": "മൂന്ന് വ്യത്യസ്‌ത ടെസ്റ്റ് ട്യൂബുകളിൽ പാതിനൂം വെള്ളം എടുക്കുക. ഇതിലേക്ക് യഥാക്രമം അഞ്ച് തുള്ളി വിനാഗിരി, പുളിവെള്ളം, നാരങ്ങ നീര് എന്നിവ ചേർക്കുക. എന്താണ് നിറം മാറ്റം?",
+    "malayalam_question": "മൂന്ന് വ്യത്യസ്‌ത പരീക്ഷണ ട്യൂബുകളിലായി പാതിന്നുഗം വെള്ളം എടുക്കുക. ഇതിലേക്ക് യഥാക്രമം അഞ്ച് തുള്ളി വിനാഗിരി, പുളിവെള്ളം, നാരങ്ങ നീര് എന്നിവ ചേർക്കുക. എന്താണ് നിറം മാറ്റം?",
     "option1": "Green",
     "malayalam_option1": "പച്ച",
     "option2": "Blue",
@@ -1582,7 +1582,7 @@
   },
   {
     "question": "Which is the device that is used to make a circuit work when needed?",
-    "malayalam_question": "ആവശ്യമുള്ളപ്പോൾ ഒരു സർക്യൂട്ട് പ്രവർത്തിക്കാൻ ഉപയോഗിക്കുന്ന ഉപകരണം ഏതാണ്?",
+    "malayalam_question": "ആവശ്യമുള്ളപ്പോൾ സർക്യൂട്ട് പ്രവർത്തിക്കാൻ ഉപയോഗിക്കുന്ന ഉപകരണം ഏതാണ്?",
     "option1": "Buzzer",
     "malayalam_option1": "ബസർ",
     "option2": "Switch",
@@ -1956,7 +1956,7 @@
   },
   {
     "question": "The area of a rectangle is 9 4/5 sq.cm, breadth 4 1/5 cm. What is its length? (In cm)",
-    "malayalam_question": "ഒരു ദീർഘചതുരത്തിൻ്റെ വിസ്തീർണ്ണം 9 4/5 ചതുരശ്ര സെ.മീ, വീതി 4 1/5 സെ.മീ. അതിൻ്റെ നീളം എന്താണ്? (സെ.മീ.)",
+    "malayalam_question": "ഒരു ദീർഘചതുരത്തിൻ്റെ വിസ്തീർണ്ണം 9 4/5 ചതുരശ്ര സെ.മീ, വീതി 4 1/5 സെ.മീ. അതിൻ്റെ നീളം എന്താണ്? (സെ.മീ)",
     "option1": "2 2/3",
     "malayalam_option1": "2 2/3",
     "option2": "3 1/7",
@@ -2109,7 +2109,7 @@
   },
   {
     "question": "What is called the phenomenon by which the incident light falling on a surface bounces back?",
-    "malayalam_question": "ഒരു പ്രതലത്തിൽ പതിക്കുന്ന പ്രകാശം പിന്നിലേക്ക് കുതിക്കുന്ന പ്രതിഭാസത്തെ എന്താണ് വിളിക്കുന്നത്?",
+    "malayalam_question": "ഒരു പ്രതലത്തിൽ വീഴുന്ന പ്രകാശം പിന്നിലേക്ക് കുതിക്കുന്ന പ്രതിഭാസത്തെ എന്താണ് വിളിക്കുന്നത്?",
     "option1": "Regular reflection",
     "malayalam_option1": "പതിവ് പ്രതിഫലനം",
     "option2": "Reflection",
@@ -2160,7 +2160,7 @@
   },
   {
     "question": "The light ray falls on a mirror is called incident ray and the ray that bounces back is called the reflected ray. Then what is the line drawn perpendicular to the surface of the mirror from the point of incidence, called?",
-    "malayalam_question": "കണ്ണാടിയിൽ പതിക്കുന്ന പ്രകാശകിരണത്തെ സംഭവകിരണമെന്നും പിന്നിലേക്ക് കുതിക്കുന്ന കിരണത്തെ പ്രതിഫലിച്ച കിരണമെന്നും വിളിക്കുന്നു. അപ്പോൾ സംഭവത്തിൻ്റെ പോയിൻ്റിൽ നിന്ന് കണ്ണാടിയുടെ ഉപരിതലത്തിലേക്ക് ലംബമായി വരച്ച രേഖയെ എന്താണ് വിളിക്കുന്നത്?",
+    "malayalam_question": "കണ്ണാടിയിൽ പതിക്കുന്ന പ്രകാശകിരണത്തെ സംഭവകിരണമെന്നും പിന്നിലേക്ക് കുതിക്കുന്ന രശ്മിയെ പ്രതിഫലിച്ച കിരണമെന്നും വിളിക്കുന്നു. അപ്പോൾ സംഭവത്തിൻ്റെ പോയിൻ്റിൽ നിന്ന് കണ്ണാടിയുടെ ഉപരിതലത്തിലേക്ക് ലംബമായി വരച്ച രേഖയെ എന്താണ് വിളിക്കുന്നത്?",
     "option1": "Angle of incidence",
     "malayalam_option1": "സംഭവത്തിൻ്റെ ആംഗിൾ",
     "option2": "Angle of reflection",
@@ -2194,7 +2194,7 @@
   },
   {
     "question": "A child made a beautiful periscope. But he couldn't see anything when looked through it. But when he changed the mirror used in it with another type, it worked. Can you guess the mirror he used secondly?",
-    "malayalam_question": "ഒരു കുട്ടി മനോഹരമായ പെരിസ്കോപ്പ് ഉണ്ടാക്കി. പക്ഷെ അതിലൂടെ നോക്കിയപ്പോൾ ഒന്നും കാണാൻ കഴിഞ്ഞില്ല. എന്നാൽ അതിൽ ഉപയോഗിച്ചിരുന്ന കണ്ണാടി മറ്റൊരു തരത്തിൽ മാറ്റിയപ്പോൾ അത് പ്രവർത്തിച്ചു. അവൻ രണ്ടാമതായി ഉപയോഗിച്ച കണ്ണാടി നിങ്ങൾക്ക് ഊഹിക്കാമോ?",
+    "malayalam_question": "ഒരു കുട്ടി മനോഹരമായ ഒരു പെരിസ്കോപ്പ് ഉണ്ടാക്കി. പക്ഷെ അതിലൂടെ നോക്കിയപ്പോൾ ഒന്നും കാണാൻ കഴിഞ്ഞില്ല. എന്നാൽ അതിൽ ഉപയോഗിച്ചിരുന്ന കണ്ണാടി മറ്റൊരു തരത്തിൽ മാറ്റിയപ്പോൾ അത് പ്രവർത്തിച്ചു. അവൻ രണ്ടാമതായി ഉപയോഗിച്ച കണ്ണാടി നിങ്ങൾക്ക് ഊഹിക്കാമോ?",
     "option1": "Concave mirror",
     "malayalam_option1": "കോൺകേവ് കണ്ണാടി",
     "option2": "Plane mirror",
@@ -2279,7 +2279,7 @@
   },
   {
     "question": "What is the incident angle and the reflected angle when a Ray of light falls normally on a plane mirror",
-    "malayalam_question": "സാധാരണയായി ഒരു പ്ലെയിൻ മിററിൽ ഒരു പ്രകാശകിരണം പതിക്കുമ്പോൾ സംഭവകോണും പ്രതിഫലിക്കുന്ന കോണും എന്താണ്?",
+    "malayalam_question": "ഒരു പ്ലെയിൻ മിററിൽ സാധാരണയായി ഒരു പ്രകാശകിരണം പതിക്കുമ്പോൾ സംഭവകോണും പ്രതിഫലിക്കുന്ന കോണും എന്താണ്?",
     "option1": "180 degree",
     "malayalam_option1": "180 ഡിഗ്രി",
     "option2": "360 degree",
@@ -2381,7 +2381,7 @@
   },
   {
     "question": "Why are different patterns formed in the kaleidoscope?",
-    "malayalam_question": "കാലിഡോസ്കോപ്പിൽ വ്യത്യസ്ത പാറ്റേണുകൾ രൂപപ്പെടുന്നത് എന്തുകൊണ്ട്?",
+    "malayalam_question": "എന്തുകൊണ്ടാണ് കാലിഡോസ്കോപ്പിൽ വ്യത്യസ്ത പാറ്റേണുകൾ രൂപപ്പെടുന്നത്?",
     "option1": "Due to diffused reflection ",
     "malayalam_option1": "വ്യാപിച്ച പ്രതിഫലനം കാരണം ",
     "option2": "Due to multiple reflection",
@@ -2602,7 +2602,7 @@
   },
   {
     "question": "The social reformer who established school in Kerala for the oppressed class in 1905.",
-    "malayalam_question": "1905-ൽ അടിച്ചമർത്തപ്പെട്ടവർക്കായി കേരളത്തിൽ വിദ്യാലയം സ്ഥാപിച്ച സാമൂഹിക പരിഷ്കർത്താവ്.",
+    "malayalam_question": "1905-ൽ അടിച്ചമർത്തപ്പെട്ട വിഭാഗങ്ങൾക്കായി കേരളത്തിൽ വിദ്യാലയം സ്ഥാപിച്ച സാമൂഹിക പരിഷ്കർത്താവ്.",
     "option1": "Sahodaran Ayyappan",
     "malayalam_option1": "സഹോദരൻ അയ്യപ്പൻ",
     "option2": "Vegbhatananda",
@@ -2797,9 +2797,9 @@
     "option3": "Tribals",
     "malayalam_option3": "ആദിവാസികൾ",
     "option4": "The rich",
-    "malayalam_option4": "ധനികർ",
+    "malayalam_option4": "സമ്പന്നർ",
     "answer": "The rich",
-    "malayalam_answer": "ധനികർ",
+    "malayalam_answer": "സമ്പന്നർ",
     "subject": "Social Science",
     "chapter": 4,
     "image": ""
