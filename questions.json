@@ -69,7 +69,7 @@
   },
   {
     "question": "You have seen that vinegar is added to pickles for preservation .Which of the following acid is present in vinegar?",
-    "malayalam_question": "അച്ചാറുകളിൽ സൂക്ഷിച്ചു വയ്ക്കാൻ വിനാഗിരി ചേർക്കുന്നത് നിങ്ങൾ കണ്ടിട്ടുണ്ട് .വിനാഗിരിയിൽ അടങ്ങിയിരിക്കുന്ന ആസിഡ് ഏത്",
+    "malayalam_question": "സൂക്ഷിച്ചു വയ്ക്കാൻ അച്ചാറുകളിൽ വിനാഗിരി ചേർക്കുന്നത് നിങ്ങൾ കണ്ടിട്ടുണ്ടാകും .വിനാഗിരിയിൽ അടങ്ങിയിരിക്കുന്ന ആസിഡ് ഏത്?",
     "option1": "Citric acid",
     "malayalam_option1": "സിട്രിക് ആസിഡ്",
     "option2": "Lactic acid",
@@ -2381,7 +2381,7 @@
   },
   {
     "question": "Why are different patterns formed in the kaleidoscope?",
-    "malayalam_question": "എന്തുകൊണ്ടാണ് കാലിഡോസ്കോപ്പിൽ വ്യത്യസ്ത പാറ്റേണുകൾ രൂപപ്പെടുന്നത്?",
+    "malayalam_question": "കാലിഡോസ്കോപ്പിൽ വ്യത്യസ്ത പാറ്റേണുകൾ രൂപപ്പെടുന്നത് എന്തുകൊണ്ട്?",
     "option1": "Due to diffused reflection ",
     "malayalam_option1": "വ്യാപിച്ച പ്രതിഫലനം കാരണം ",
     "option2": "Due to multiple reflection",
