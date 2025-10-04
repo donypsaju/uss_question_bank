@@ -157,14 +157,24 @@ document.addEventListener('DOMContentLoaded', () => {
             "English": 5, "Basic Science": 10, "Social Science": 10
         };
         
+        const subjectOrder = [
+            "Part I Malayalam", 
+            "Part II Malayalam", 
+            "Maths", 
+            "English", 
+            "Basic Science", 
+            "Social Science"
+        ];
+        
         studentQuizState.questions = [];
-        const availableSubjects = [...new Set(allQuestions.map(q => q.subject))];
 
-        // Dynamically build the quiz based on the config and available questions.
-        availableSubjects.forEach(subject => {
+        // Build the quiz based on the defined subject order.
+        subjectOrder.forEach(subject => {
             if (questionConfig[subject]) {
                 const subjectQuestions = allQuestions.filter(q => q.subject === subject);
-                studentQuizState.questions.push(...shuffleArray(subjectQuestions).slice(0, questionConfig[subject]));
+                if (subjectQuestions.length > 0) {
+                    studentQuizState.questions.push(...shuffleArray(subjectQuestions).slice(0, questionConfig[subject]));
+                }
             }
         });
 
