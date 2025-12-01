@@ -1,5 +1,8 @@
 /* === COPY TO script.js === */
 
+// FIX: Define this GLOBALLY so it is accessible everywhere
+let QUESTIONS_DB = [];
+
 /**
  * APP DATA & CONFIGURATION
  */
@@ -15,6 +18,69 @@ const CONFIG = {
     ]
 };
 
+// Fallback data for Preview Mode only (since fetch won't work in this chat preview)
+const FALLBACK_DATA = [
+    {
+        "question": "The length and width of a rectangular park are 9/4 metre and 8/3 metre respectively. Find the area of the park",
+        "malayalam_question": "ദീർഘചതുരാകൃതിയിലുള്ള പാർക്കിൻ്റെ നീളവും വീതിയും യഥാക്രമം 9/4 മീറ്ററും 8/3 മീറ്ററുമാണ്. പാർക്കിൻ്റെ പ്രദേശം കണ്ടെത്തുക",
+        "option1": "6 square metre", "malayalam_option1": "6 ചതുരശ്ര മീറ്റർ",
+        "option2": "4 square metre", "malayalam_option2": "4 ചതുരശ്ര മീറ്റർ",
+        "option3": "9/2 square metre", "malayalam_option3": "9/2 ചതുരശ്ര മീറ്റർ",
+        "option4": "10 square metre", "malayalam_option4": "10 ചതുരശ്ര മീറ്റർ",
+        "answer": "6 square metre", "malayalam_answer": "6 ചതുരശ്ര മീറ്റർ",
+        "subject": "Maths", "chapter": 2, "image": "null"
+    },
+    {
+        "question": "Who wrote the poem 'Veena Poovu'?",
+        "malayalam_question": "'വീണപൂവ്' എന്ന കവിത ആരാണ് രചിച്ചത്?",
+        "option1": "Kumaran Asan", "malayalam_option1": "കുമാരനാശാൻ",
+        "option2": "Vallathol", "malayalam_option2": "വള്ളത്തോൾ",
+        "option3": "Ulloor", "malayalam_option3": "ഉള്ളൂർ",
+        "option4": "Changampuzha", "malayalam_option4": "ചങ്ങമ്പുഴ",
+        "answer": "Kumaran Asan", "malayalam_answer": "കുമാരനാശാൻ",
+        "subject": "Part I Malayalam", "chapter": 1, "image": "null"
+    },
+    {
+        "question": "What is the chemical symbol for Water?",
+        "malayalam_question": "വെള്ളത്തിന്റെ രാസസൂത്രം എന്താണ്?",
+        "option1": "H2O", "malayalam_option1": "H2O",
+        "option2": "CO2", "malayalam_option2": "CO2",
+        "option3": "O2", "malayalam_option3": "O2",
+        "option4": "NaCl", "malayalam_option4": "NaCl",
+        "answer": "H2O", "malayalam_answer": "H2O",
+        "subject": "Basic Science", "chapter": 1, "image": "null"
+    },
+     {
+        "question": "Who was the first Prime Minister of India?",
+        "malayalam_question": "ഇന്ത്യയുടെ ആദ്യത്തെ പ്രധാനമന്ത്രി ആരായിരുന്നു?",
+        "option1": "Gandhi", "malayalam_option1": "ഗാന്ധി",
+        "option2": "Nehru", "malayalam_option2": "നെഹ്റു",
+        "option3": "Patel", "malayalam_option3": "പട്ടേൽ",
+        "option4": "Ambedkar", "malayalam_option4": "അംബേദ്കർ",
+        "answer": "Nehru", "malayalam_answer": "നെഹ്റു",
+        "subject": "Social Science", "chapter": 1, "image": "null"
+    },
+    {
+        "question": "Synonym of 'Happy'.",
+        "malayalam_question": "'Happy' എന്ന വാക്കിന്റെ പര്യായപദം.",
+        "option1": "Sad", "malayalam_option1": "Sad",
+        "option2": "Joyful", "malayalam_option2": "Joyful",
+        "option3": "Angry", "malayalam_option3": "Angry",
+        "option4": "Tired", "malayalam_option4": "Tired",
+        "answer": "Joyful", "malayalam_answer": "Joyful",
+        "subject": "English", "chapter": 1, "image": "null"
+    },
+     {
+        "question": "Identify the correct grammar usage.",
+        "malayalam_question": "ശരിയായ വ്യാകരണ പ്രയോഗം തിരിച്ചറിയുക.",
+        "option1": "Option A", "malayalam_option1": "ഓപ്ഷൻ എ",
+        "option2": "Option B", "malayalam_option2": "ഓപ്ഷൻ ബി",
+        "option3": "Option C", "malayalam_option3": "ഓപ്ഷൻ സി",
+        "option4": "Option D", "malayalam_option4": "ഓപ്ഷൻ ഡി",
+        "answer": "Option A", "malayalam_answer": "ഓപ്ഷൻ എ",
+        "subject": "Part II Malayalam", "chapter": 1, "image": "null"
+    }
+];
 
 /**
  * UTILITY FUNCTIONS
@@ -44,7 +110,7 @@ const app = {
         currentQuestions: [],
         currentQuestionIndex: 0,
         score: 0,
-        answers: [], // { questionId, isCorrect, subject, timeTaken }
+        answers: [], 
         timer: 0,
         timerInterval: null,
         language: 'en', // 'en' or 'mal'
@@ -52,10 +118,40 @@ const app = {
         startTime: 0
     },
 
-    init: () => {
+    init: async () => {
         app.loadStats();
         app.renderHistory();
-        app.populateSubjectModal();
+        
+        // Load questions from JSON
+        await app.fetchQuestions();
+    },
+
+    fetchQuestions: async () => {
+        const loading = document.getElementById('loading-indicator');
+        if(loading) loading.classList.remove('d-none');
+        
+        try {
+            // Attempt to fetch from the file
+            const response = await fetch('questions.json');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            QUESTIONS_DB = await response.json();
+            console.log("Successfully loaded questions from questions.json");
+            
+        } catch (error) {
+            console.warn("Failed to load questions.json (This is expected in Preview mode). Using fallback data.", error);
+            // Fallback for Preview or if file missing
+            QUESTIONS_DB = FALLBACK_DATA; 
+            
+            // In a real environment, you might want to alert the user
+            // alert("Could not load questions.json. Please ensure the file exists.");
+        } finally {
+            if(loading) loading.classList.add('d-none');
+            app.populateSubjectModal(); // Refresh UI dependent on data
+        }
     },
 
     loadStats: () => {
@@ -103,32 +199,40 @@ const app = {
      * QUIZ LOGIC
      */
     startFullQuiz: () => {
+        if (!QUESTIONS_DB || QUESTIONS_DB.length === 0) {
+            alert("Questions data not loaded. Please check questions.json.");
+            return;
+        }
+
         let finalQuestions = [];
         
         CONFIG.examStructure.forEach(req => {
             let subjectQs = QUESTIONS_DB.filter(q => q.subject === req.subject);
             
-            // Dummy Data Generator for Demo purposes if DB is empty for a subject
+            // Handle case where we don't have enough questions for the requirement
             if (subjectQs.length === 0) {
-                 for(let i=0; i<req.count; i++) {
-                     subjectQs.push({
-                         ...QUESTIONS_DB[0], 
-                         question: `Sample ${req.subject} Question ${i+1}`,
-                         malayalam_question: `മാതൃക ${req.subject} ചോദ്യം ${i+1}`,
-                         subject: req.subject
-                     });
-                 }
+                 // For safety in dev: mock a question if missing
+                 console.warn(`No questions found for ${req.subject}`);
+                 // We will skip this subject or add a dummy if needed
+                 // For now, let's use what we have
             }
             
             subjectQs = utils.shuffle(subjectQs);
             
-            // Fill up to requirement (duplicate if necessary for demo)
-            while(subjectQs.length < req.count) {
+            // If we have fewer questions than requested, use them all.
+            // If we have more, slice the requested amount.
+            // If you absolutely need 10 but have 1, this loop fills duplicates for testing
+            while(subjectQs.length > 0 && subjectQs.length < req.count) {
                 subjectQs = subjectQs.concat(subjectQs);
             }
             
             finalQuestions = finalQuestions.concat(subjectQs.slice(0, req.count));
         });
+
+        if (finalQuestions.length === 0) {
+            alert("No questions found matching the exam criteria.");
+            return;
+        }
 
         app.startQuizExecution(finalQuestions);
     },
@@ -390,6 +494,9 @@ const app = {
     },
 
     populateSubjectModal: () => {
+        // Safe check for DB
+        if (!QUESTIONS_DB || QUESTIONS_DB.length === 0) return;
+
         const subjects = [...new Set(QUESTIONS_DB.map(q => q.subject))];
         const list = document.getElementById('subject-list');
         list.innerHTML = '';
