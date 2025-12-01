@@ -135,6 +135,20 @@
             justify-content: center;
             gap: 8px;
         }
+        
+        .score-badge {
+            font-size: 1.1rem;
+            min-width: 90px;
+            padding: 8px;
+            border-radius: 16px;
+            background-color: rgba(76, 175, 80, 0.15);
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
 
         .question-text {
             font-size: 1.35rem;
@@ -273,6 +287,16 @@
             border-color: var(--primary-color);
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23000'/%3e%3c/svg%3e");
         }
+        
+        /* Checkboxes in Modal */
+        .form-check-input {
+            background-color: #2c2c2c;
+            border-color: #555;
+        }
+        .form-check-input:checked {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
     </style>
 </head>
 <body>
@@ -339,9 +363,14 @@
 
         <!-- SECTION: QUIZ -->
         <div id="quiz-section">
-            <div class="card p-3 mb-3 d-flex flex-row justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
+            <div class="card p-3 mb-3 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                <div class="d-flex align-items-center w-100 justify-content-between justify-content-md-start">
                     <span class="badge bg-dark border border-secondary text-secondary-custom fw-normal px-3 py-2" id="subject-indicator">Subject</span>
+                    <div class="ms-md-3 d-flex align-items-center">
+                         <div class="score-badge" id="score-counter">
+                             <i class="fas fa-star"></i> Score: 0
+                         </div>
+                    </div>
                 </div>
                 <div class="d-flex align-items-center gap-3">
                     <div class="form-check form-switch m-0">
@@ -441,13 +470,13 @@
 
 <!-- Subject Selection Modal -->
 <div class="modal fade" id="subjectModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content" style="background-color: var(--surface-color); color: white; border: 1px solid #333;">
             <div class="modal-header border-secondary">
-                <h5 class="modal-title fw-light">Select Subject</h5>
+                <h5 class="modal-title fw-light" id="modal-title">Select Subject</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body p-0">
+            <div class="modal-body p-0" id="modal-body">
                 <div class="list-group list-group-flush" id="subject-list">
                     <!-- Subjects generated here -->
                 </div>
@@ -616,7 +645,7 @@ const app = {
             // alert("Could not load questions.json. Please ensure the file exists.");
         } finally {
             if(loading) loading.classList.add('d-none');
-            app.populateSubjectModal(); // Refresh UI dependent on data
+            // Do NOT populate modal here, we wait for user to click button so logic is fresher
         }
     },
 
@@ -677,17 +706,12 @@ const app = {
             
             // Handle case where we don't have enough questions for the requirement
             if (subjectQs.length === 0) {
-                 // For safety in dev: mock a question if missing
                  console.warn(`No questions found for ${req.subject}`);
-                 // We will skip this subject or add a dummy if needed
-                 // For now, let's use what we have
             }
             
             subjectQs = utils.shuffle(subjectQs);
             
-            // If we have fewer questions than requested, use them all.
-            // If we have more, slice the requested amount.
-            // If you absolutely need 10 but have 1, this loop fills duplicates for testing
+            // Fill duplicates if needed
             while(subjectQs.length > 0 && subjectQs.length < req.count) {
                 subjectQs = subjectQs.concat(subjectQs);
             }
@@ -703,15 +727,94 @@ const app = {
         app.startQuizExecution(finalQuestions);
     },
 
-    startSubjectQuiz: (subjectName) => {
-        let qs = QUESTIONS_DB.filter(q => q.subject === subjectName);
+    // --- CHAPTER SELECTION LOGIC ---
+
+    startSubjectFlow: (subjectName) => {
+        const qs = QUESTIONS_DB.filter(q => q.subject === subjectName);
         if(qs.length === 0) {
-            alert("No questions available for this subject yet.");
+            alert("No questions available for this subject.");
             return;
         }
-        qs = utils.shuffle(qs);
-        qs = qs.slice(0, 20); // Limit practice to 20 Qs
+
+        // Extract unique chapters
+        // Handle cases where chapter might be numeric or string or null
+        const chapters = [...new Set(qs.map(q => q.chapter))].filter(c => c != null).sort();
+
+        // If no chapters defined, just start quiz
+        if (chapters.length === 0) {
+            const modalEl = document.getElementById('subjectModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            if(modal) modal.hide();
+            app.startQuizExecution(utils.shuffle(qs).slice(0, 20));
+            return;
+        }
+
+        // Render Chapter Selection UI in Modal
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
         
+        modalTitle.textContent = `Select Chapters: ${subjectName}`;
+        
+        let html = `
+            <div class="p-4">
+                <div class="form-check mb-3 pb-3 border-bottom border-secondary">
+                    <input class="form-check-input" type="checkbox" id="selectAllChapters" checked onchange="app.toggleAllChapters(this)">
+                    <label class="form-check-label" for="selectAllChapters">Select All Chapters</label>
+                </div>
+                <div id="chapter-checkboxes" class="mb-4" style="max-height: 300px; overflow-y: auto;">
+        `;
+        
+        chapters.forEach(chap => {
+            html += `
+                <div class="form-check mb-2">
+                    <input class="form-check-input chapter-chk" type="checkbox" value="${chap}" id="chap_${chap}" checked>
+                    <label class="form-check-label" for="chap_${chap}">Chapter ${chap}</label>
+                </div>
+            `;
+        });
+
+        html += `
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-outline-light" onclick="app.populateSubjectModal()">Back</button>
+                    <button class="btn btn-primary px-4" onclick="app.confirmChapterSelection('${subjectName}')">Start Practice</button>
+                </div>
+            </div>
+        `;
+        
+        modalBody.innerHTML = html;
+    },
+
+    toggleAllChapters: (source) => {
+        const checkboxes = document.querySelectorAll('.chapter-chk');
+        checkboxes.forEach(chk => chk.checked = source.checked);
+    },
+
+    confirmChapterSelection: (subjectName) => {
+        const checkboxes = document.querySelectorAll('.chapter-chk:checked');
+        const selectedChapters = Array.from(checkboxes).map(cb => cb.value); // Values are strings
+
+        if (selectedChapters.length === 0) {
+            alert("Please select at least one chapter.");
+            return;
+        }
+
+        // Filter Questions
+        // Note: chapter in JSON might be number, value in checkbox is string. Use loose comparison or conversion.
+        let qs = QUESTIONS_DB.filter(q => 
+            q.subject === subjectName && 
+            selectedChapters.includes(String(q.chapter))
+        );
+
+        if (qs.length === 0) {
+            alert("No questions match the selected criteria.");
+            return;
+        }
+
+        // Limit to 25 questions for practice
+        qs = utils.shuffle(qs).slice(0, 25);
+
+        // Hide Modal
         const modalEl = document.getElementById('subjectModal');
         const modal = bootstrap.Modal.getInstance(modalEl);
         if(modal) modal.hide();
@@ -730,6 +833,7 @@ const app = {
         
         document.getElementById('next-btn').disabled = true;
         document.getElementById('options-container').innerHTML = '';
+        document.getElementById('score-counter').innerHTML = '<i class="fas fa-star"></i> Score: 0';
         
         app.showSection('quiz');
         app.startTimer();
@@ -782,7 +886,10 @@ const app = {
                 { id: 4, text: q.option4, mal: q.malayalam_option4 }
             ];
             
-            options.forEach(opt => {
+            // Randomize options display
+            const shuffledOptions = utils.shuffle([...options]);
+
+            shuffledOptions.forEach(opt => {
                 const btn = document.createElement('button');
                 btn.className = 'btn option-btn';
                 btn.dataset.optId = opt.id;
@@ -791,7 +898,7 @@ const app = {
                 container.appendChild(btn);
             });
         } else {
-            // Update text only
+            // Update text only - Button order remains same
             const buttons = container.querySelectorAll('button');
             buttons.forEach((btn) => {
                 const qKey = `option${btn.dataset.optId}`;
@@ -804,23 +911,30 @@ const app = {
     handleAnswer: (btn, optionObj, questionObj) => {
         const container = document.getElementById('options-container');
         const buttons = container.querySelectorAll('button');
+        
+        // Prevent multiple clicks
         buttons.forEach(b => b.disabled = true);
 
-        const correctAnswerText = questionObj.answer.trim();
-        const selectedText = questionObj[`option${optionObj.id}`].trim();
+        // FIX: Ensure both sides are strings to avoid crashes with numbers/nulls
+        const correctAnswerText = String(questionObj.answer).trim();
+        // The option text coming from the loop/object
+        const selectedText = String(questionObj[`option${optionObj.id}`]).trim();
+        
         const isCorrect = selectedText === correctAnswerText;
         
         if (isCorrect) {
             btn.classList.add('correct');
             btn.innerHTML += ' <i class="fas fa-check float-end mt-1"></i>';
             app.state.score++;
+            // Update Score Badge
+            document.getElementById('score-counter').innerHTML = `<i class="fas fa-star"></i> Score: ${app.state.score}`;
         } else {
             btn.classList.add('wrong');
             btn.innerHTML += ' <i class="fas fa-times float-end mt-1"></i>';
             
             // Show correct answer
             buttons.forEach(b => {
-                const optText = questionObj[`option${b.dataset.optId}`].trim();
+                const optText = String(questionObj[`option${b.dataset.optId}`]).trim();
                 if (optText === correctAnswerText) {
                     b.classList.add('correct');
                     b.innerHTML += ' <i class="fas fa-check float-end mt-1"></i>';
@@ -834,13 +948,15 @@ const app = {
             time: Date.now()
         });
 
-        document.getElementById('next-btn').disabled = false;
+        // AUTO NEXT: Trigger next question automatically after short delay
+        setTimeout(() => {
+            app.nextQuestion();
+        }, 1500); // 1.5 seconds delay
     },
 
     nextQuestion: () => {
         app.state.currentQuestionIndex++;
         if (app.state.currentQuestionIndex < app.state.currentQuestions.length) {
-            document.getElementById('next-btn').disabled = true;
             app.renderCurrentQuestion(true);
         } else {
             app.finishQuiz();
@@ -956,22 +1072,36 @@ const app = {
 
     showSubjectModal: () => {
         const modal = new bootstrap.Modal(document.getElementById('subjectModal'));
+        app.populateSubjectModal(); // Ensure list is fresh
         modal.show();
     },
 
     populateSubjectModal: () => {
-        // Safe check for DB
-        if (!QUESTIONS_DB || QUESTIONS_DB.length === 0) return;
+        const modalTitle = document.getElementById('modal-title');
+        modalTitle.textContent = "Select Subject";
+
+        if (!QUESTIONS_DB || QUESTIONS_DB.length === 0) {
+            document.getElementById('subject-list').innerHTML = '<div class="text-center p-3 text-secondary">No questions loaded.</div>';
+            return;
+        }
 
         const subjects = [...new Set(QUESTIONS_DB.map(q => q.subject))];
         const list = document.getElementById('subject-list');
         list.innerHTML = '';
+        
+        // Use Modal Body reference to reset content if we were in Chapter View
+        const modalBody = document.getElementById('modal-body');
+        modalBody.innerHTML = '<div class="list-group list-group-flush" id="subject-list"></div>';
+        
+        // Re-get list after DOM reset
+        const newList = document.getElementById('subject-list');
+
         subjects.forEach(sub => {
             const btn = document.createElement('button');
             btn.className = 'list-group-item list-group-item-action bg-transparent text-white border-secondary py-3';
             btn.innerHTML = `<i class="fas fa-book me-2 text-secondary"></i> ${sub}`;
-            btn.onclick = () => app.startSubjectQuiz(sub);
-            list.appendChild(btn);
+            btn.onclick = () => app.startSubjectFlow(sub); // UPDATED to flow
+            newList.appendChild(btn);
         });
     }
 };
