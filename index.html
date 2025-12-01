@@ -3,130 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scholarship Quiz Trainer</title>
+    <title>Scholarship Exam Trainer</title>
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- 
+      === INSTRUCTIONS FOR GITHUB ===
+      1. Create a file named 'styles.css' and paste the content from <style> below.
+      2. Link it here: <link rel="stylesheet" href="styles.css">
+    -->
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <nav class="navbar navbar-dark bg-dark-subtle mb-4">
-        <div class="container">
-            <span class="navbar-brand mb-0 h1">Scholarship Trainer</span>
-            <button class="btn btn-outline-light btn-sm" onclick="showHome()">Home</button>
-        </div>
-    </nav>
+<div class="container py-4">
+    <!-- Header -->
+    <header class="d-flex justify-content-between align-items-center mb-5">
+        <h4 class="m-0 fw-light">
+            <i class="fas fa-graduation-cap text-primary me-2"></i>
+            Scholarship<span class="fw-bold">Prep</span>
+        </h4>
+        <button class="btn btn-outline-light btn-sm" onclick="app.showSection('home')">
+            <i class="fas fa-home"></i>
+        </button>
+    </header>
 
-    <div class="container main-container">
+    <div id="app-sections">
         
-        <div id="home-view" class="view-section active">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="card stat-card text-center p-3">
-                        <h3><span id="stat-total">0</span></h3>
-                        <small>Quizzes Completed</small>
+        <!-- SECTION: HOME -->
+        <div id="home-section" class="active">
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card stat-card">
+                        <div class="stat-value" id="stat-total">0</div>
+                        <div class="stat-label">Quizzes Completed</div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card stat-card text-center p-3">
-                        <h3><span id="stat-wins">0</span></h3>
-                        <small>Wins (Passed)</small>
+                <div class="col-md-4">
+                    <div class="card stat-card">
+                        <div class="stat-value" id="stat-wins" style="color: var(--success-color)">0</div>
+                        <div class="stat-label">Exams Passed</div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card stat-card text-center p-3">
-                        <h3><span id="stat-percent">0%</span></h3>
-                        <small>Win Rate</small>
+                <div class="col-md-4">
+                    <div class="card stat-card">
+                        <div class="stat-value" id="stat-rate" style="color: var(--secondary-color)">0%</div>
+                        <div class="stat-label">Win Rate</div>
                     </div>
                 </div>
             </div>
 
-            <div class="d-grid gap-3 col-md-6 mx-auto mt-4">
-                <button class="btn btn-primary btn-lg p-3" onclick="setupQuiz('full')">Start Full Exam</button>
-                <div class="row">
-                    <div class="col-6">
-                        <button class="btn btn-secondary w-100 p-3" onclick="showSelection('subject')">Subject Wise</button>
-                    </div>
-                    <div class="col-6">
-                        <button class="btn btn-secondary w-100 p-3" onclick="showSelection('chapter')">Chapter Wise</button>
-                    </div>
+            <div class="card p-5 text-center">
+                <h2 class="mb-3 fw-light">Welcome Back</h2>
+                <p class="text-secondary-custom mb-5" style="max-width: 500px; margin: 0 auto;">
+                    Prepare for your scholarship exam with our adaptive mock tests. Track your progress across all subjects.
+                </p>
+                
+                <div class="d-grid gap-3 col-md-6 col-lg-5 mx-auto">
+                    <button class="btn btn-primary btn-lg" onclick="app.startFullQuiz()">
+                        <i class="fas fa-play me-2"></i> Start Full Mock Exam
+                    </button>
+                    <button class="btn btn-outline-light" onclick="app.showSubjectModal()">
+                        <i class="fas fa-layer-group me-2"></i> Practice by Subject
+                    </button>
+                    <button class="btn btn-outline-light" onclick="app.showHistory()" style="border-style: dashed; opacity: 0.7;">
+                        <i class="fas fa-history me-2"></i> View History
+                    </button>
                 </div>
-                <button class="btn btn-outline-info" onclick="showHistory()">View History</button>
             </div>
         </div>
 
-        <div id="selection-view" class="view-section d-none">
-            <h3 class="text-center mb-4" id="selection-title">Select Topic</h3>
-            <div id="selection-container" class="list-group">
+        <!-- SECTION: QUIZ -->
+        <div id="quiz-section">
+            <div class="card p-3 mb-3 d-flex flex-row justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <span class="badge bg-dark border border-secondary text-secondary-custom fw-normal px-3 py-2" id="subject-indicator">Subject</span>
                 </div>
-            <button class="btn btn-link mt-3" onclick="showHome()">Cancel</button>
-        </div>
-
-        <div id="quiz-view" class="view-section d-none">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div class="badge bg-warning text-dark fs-6" id="timer">00:00</div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="langToggle">
-                    <label class="form-check-label" for="langToggle">മലയാളം</label>
-                </div>
-                <div class="badge bg-secondary fs-6">Q: <span id="q-current">1</span>/<span id="q-total">0</span></div>
-            </div>
-
-            <div class="progress mb-4" style="height: 5px;">
-                <div id="progress-bar" class="progress-bar bg-success" role="progressbar" style="width: 0%"></div>
-            </div>
-
-            <div class="card quiz-card mb-4">
-                <div class="card-body">
-                    <span class="badge bg-info mb-2" id="q-subject">Subject</span>
-                    <h5 class="card-title" id="q-text">Question text...</h5>
-                    <div id="q-image-container" class="text-center my-3 d-none">
-                        <img id="q-image" src="" class="img-fluid rounded" style="max-height: 200px;">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="form-check form-switch m-0">
+                        <input class="form-check-input" type="checkbox" id="langToggle" onchange="app.toggleLanguage()">
+                        <label class="form-check-label text-secondary-custom small" for="langToggle">MAL / ENG</label>
+                    </div>
+                    <div class="timer-badge" id="timer">
+                        <i class="far fa-clock"></i> 00:00
                     </div>
                 </div>
-            </div>
-
-            <div id="options-container" class="d-grid gap-2">
-                </div>
-
-            <div id="feedback-area" class="alert mt-3 d-none text-center"></div>
-
-            <button id="btn-next" class="btn btn-primary w-100 mt-3 d-none" onclick="nextQuestion()">Next Question</button>
-        </div>
-
-        <div id="result-view" class="view-section d-none text-center">
-            <h1 class="display-4 mb-3" id="result-title">Result</h1>
-            <div class="result-circle mx-auto mb-4 d-flex align-items-center justify-content-center">
-                <span class="h1" id="result-score">0%</span>
             </div>
             
-            <div class="alert alert-dark text-start">
-                <h5>Analysis:</h5>
-                <ul class="list-unstyled">
-                    <li>⏱️ Avg Time: <span id="res-time">0s</span></li>
-                    <li>💪 Strongest: <span id="res-strong" class="text-success">N/A</span></li>
-                    <li>⚠️ Weakest: <span id="res-weak" class="text-danger">N/A</span></li>
-                </ul>
+            <div class="progress mb-4">
+                <div class="progress-bar" id="quiz-progress" role="progressbar" style="width: 0%"></div>
             </div>
 
-            <div class="table-responsive">
-                <table class="table table-dark table-sm text-start">
-                    <thead><tr><th>Subject</th><th>Correct</th><th>Wrong</th></tr></thead>
-                    <tbody id="res-table-body"></tbody>
-                </table>
-            </div>
+            <div class="card p-4 p-md-5">
+                <div class="d-flex justify-content-between mb-3">
+                     <small class="text-secondary-custom" id="question-counter">Question 1 of 45</small>
+                </div>
 
-            <button class="btn btn-primary mt-3" onclick="showHome()">Back to Home</button>
+                <div id="question-container">
+                    <!-- Question Image -->
+                    <div id="q-image-container" class="text-center d-none">
+                        <img id="q-image" src="" class="img-question" alt="Question Diagram">
+                    </div>
+                    
+                    <!-- Question Text -->
+                    <h5 class="question-text" id="q-text">Loading question...</h5>
+                    
+                    <!-- Options -->
+                    <div class="d-flex flex-column" id="options-container">
+                        <!-- Options generated by JS -->
+                    </div>
+                </div>
+                
+                <div class="mt-5 d-flex justify-content-end">
+                    <button class="btn btn-primary px-5" id="next-btn" onclick="app.nextQuestion()" disabled>
+                        Next Question <i class="fas fa-arrow-right ms-2"></i>
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <div id="history-view" class="view-section d-none">
-            <h3>History</h3>
-            <ul class="list-group list-group-flush text-start mt-3" id="history-list"></ul>
-            <button class="btn btn-link mt-3" onclick="showHome()">Back</button>
+        <!-- SECTION: RESULT -->
+        <div id="result-section">
+            <div class="card p-5 text-center">
+                <h3 class="mb-5 fw-light">Performance Report</h3>
+                
+                <div id="score-circle" class="score-circle">
+                    0%
+                </div>
+                
+                <h4 id="result-message" class="mb-2 fw-bold"></h4>
+                <p class="text-secondary-custom mb-5" id="result-time">Time Taken: 00:00</p>
+
+                <h6 class="text-start text-secondary text-uppercase ls-1 mb-3">Subject Breakdown</h6>
+                <div class="row text-start g-4" id="subject-performance">
+                    <!-- Subject breakdown injected here -->
+                </div>
+
+                <div class="card bg-dark mt-4 border border-secondary p-3 text-start">
+                    <div class="row">
+                        <div class="col-6 border-end border-secondary">
+                            <small class="text-secondary text-uppercase">Strongest Subject</small>
+                            <div id="strong-subject" class="fw-bold text-success mt-1">-</div>
+                        </div>
+                        <div class="col-6 ps-4">
+                            <small class="text-secondary text-uppercase">Needs Improvement</small>
+                            <div id="weak-subject" class="fw-bold text-danger mt-1">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center gap-3 mt-5">
+                    <button class="btn btn-outline-light px-4" onclick="app.showSection('home')">Back to Home</button>
+                    <button class="btn btn-primary px-4" onclick="app.startFullQuiz()">Attempt Again</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION: HISTORY -->
+        <div id="history-section">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-light">Exam History</h4>
+                <button class="btn btn-sm btn-outline-danger" onclick="app.clearHistory()">
+                    <i class="fas fa-trash-alt me-1"></i> Clear Data
+                </button>
+            </div>
+            <div id="history-list">
+                <!-- History items -->
+            </div>
         </div>
 
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+<!-- Subject Selection Modal -->
+<div class="modal fade" id="subjectModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background-color: var(--surface-color); color: white; border: 1px solid #333;">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title fw-light">Select Subject</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="list-group list-group-flush" id="subject-list">
+                    <!-- Subjects generated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- 
+  === INSTRUCTIONS FOR GITHUB ===
+  1. Create a file named 'script.js' and paste the content from <script> below.
+  2. Link it here: <script src="script.js"></script>
+-->
+<script src="script.js"></script>
 </body>
 </html>
