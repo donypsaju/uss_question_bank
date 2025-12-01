@@ -1,38 +1,74 @@
-:root {
-    --bs-body-font-family: 'Manjari', sans-serif;
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-main {
-    overflow-y: auto;
+.view-section {
+    animation: fadeIn 0.3s ease-in-out;
 }
 
-.option {
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.option:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+/* Cards */
+.card, .list-group-item {
+    background-color: #1e1e1e;
+    color: #fff;
+    border: 1px solid #333;
 }
 
-.option.disabled {
-    pointer-events: none;
-    opacity: 0.9;
+.stat-card {
+    border-bottom: 4px solid #00bc8c; /* Material Teal */
 }
 
-.option.correct {
-    background-color: var(--bs-success-bg-subtle) !important;
-    border-color: var(--bs-success-border-subtle) !important;
+/* Buttons */
+.btn-primary {
+    background-color: #00bc8c;
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #00a379;
 }
 
-.option.wrong {
-    background-color: var(--bs-danger-bg-subtle) !important;
-    border-color: var(--bs-danger-border-subtle) !important;
+.btn-option {
+    text-align: left;
+    background-color: #2c2c2c;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 15px;
+    transition: all 0.2s;
 }
 
-/* Ensure chart is responsive */
-#history-chart {
-    max-height: 400px;
+.btn-option:hover {
+    background-color: #3a3a3a;
+    border-color: #00bc8c;
 }
 
+.btn-option.correct {
+    background-color: #198754 !important; /* Green */
+    border-color: #198754;
+}
+
+.btn-option.wrong {
+    background-color: #dc3545 !important; /* Red */
+    border-color: #dc3545;
+}
+
+/* Results */
+.result-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 8px solid #333;
+}
+.result-pass { border-color: #00bc8c; }
+.result-fail { border-color: #dc3545; }
+
+/* Table */
+.table-dark {
+    background-color: #1e1e1e;
+    --bs-table-bg: #1e1e1e;
+}

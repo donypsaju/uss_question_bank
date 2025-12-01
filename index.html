@@ -1,151 +1,132 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classroom Quiz</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Manjari:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Chart.js Library -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Scholarship Quiz Trainer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body style="font-size: 20px;">
+<body>
 
-    <div class="d-flex flex-column vh-100">
-        <!-- Header -->
-        <header class="p-3 border-bottom shadow-sm">
-            <div class="d-flex justify-content-between align-items-center">
-                <h1 class="h4 mb-0">Classroom Quiz</h1>
-                <div class="controls d-flex align-items-center">
-                    <button id="theme-switcher" class="btn btn-outline-secondary btn-sm me-2" title="Toggle Theme">🎨</button>
-                    <button id="lang-switcher" class="btn btn-outline-secondary btn-sm me-2" title="Toggle Language">🌐</button>
-                    <button id="font-increase" class="btn btn-outline-secondary btn-sm me-2" title="Increase Font Size">A+</button>
-                    <button id="font-decrease" class="btn btn-outline-secondary btn-sm" title="Decrease Font Size">A-</button>
-                </div>
-            </div>
-        </header>
+    <nav class="navbar navbar-dark bg-dark-subtle mb-4">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1">Scholarship Trainer</span>
+            <button class="btn btn-outline-light btn-sm" onclick="showHome()">Home</button>
+        </div>
+    </nav>
 
-        <!-- Main Content -->
-        <main class="flex-grow-1 overflow-y-auto">
-            <!-- Start Screen -->
-            <div id="start-screen" class="container text-center d-flex flex-column justify-content-center h-100">
-                <h2>Welcome!</h2>
-                <p class="lead">Choose a quiz mode to begin.</p>
-                <p id="loading-message" class="text-muted">Loading questions...</p>
-                <div id="main-menu-buttons" class="mt-4 visually-hidden">
-                    <button id="start-student-quiz-btn" class="btn btn-primary btn-lg mx-2">Student Practice</button>
-                    <button id="start-teacher-quiz-btn" class="btn btn-success btn-lg mx-2">Teacher Classroom</button>
-                    <button id="view-history-btn" class="btn btn-info btn-lg mx-2">View Past Results</button>
+    <div class="container main-container">
+        
+        <div id="home-view" class="view-section active">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="card stat-card text-center p-3">
+                        <h3><span id="stat-total">0</span></h3>
+                        <small>Quizzes Completed</small>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Student Quiz Container -->
-            <div id="student-quiz-container" class="container py-4 d-none">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <span id="student-question-counter" class="badge bg-primary rounded-pill fs-6"></span>
-                    <span id="student-timer" class="badge bg-secondary rounded-pill fs-6">00:00</span>
-                    <span id="student-score-counter" class="badge bg-success rounded-pill fs-6"></span>
+                <div class="col-md-4 mb-3">
+                    <div class="card stat-card text-center p-3">
+                        <h3><span id="stat-wins">0</span></h3>
+                        <small>Wins (Passed)</small>
+                    </div>
                 </div>
-                <div class="card shadow">
-                    <div class="card-body">
-                        <!-- Student Image Container -->
-                        <div id="student-image-container" class="text-center mb-3 d-none">
-                            <img id="student-question-image" src="" alt="Question Image" class="img-fluid rounded shadow-sm" style="max-height: 300px;">
-                        </div>
-                        <h4 id="student-question" class="card-title text-center mb-4" style="min-height: 100px;"></h4>
-                        <div id="student-options" class="row g-3"></div>
+                <div class="col-md-4 mb-3">
+                    <div class="card stat-card text-center p-3">
+                        <h3><span id="stat-percent">0%</span></h3>
+                        <small>Win Rate</small>
                     </div>
                 </div>
             </div>
 
-            <!-- Student Results Container -->
-            <div id="student-results-container" class="container py-4 text-center d-none">
-                <div class="card shadow">
-                    <div class="card-body" id="student-results-summary"></div>
-                    <div class="card-footer">
-                        <button id="student-restart-btn" class="btn btn-secondary">Back to Main Menu</button>
+            <div class="d-grid gap-3 col-md-6 mx-auto mt-4">
+                <button class="btn btn-primary btn-lg p-3" onclick="setupQuiz('full')">Start Full Exam</button>
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-secondary w-100 p-3" onclick="showSelection('subject')">Subject Wise</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-secondary w-100 p-3" onclick="showSelection('chapter')">Chapter Wise</button>
+                    </div>
+                </div>
+                <button class="btn btn-outline-info" onclick="showHistory()">View History</button>
+            </div>
+        </div>
+
+        <div id="selection-view" class="view-section d-none">
+            <h3 class="text-center mb-4" id="selection-title">Select Topic</h3>
+            <div id="selection-container" class="list-group">
+                </div>
+            <button class="btn btn-link mt-3" onclick="showHome()">Cancel</button>
+        </div>
+
+        <div id="quiz-view" class="view-section d-none">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="badge bg-warning text-dark fs-6" id="timer">00:00</div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="langToggle">
+                    <label class="form-check-label" for="langToggle">മലയാളം</label>
+                </div>
+                <div class="badge bg-secondary fs-6">Q: <span id="q-current">1</span>/<span id="q-total">0</span></div>
+            </div>
+
+            <div class="progress mb-4" style="height: 5px;">
+                <div id="progress-bar" class="progress-bar bg-success" role="progressbar" style="width: 0%"></div>
+            </div>
+
+            <div class="card quiz-card mb-4">
+                <div class="card-body">
+                    <span class="badge bg-info mb-2" id="q-subject">Subject</span>
+                    <h5 class="card-title" id="q-text">Question text...</h5>
+                    <div id="q-image-container" class="text-center my-3 d-none">
+                        <img id="q-image" src="" class="img-fluid rounded" style="max-height: 200px;">
                     </div>
                 </div>
             </div>
 
-            <!-- History Container -->
-            <div id="history-container" class="container py-4 d-none">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 class="mb-0">Past Results</h2>
-                    <button id="back-to-menu-btn" class="btn btn-secondary">Back to Menu</button>
+            <div id="options-container" class="d-grid gap-2">
                 </div>
-                <div id="history-analytics" class="d-none">
-                    <!-- Analytics Cards -->
-                </div>
-                <div id="history-list"></div>
+
+            <div id="feedback-area" class="alert mt-3 d-none text-center"></div>
+
+            <button id="btn-next" class="btn btn-primary w-100 mt-3 d-none" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div id="result-view" class="view-section d-none text-center">
+            <h1 class="display-4 mb-3" id="result-title">Result</h1>
+            <div class="result-circle mx-auto mb-4 d-flex align-items-center justify-content-center">
+                <span class="h1" id="result-score">0%</span>
+            </div>
+            
+            <div class="alert alert-dark text-start">
+                <h5>Analysis:</h5>
+                <ul class="list-unstyled">
+                    <li>⏱️ Avg Time: <span id="res-time">0s</span></li>
+                    <li>💪 Strongest: <span id="res-strong" class="text-success">N/A</span></li>
+                    <li>⚠️ Weakest: <span id="res-weak" class="text-danger">N/A</span></li>
+                </ul>
             </div>
 
-            <!-- Teacher Quiz Container -->
-            <div id="teacher-quiz-container" class="container py-4 d-none">
-                <!-- Teacher Quiz Options, Chapter Selection etc. -->
-                <div id="teacher-quiz-options" class="text-center">
-                    <h2>Teacher Mode</h2>
-                    <p class="lead">Select a quiz type.</p>
-                    <button id="full-quiz-btn" class="btn btn-primary mx-2">Full Quiz</button>
-                    <button id="subject-quiz-btn" class="btn btn-info mx-2">Subject Wise Quiz</button>
-                    <div class="mt-4"><button class="btn btn-secondary teacher-back-to-menu">Back to Main Menu</button></div>
-                </div>
-
-                <div id="chapter-selection" class="d-none">
-                    <h4 class="text-center mb-3">Select Chapters for Full Quiz</h4>
-                    <div id="chapter-checkboxes" class="d-flex flex-wrap justify-content-center gap-2 mb-3"></div>
-                    <div class="text-center">
-                        <button id="start-full-quiz-execution" class="btn btn-success me-2">Start Full Quiz</button>
-                        <button class="btn btn-secondary teacher-back-btn" data-target="teacher-quiz-options">Back</button>
-                    </div>
-                </div>
-
-                <div id="subject-selection" class="d-none">
-                     <h4 class="text-center mb-3">Select a Subject</h4>
-                    <div id="subject-buttons" class="d-flex flex-wrap justify-content-center gap-2"></div>
-                    <div class="text-center mt-4"><button class="btn btn-secondary teacher-back-btn" data-target="teacher-quiz-options">Back</button></div>
-                </div>
-                
-                <div id="subject-chapter-selection" class="d-none">
-                    <h4 id="subject-chapter-title" class="text-center mb-3"></h4>
-                    <div id="subject-chapter-options" class="row g-2 justify-content-center mb-3"></div>
-                     <div class="text-center">
-                        <button id="start-subject-quiz-execution" class="btn btn-success me-2">Start Subject Quiz</button>
-                        <button class="btn btn-secondary teacher-back-btn" data-target="subject-selection">Back</button>
-                    </div>
-                </div>
-                
-                <!-- Teacher Quiz View -->
-                <div id="teacher-quiz-view" class="d-none">
-                    <div class="d-flex justify-content-end align-items-center mb-3">
-                        <span id="teacher-question-counter" class="badge bg-primary rounded-pill fs-6"></span>
-                    </div>
-                    <div class="card shadow">
-                        <div class="card-body">
-                             <!-- Teacher Image Container -->
-                            <div id="teacher-image-container" class="text-center mb-3 d-none">
-                                <img id="teacher-question-image" src="" alt="Question Image" class="img-fluid rounded shadow-sm" style="max-height: 300px;">
-                            </div>
-                            <h4 id="teacher-question" class="card-title text-center mb-4" style="min-height: 100px;"></h4>
-                            <div id="teacher-options" class="row g-3"></div>
-                        </div>
-                        <div class="card-footer text-end">
-                            <button id="reveal-answer-btn" class="btn btn-warning mx-2">Reveal Answer</button>
-                            <button id="teacher-next-btn" class="btn btn-primary">Next Question</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div id="teacher-results-container" class="d-none text-center">
-                     <div class="card shadow"><div class="card-header"><h3>Quiz Complete</h3></div><div class="card-body text-start" id="teacher-answer-sheet"></div><div class="card-footer"><button id="teacher-restart-btn" class="btn btn-secondary">Back to Main Menu</button></div></div>
-                </div>
+            <div class="table-responsive">
+                <table class="table table-dark table-sm text-start">
+                    <thead><tr><th>Subject</th><th>Correct</th><th>Wrong</th></tr></thead>
+                    <tbody id="res-table-body"></tbody>
+                </table>
             </div>
-        </main>
+
+            <button class="btn btn-primary mt-3" onclick="showHome()">Back to Home</button>
+        </div>
+
+        <div id="history-view" class="view-section d-none">
+            <h3>History</h3>
+            <ul class="list-group list-group-flush text-start mt-3" id="history-list"></ul>
+            <button class="btn btn-link mt-3" onclick="showHome()">Back</button>
+        </div>
+
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
-
