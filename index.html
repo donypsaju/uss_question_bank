@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scholarship Exam Trainer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>USS Pro</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome for Icons -->
@@ -66,6 +66,12 @@
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             border: none;
         }
+        
+        /* Remove focus ring to prevent "sticky" selection look */
+        .btn:focus, .btn:active {
+            outline: none !important;
+            box-shadow: none !important;
+        }
 
         .btn-primary {
             background-color: var(--primary-color);
@@ -101,31 +107,42 @@
             color: var(--text-secondary);
         }
 
-        /* Dashboard Stats */
-        .stat-card {
-            text-align: center;
-            padding: 24px 16px;
+        /* Dashboard Stats - Compact Version */
+        .compact-stats {
+            padding: 15px 0;
+            margin-bottom: 1.5rem !important;
+        }
+
+        .stat-col {
+            padding: 0 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .stat-value {
-            font-size: 3rem;
-            font-weight: 300;
+            font-size: clamp(1.5rem, 4vw, 2.5rem); /* Responsive font size */
+            font-weight: 700;
             color: var(--secondary-color);
+            line-height: 1;
+            margin-bottom: 5px;
         }
 
         .stat-label {
-            font-size: 0.875rem;
+            font-size: clamp(0.6rem, 2vw, 0.8rem);
             color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: 1.25px;
-            margin-top: 8px;
+            letter-spacing: 1px;
+            text-align: center;
+            line-height: 1.2;
         }
 
         /* Quiz Interface */
         .timer-badge {
-            font-size: 1.1rem;
-            min-width: 90px;
-            padding: 8px;
+            font-size: 1rem;
+            min-width: 80px;
+            padding: 6px 10px;
             border-radius: 16px;
             background-color: rgba(207, 102, 121, 0.15);
             color: var(--error-color);
@@ -133,13 +150,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 5px;
+            white-space: nowrap;
         }
         
         .score-badge {
-            font-size: 1.1rem;
-            min-width: 90px;
-            padding: 8px;
+            font-size: 1rem;
+            min-width: 80px;
+            padding: 6px 10px;
             border-radius: 16px;
             background-color: rgba(76, 175, 80, 0.15);
             color: var(--success-color);
@@ -147,29 +165,37 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 5px;
+            white-space: nowrap;
         }
 
+        /* DYNAMIC SCALING FOR QUIZ */
         .question-text {
-            font-size: 1.35rem;
+            /* Dynamic font size: Minimum 1.1rem, Preferred 4vh, Maximum 1.8rem */
+            font-size: clamp(1.1rem, 3.5vh, 1.8rem);
             font-weight: 400;
-            line-height: 1.6;
-            margin-bottom: 24px;
+            line-height: 1.4;
+            margin-bottom: 2vh;
             color: rgba(255,255,255,0.95);
         }
 
         .option-btn {
             text-align: left;
-            margin-bottom: 16px;
+            /* Dynamic margin and padding */
+            margin-bottom: clamp(8px, 1.5vh, 16px);
+            padding: clamp(12px, 2vh, 18px);
+            
             white-space: normal;
             border: 1px solid rgba(255,255,255,0.12);
             background-color: transparent;
             color: rgba(255,255,255,0.87);
-            padding: 16px 20px;
             border-radius: 8px;
             position: relative;
             text-transform: none;
             letter-spacing: normal;
+            
+            /* Dynamic font size for options */
+            font-size: clamp(0.9rem, 2.2vh, 1.1rem);
         }
 
         .option-btn:hover {
@@ -255,9 +281,10 @@
 
         .img-question {
             max-width: 100%;
-            max-height: 250px;
+            max-height: 20vh; /* Dynamic Image Height */
+            object-fit: contain;
             border-radius: 4px;
-            margin: 16px 0;
+            margin: 1vh 0;
             border: 1px solid rgba(255,255,255,0.1);
         }
 
@@ -297,16 +324,70 @@
             background-color: var(--secondary-color);
             border-color: var(--secondary-color);
         }
+
+        /* === FOCUS MODE STYLES (For Quiz) === */
+        /* These styles activate when .quiz-mode is on body */
+        body.quiz-mode {
+            overflow: hidden; /* Prevent body scroll */
+        }
+
+        body.quiz-mode #main-container {
+            padding: 0 !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            height: 100vh;
+        }
+
+        body.quiz-mode #quiz-section {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+
+        body.quiz-mode .quiz-header-card {
+            margin-bottom: 10px !important;
+            flex-shrink: 0;
+        }
+
+        body.quiz-mode .quiz-main-card {
+            flex: 1; /* Take remaining height */
+            margin-bottom: 0 !important;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* Contain inner content */
+            padding: 1rem !important;
+        }
+
+        body.quiz-mode #question-container {
+            flex: 1;
+            overflow-y: auto; /* Scroll ONLY the question/options part */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically if small */
+        }
+        
+        body.quiz-mode .progress {
+            flex-shrink: 0;
+            margin-bottom: 15px !important;
+        }
+
+        body.quiz-mode #next-btn-container {
+            padding-top: 1vh;
+            flex-shrink: 0;
+        }
+
     </style>
 </head>
 <body>
 
-<div class="container py-4">
+<!-- ID added for JS targeting -->
+<div id="main-container" class="container py-4">
     <!-- Header -->
-    <header class="d-flex justify-content-between align-items-center mb-5">
+    <header id="main-header" class="d-flex justify-content-between align-items-center mb-5">
         <h4 class="m-0 fw-light">
             <i class="fas fa-graduation-cap text-primary me-2"></i>
-            Scholarship<span class="fw-bold">Prep</span>
+            USS <span class="fw-bold">Pro</span>
         </h4>
         <button class="btn btn-outline-light btn-sm" onclick="app.showSection('home')">
             <i class="fas fa-home"></i>
@@ -317,21 +398,19 @@
         
         <!-- SECTION: HOME -->
         <div id="home-section" class="active">
-            <div class="row mb-4">
-                <div class="col-md-4">
-                    <div class="card stat-card">
-                        <div class="stat-value" id="stat-total">0</div>
-                        <div class="stat-label">Quizzes Completed</div>
+            
+            <!-- NEW COMPACT STATS ROW -->
+            <div class="card compact-stats border border-secondary bg-dark">
+                <div class="row g-0">
+                    <div class="col-4 stat-col border-end border-secondary">
+                        <div class="stat-value text-white" id="stat-total">0</div>
+                        <div class="stat-label">Total</div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card stat-card">
+                    <div class="col-4 stat-col border-end border-secondary">
                         <div class="stat-value" id="stat-wins" style="color: var(--success-color)">0</div>
-                        <div class="stat-label">Exams Passed</div>
+                        <div class="stat-label">Passed</div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card stat-card">
+                    <div class="col-4 stat-col">
                         <div class="stat-value" id="stat-rate" style="color: var(--secondary-color)">0%</div>
                         <div class="stat-label">Win Rate</div>
                     </div>
@@ -363,16 +442,16 @@
 
         <!-- SECTION: QUIZ -->
         <div id="quiz-section">
-            <div class="card p-3 mb-3 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+            <div class="card quiz-header-card p-3 mb-3 d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
                 <div class="d-flex align-items-center w-100 justify-content-between justify-content-md-start">
                     <span class="badge bg-dark border border-secondary text-secondary-custom fw-normal px-3 py-2" id="subject-indicator">Subject</span>
                     <div class="ms-md-3 d-flex align-items-center">
                          <div class="score-badge" id="score-counter">
-                             <i class="fas fa-star"></i> Score: 0
+                             <i class="fas fa-star"></i> 0
                          </div>
                     </div>
                 </div>
-                <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center gap-3 w-100 justify-content-end">
                     <div class="form-check form-switch m-0">
                         <input class="form-check-input" type="checkbox" id="langToggle" onchange="app.toggleLanguage()">
                         <label class="form-check-label text-secondary-custom small" for="langToggle">MAL / ENG</label>
@@ -383,12 +462,11 @@
                 </div>
             </div>
             
-            <div class="progress mb-4">
-                <div class="progress-bar" id="quiz-progress" role="progressbar" style="width: 0%"></div>
-            </div>
-
-            <div class="card p-4 p-md-5">
-                <div class="d-flex justify-content-between mb-3">
+            <div class="card quiz-main-card p-4">
+                <div class="progress mb-2">
+                    <div class="progress-bar" id="quiz-progress" role="progressbar" style="width: 0%"></div>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
                      <small class="text-secondary-custom" id="question-counter">Question 1 of 45</small>
                 </div>
 
@@ -407,9 +485,9 @@
                     </div>
                 </div>
                 
-                <div class="mt-5 d-flex justify-content-end">
-                    <button class="btn btn-primary px-5" id="next-btn" onclick="app.nextQuestion()" disabled>
-                        Next Question <i class="fas fa-arrow-right ms-2"></i>
+                <div class="mt-2 d-flex justify-content-end" id="next-btn-container">
+                    <button class="btn btn-primary px-4" id="next-btn" onclick="app.nextQuestion()" disabled>
+                        Next <i class="fas fa-arrow-right ms-2"></i>
                     </button>
                 </div>
             </div>
@@ -679,7 +757,18 @@ const app = {
     showSection: (sectionId) => {
         document.querySelectorAll('#app-sections > div').forEach(div => div.classList.remove('active'));
         document.getElementById(`${sectionId}-section`).classList.add('active');
-        if (sectionId === 'home') app.loadStats();
+        
+        // --- UPDATED: HANDLE QUIZ MODE UI ---
+        const mainHeader = document.getElementById('main-header');
+        
+        if (sectionId === 'quiz') {
+            document.body.classList.add('quiz-mode');
+            mainHeader.classList.add('d-none'); // Hide Navbar
+        } else {
+            document.body.classList.remove('quiz-mode');
+            mainHeader.classList.remove('d-none'); // Show Navbar
+            if (sectionId === 'home') app.loadStats();
+        }
     },
 
     toggleLanguage: () => {
@@ -833,7 +922,7 @@ const app = {
         
         document.getElementById('next-btn').disabled = true;
         document.getElementById('options-container').innerHTML = '';
-        document.getElementById('score-counter').innerHTML = '<i class="fas fa-star"></i> Score: 0';
+        document.getElementById('score-counter').innerHTML = '<i class="fas fa-star"></i> 0';
         
         app.showSection('quiz');
         app.startTimer();
@@ -891,12 +980,16 @@ const app = {
 
             shuffledOptions.forEach(opt => {
                 const btn = document.createElement('button');
-                btn.className = 'btn option-btn';
+                btn.className = 'btn option-btn'; // Strict reset
                 btn.dataset.optId = opt.id;
                 btn.textContent = isMal ? opt.mal : opt.text;
                 btn.onclick = () => app.handleAnswer(btn, opt, q);
                 container.appendChild(btn);
             });
+            
+            // Reset next button state just in case
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.disabled = true;
         } else {
             // Update text only - Button order remains same
             const buttons = container.querySelectorAll('button');
@@ -914,6 +1007,9 @@ const app = {
         
         // Prevent multiple clicks
         buttons.forEach(b => b.disabled = true);
+        
+        // Remove focus from the clicked button to prevent "sticky" hover style
+        btn.blur();
 
         // FIX: Ensure both sides are strings to avoid crashes with numbers/nulls
         const correctAnswerText = String(questionObj.answer).trim();
@@ -927,7 +1023,7 @@ const app = {
             btn.innerHTML += ' <i class="fas fa-check float-end mt-1"></i>';
             app.state.score++;
             // Update Score Badge
-            document.getElementById('score-counter').innerHTML = `<i class="fas fa-star"></i> Score: ${app.state.score}`;
+            document.getElementById('score-counter').innerHTML = `<i class="fas fa-star"></i> ${app.state.score}`;
         } else {
             btn.classList.add('wrong');
             btn.innerHTML += ' <i class="fas fa-times float-end mt-1"></i>';
