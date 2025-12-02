@@ -181,7 +181,6 @@
 
         .option-btn {
             text-align: left;
-            /* Dynamic margin and padding */
             margin-bottom: clamp(8px, 1.5vh, 16px);
             padding: clamp(12px, 2vh, 18px);
             
@@ -194,18 +193,24 @@
             text-transform: none;
             letter-spacing: normal;
             
-            /* Dynamic font size for options */
             font-size: clamp(0.9rem, 2.2vh, 1.1rem);
+            /* Important: Transition for smooth state changes */
+            transition: all 0.2s ease;
         }
 
-        .option-btn:hover {
-            background-color: rgba(255,255,255,0.05);
-            border-color: var(--primary-color);
-            color: var(--text-primary);
-            transform: none;
-            box-shadow: none;
+        /* FIX: Only show purple hover border on devices that actually have a mouse pointer.
+           This prevents "sticky" selection styles on touch devices. */
+        @media (hover: hover) {
+            .option-btn:hover {
+                background-color: rgba(255,255,255,0.05);
+                border-color: var(--primary-color);
+                color: var(--text-primary);
+                transform: none;
+                box-shadow: none;
+            }
         }
 
+        /* Feedback Styles (Stronger specificity) */
         .option-btn.correct {
             background-color: rgba(76, 175, 80, 0.15) !important;
             border-color: var(--success-color) !important;
@@ -941,6 +946,11 @@ const app = {
         const q = app.state.currentQuestions[app.state.currentQuestionIndex];
         const isMal = app.state.language === 'mal';
         
+        // Force reset focus to prevent sticky styles
+        if (document.activeElement instanceof HTMLElement) {
+             document.activeElement.blur();
+        }
+
         // Metadata
         document.getElementById('subject-indicator').textContent = q.subject;
         document.getElementById('question-counter').textContent = 
