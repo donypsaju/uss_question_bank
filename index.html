@@ -181,6 +181,7 @@
 
         .option-btn {
             text-align: left;
+            /* Dynamic margin and padding */
             margin-bottom: clamp(8px, 1.5vh, 16px);
             padding: clamp(12px, 2vh, 18px);
             
@@ -193,6 +194,7 @@
             text-transform: none;
             letter-spacing: normal;
             
+            /* Dynamic font size for options */
             font-size: clamp(0.9rem, 2.2vh, 1.1rem);
             /* Important: Transition for smooth state changes */
             transition: all 0.2s ease;
@@ -1186,28 +1188,27 @@ const app = {
         const modalTitle = document.getElementById('modal-title');
         modalTitle.textContent = "Select Subject";
 
+        // FIX: Don't look for subject-list yet, it might be gone if we are coming back from Chapter view.
+        // Instead, always reset the modal body structure first.
+        
+        const modalBody = document.getElementById('modal-body');
+        modalBody.innerHTML = '<div class="list-group list-group-flush" id="subject-list"></div>';
+        
+        const list = document.getElementById('subject-list');
+
         if (!QUESTIONS_DB || QUESTIONS_DB.length === 0) {
-            document.getElementById('subject-list').innerHTML = '<div class="text-center p-3 text-secondary">No questions loaded.</div>';
+            list.innerHTML = '<div class="text-center p-3 text-secondary">No questions loaded.</div>';
             return;
         }
 
         const subjects = [...new Set(QUESTIONS_DB.map(q => q.subject))];
-        const list = document.getElementById('subject-list');
-        list.innerHTML = '';
         
-        // Use Modal Body reference to reset content if we were in Chapter View
-        const modalBody = document.getElementById('modal-body');
-        modalBody.innerHTML = '<div class="list-group list-group-flush" id="subject-list"></div>';
-        
-        // Re-get list after DOM reset
-        const newList = document.getElementById('subject-list');
-
         subjects.forEach(sub => {
             const btn = document.createElement('button');
             btn.className = 'list-group-item list-group-item-action bg-transparent text-white border-secondary py-3';
             btn.innerHTML = `<i class="fas fa-book me-2 text-secondary"></i> ${sub}`;
-            btn.onclick = () => app.startSubjectFlow(sub); // UPDATED to flow
-            newList.appendChild(btn);
+            btn.onclick = () => app.startSubjectFlow(sub); 
+            list.appendChild(btn);
         });
     }
 };
