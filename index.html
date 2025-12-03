@@ -69,9 +69,11 @@
         /* Logic to prevent sticky hover on touch devices */
         @media (hover: hover) {
             .option-btn:hover {
-                background-color: rgba(255,255,255,0.05);
+                background-color: rgba(255,255,255,0.08);
                 border-color: #bb86fc;
                 color: #ffffff;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
             }
         }
 
@@ -82,6 +84,32 @@
         }
         .toggle-checkbox:checked + .toggle-label {
             background-color: #bb86fc;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-4px); }
+            40%, 80% { transform: translateX(4px); }
+        }
+        @keyframes success-pop {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
+            50% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+        }
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-shake {
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        .animate-success {
+            animation: success-pop 0.4s ease-out forwards;
+        }
+        .animate-fade-in {
+            animation: fade-in-up 0.4s ease-out forwards;
         }
     </style>
 </head>
@@ -102,7 +130,7 @@
     <div id="app-sections" class="flex-grow flex flex-col">
         
         <!-- SECTION: HOME -->
-        <div id="home-section" class="section-content flex-grow">
+        <div id="home-section" class="section-content flex-grow animate-fade-in">
             
             <!-- Compact Stats -->
             <div class="bg-surface rounded-xl border border-gray-700 p-4 mb-6 shadow-lg">
@@ -146,7 +174,7 @@
         </div>
 
         <!-- SECTION: QUIZ -->
-        <div id="quiz-section" class="hidden flex-col h-full">
+        <div id="quiz-section" class="hidden flex-col h-full animate-fade-in">
             <!-- Quiz Header -->
             <div class="bg-surface rounded-xl p-4 mb-4 flex flex-col md:flex-row justify-between items-center gap-4 shadow-md border border-gray-800">
                 <div class="flex items-center w-full justify-between md:justify-start">
@@ -192,12 +220,12 @@
                 <!-- Scrollable Content Area -->
                 <div id="question-container" class="flex-grow overflow-y-auto custom-scrollbar pr-2">
                     <!-- Question Image -->
-                    <div id="q-image-container" class="text-center hidden mb-4">
+                    <div id="q-image-container" class="text-center hidden mb-4 animate-fade-in">
                         <img id="q-image" src="" class="max-w-full h-48 object-contain mx-auto rounded border border-gray-700" alt="Question Diagram">
                     </div>
                     
                     <!-- Question Text -->
-                    <h5 class="font-normal leading-relaxed text-gray-100 mb-6" id="q-text" style="font-size: clamp(1.1rem, 3.5vh, 1.6rem);">
+                    <h5 class="font-normal leading-relaxed text-gray-100 mb-6 animate-fade-in" id="q-text" style="font-size: clamp(1.1rem, 3.5vh, 1.6rem);">
                         Loading question...
                     </h5>
                     
@@ -216,7 +244,7 @@
         </div>
 
         <!-- SECTION: RESULT -->
-        <div id="result-section" class="hidden">
+        <div id="result-section" class="hidden animate-fade-in">
             <div class="bg-surface rounded-xl shadow-lg p-8 text-center max-w-3xl mx-auto border border-gray-800">
                 <h3 class="text-2xl font-light mb-8">Performance Report</h3>
                 
@@ -266,7 +294,7 @@
         </div>
 
         <!-- SECTION: HISTORY -->
-        <div id="history-section" class="hidden">
+        <div id="history-section" class="hidden animate-fade-in">
             <div class="flex justify-between items-center mb-6">
                 <h4 class="text-xl font-light">Exam History</h4>
                 <button class="btn border border-error text-error hover:bg-error/10 text-xs py-1 px-3" onclick="app.clearHistory()">
@@ -283,7 +311,7 @@
 
 <!-- MODAL: Subject Selection -->
 <div id="subjectModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" aria-hidden="true">
-    <div class="bg-surface w-full max-w-lg rounded-xl shadow-2xl border border-gray-700 overflow-hidden m-4 flex flex-col max-h-[80vh]">
+    <div class="bg-surface w-full max-w-lg rounded-xl shadow-2xl border border-gray-700 overflow-hidden m-4 flex flex-col max-h-[80vh] animate-fade-in">
         <div class="p-4 border-b border-gray-700 flex justify-between items-center bg-surface-hover">
             <h5 class="text-lg font-light" id="modal-title">Select Subject</h5>
             <button class="text-gray-400 hover:text-white transition-colors" onclick="app.closeModal('subjectModal')">
@@ -300,7 +328,7 @@
 
 <!-- MODAL: History Details -->
 <div id="historyDetailsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" aria-hidden="true">
-    <div class="bg-surface w-full max-w-2xl rounded-xl shadow-2xl border border-gray-700 overflow-hidden m-4 flex flex-col max-h-[85vh]">
+    <div class="bg-surface w-full max-w-2xl rounded-xl shadow-2xl border border-gray-700 overflow-hidden m-4 flex flex-col max-h-[85vh] animate-fade-in">
         <div class="p-4 border-b border-gray-700 flex justify-between items-center bg-surface-hover">
             <h5 class="text-lg font-light">Exam Details</h5>
             <button class="text-gray-400 hover:text-white transition-colors" onclick="app.closeModal('historyDetailsModal')">
@@ -321,15 +349,15 @@
     
     /* Option Button Base Styles (Tailwind abstraction) */
     .option-btn {
-        @apply w-full text-left p-4 rounded-lg border border-gray-700 text-gray-300 bg-transparent transition-all duration-200 text-base relative disabled:opacity-100;
+        @apply w-full text-left p-4 rounded-lg border-2 border-gray-700 text-gray-200 bg-surface-hover/30 transition-all duration-200 text-base relative disabled:opacity-100 mb-3;
     }
     
     .option-btn.correct {
-        @apply bg-green-900/20 border-green-500 text-green-500 !important;
+        @apply bg-green-900/30 border-green-500 text-green-400 animate-success !important;
     }
     
     .option-btn.wrong {
-        @apply bg-red-900/20 border-red-500 text-red-500 !important;
+        @apply bg-red-900/30 border-red-500 text-red-400 animate-shake !important;
     }
 
     /* Score Circle states */
@@ -629,7 +657,7 @@ const app = {
             ];
             utils.shuffle(options).forEach(opt => {
                 const btn = document.createElement('button');
-                btn.className = 'option-btn'; 
+                btn.className = 'option-btn animate-fade-in'; 
                 btn.dataset.optId = opt.id;
                 btn.textContent = isMal ? opt.mal : opt.text;
                 btn.onclick = () => app.handleAnswer(btn, opt, q);
