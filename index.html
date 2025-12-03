@@ -200,6 +200,12 @@
             transition: all 0.2s ease;
         }
 
+        /* Prevent options from dimming when disabled so feedback is visible */
+        .option-btn:disabled {
+            opacity: 1;
+            color: rgba(255,255,255,0.9);
+        }
+
         /* FIX: Only show purple hover border on devices that actually have a mouse pointer.
            This prevents "sticky" selection styles on touch devices. */
         @media (hover: hover) {
@@ -237,15 +243,15 @@
 
         /* Results */
         .score-circle {
-            width: 180px;
-            height: 180px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             border: 4px solid #333;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 32px;
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 300;
             position: relative;
         }
@@ -253,8 +259,8 @@
         .score-circle::after {
             content: 'SCORE';
             position: absolute;
-            bottom: 35px;
-            font-size: 0.8rem;
+            bottom: 30px;
+            font-size: 0.7rem;
             letter-spacing: 2px;
             color: var(--text-secondary);
         }
@@ -288,7 +294,7 @@
 
         .img-question {
             max-width: 100%;
-            max-height: 20vh; /* Dynamic Image Height */
+            max-height: 25vh; /* Dynamic Image Height */
             object-fit: contain;
             border-radius: 4px;
             margin: 1vh 0;
@@ -332,21 +338,31 @@
             border-color: var(--secondary-color);
         }
 
+        /* History Modal */
+        .clickable-history {
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .clickable-history:hover {
+            background-color: var(--surface-hover);
+        }
+
         /* === FOCUS MODE STYLES (For Quiz) === */
         /* These styles activate when .quiz-mode is on body */
         body.quiz-mode {
-            overflow: hidden; /* Prevent body scroll */
+            /* ALLOW SCROLLING if needed */
+            overflow-y: auto; 
         }
 
         body.quiz-mode #main-container {
             padding: 0 !important;
             max-width: 100% !important;
             margin: 0 !important;
-            height: 100vh;
+            min-height: 100vh; /* Allow grow */
         }
 
         body.quiz-mode #quiz-section {
-            height: 100%;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             padding: 10px;
@@ -358,20 +374,18 @@
         }
 
         body.quiz-mode .quiz-main-card {
-            flex: 1; /* Take remaining height */
+            flex: 1; 
             margin-bottom: 0 !important;
             display: flex;
             flex-direction: column;
-            overflow: hidden; /* Contain inner content */
             padding: 1rem !important;
         }
 
         body.quiz-mode #question-container {
             flex: 1;
-            overflow-y: auto; /* Scroll ONLY the question/options part */
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Center content vertically if small */
+            /* Justify center removed to allow scrolling flow for large content */
         }
         
         body.quiz-mode .progress {
@@ -380,7 +394,7 @@
         }
 
         body.quiz-mode #next-btn-container {
-            padding-top: 1vh;
+            padding-top: 15px;
             flex-shrink: 0;
         }
 
@@ -511,6 +525,18 @@
                 
                 <h4 id="result-message" class="mb-2 fw-bold"></h4>
                 <p class="text-secondary-custom mb-5" id="result-time">Time Taken: 00:00</p>
+                
+                <!-- NEW: Average Time Insight -->
+                <div class="alert alert-dark d-inline-block text-start mb-4 border-secondary">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-stopwatch fa-2x me-3 text-secondary"></i>
+                        <div>
+                            <small class="text-secondary text-uppercase ls-1">Average Time / Question</small>
+                            <div class="fw-bold fs-5" id="result-avg-time">-- s</div>
+                            <small id="avg-time-feedback" class="text-muted"></small>
+                        </div>
+                    </div>
+                </div>
 
                 <h6 class="text-start text-secondary text-uppercase ls-1 mb-3">Subject Breakdown</h6>
                 <div class="row text-start g-4" id="subject-performance">
@@ -570,6 +596,21 @@
     </div>
 </div>
 
+<!-- NEW: History Details Modal -->
+<div class="modal fade" id="historyDetailsModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content" style="background-color: var(--surface-color); color: white; border: 1px solid #333;">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title fw-light">Exam Details</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4" id="history-modal-body">
+                <!-- Content Injected via JS -->
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- 
@@ -588,6 +629,7 @@ let QUESTIONS_DB = [];
  */
 const CONFIG = {
     passMark: 70, // Percentage
+    avgTimeTarget: 120, // Max seconds per question
     examStructure: [
         { subject: "Part I Malayalam", count: 5 },
         { subject: "Part II Malayalam", count: 5 },
@@ -598,68 +640,10 @@ const CONFIG = {
     ]
 };
 
-// Fallback data for Preview Mode only (since fetch won't work in this chat preview)
+// Fallback data for Preview Mode only
 const FALLBACK_DATA = [
-    {
-        "question": "The length and width of a rectangular park are 9/4 metre and 8/3 metre respectively. Find the area of the park",
-        "malayalam_question": "ദീർഘചതുരാകൃതിയിലുള്ള പാർക്കിൻ്റെ നീളവും വീതിയും യഥാക്രമം 9/4 മീറ്ററും 8/3 മീറ്ററുമാണ്. പാർക്കിൻ്റെ പ്രദേശം കണ്ടെത്തുക",
-        "option1": "6 square metre", "malayalam_option1": "6 ചതുരശ്ര മീറ്റർ",
-        "option2": "4 square metre", "malayalam_option2": "4 ചതുരശ്ര മീറ്റർ",
-        "option3": "9/2 square metre", "malayalam_option3": "9/2 ചതുരശ്ര മീറ്റർ",
-        "option4": "10 square metre", "malayalam_option4": "10 ചതുരശ്ര മീറ്റർ",
-        "answer": "6 square metre", "malayalam_answer": "6 ചതുരശ്ര മീറ്റർ",
-        "subject": "Maths", "chapter": 2, "image": "null"
-    },
-    {
-        "question": "Who wrote the poem 'Veena Poovu'?",
-        "malayalam_question": "'വീണപൂവ്' എന്ന കവിത ആരാണ് രചിച്ചത്?",
-        "option1": "Kumaran Asan", "malayalam_option1": "കുമാരനാശാൻ",
-        "option2": "Vallathol", "malayalam_option2": "വള്ളത്തോൾ",
-        "option3": "Ulloor", "malayalam_option3": "ഉള്ളൂർ",
-        "option4": "Changampuzha", "malayalam_option4": "ചങ്ങമ്പുഴ",
-        "answer": "Kumaran Asan", "malayalam_answer": "കുമാരനാശാൻ",
-        "subject": "Part I Malayalam", "chapter": 1, "image": "null"
-    },
-    {
-        "question": "What is the chemical symbol for Water?",
-        "malayalam_question": "വെള്ളത്തിന്റെ രാസസൂത്രം എന്താണ്?",
-        "option1": "H2O", "malayalam_option1": "H2O",
-        "option2": "CO2", "malayalam_option2": "CO2",
-        "option3": "O2", "malayalam_option3": "O2",
-        "option4": "NaCl", "malayalam_option4": "NaCl",
-        "answer": "H2O", "malayalam_answer": "H2O",
-        "subject": "Basic Science", "chapter": 1, "image": "null"
-    },
-     {
-        "question": "Who was the first Prime Minister of India?",
-        "malayalam_question": "ഇന്ത്യയുടെ ആദ്യത്തെ പ്രധാനമന്ത്രി ആരായിരുന്നു?",
-        "option1": "Gandhi", "malayalam_option1": "ഗാന്ധി",
-        "option2": "Nehru", "malayalam_option2": "നെഹ്റു",
-        "option3": "Patel", "malayalam_option3": "പട്ടേൽ",
-        "option4": "Ambedkar", "malayalam_option4": "അംബേദ്കർ",
-        "answer": "Nehru", "malayalam_answer": "നെഹ്റു",
-        "subject": "Social Science", "chapter": 1, "image": "null"
-    },
-    {
-        "question": "Synonym of 'Happy'.",
-        "malayalam_question": "'Happy' എന്ന വാക്കിന്റെ പര്യായപദം.",
-        "option1": "Sad", "malayalam_option1": "Sad",
-        "option2": "Joyful", "malayalam_option2": "Joyful",
-        "option3": "Angry", "malayalam_option3": "Angry",
-        "option4": "Tired", "malayalam_option4": "Tired",
-        "answer": "Joyful", "malayalam_answer": "Joyful",
-        "subject": "English", "chapter": 1, "image": "null"
-    },
-     {
-        "question": "Identify the correct grammar usage.",
-        "malayalam_question": "ശരിയായ വ്യാകരണ പ്രയോഗം തിരിച്ചറിയുക.",
-        "option1": "Option A", "malayalam_option1": "ഓപ്ഷൻ എ",
-        "option2": "Option B", "malayalam_option2": "ഓപ്ഷൻ ബി",
-        "option3": "Option C", "malayalam_option3": "ഓപ്ഷൻ സി",
-        "option4": "Option D", "malayalam_option4": "ഓപ്ഷൻ ഡി",
-        "answer": "Option A", "malayalam_answer": "ഓപ്ഷൻ എ",
-        "subject": "Part II Malayalam", "chapter": 1, "image": "null"
-    }
+    { "question": "The length and width of a rectangular park are 9/4 metre and 8/3 metre respectively. Find the area of the park", "malayalam_question": "ദീർഘചതുരാകൃതിയിലുള്ള പാർക്കിൻ്റെ നീളവും വീതിയും യഥാക്രമം 9/4 മീറ്ററും 8/3 മീറ്ററുമാണ്. പാർക്കിൻ്റെ പ്രദേശം കണ്ടെത്തുക", "option1": "6 square metre", "malayalam_option1": "6 ചതുരശ്ര മീറ്റർ", "option2": "4 square metre", "malayalam_option2": "4 ചതുരശ്ര മീറ്റർ", "option3": "9/2 square metre", "malayalam_option3": "9/2 ചതുരശ്ര മീറ്റർ", "option4": "10 square metre", "malayalam_option4": "10 ചതുരശ്ര മീറ്റർ", "answer": "6 square metre", "malayalam_answer": "6 ചതുരശ്ര മീറ്റർ", "subject": "Maths", "chapter": 2, "image": "null" },
+    { "question": "Who wrote the poem 'Veena Poovu'?", "malayalam_question": "'വീണപൂവ്' എന്ന കവിത ആരാണ് രചിച്ചത്?", "option1": "Kumaran Asan", "malayalam_option1": "കുമാരനാശാൻ", "option2": "Vallathol", "malayalam_option2": "വള്ളത്തോൾ", "option3": "Ulloor", "malayalam_option3": "ഉള്ളൂർ", "option4": "Changampuzha", "malayalam_option4": "ചങ്ങമ്പുഴ", "answer": "Kumaran Asan", "malayalam_answer": "കുമാരനാശാൻ", "subject": "Part I Malayalam", "chapter": 1, "image": "null" }
 ];
 
 /**
@@ -695,14 +679,13 @@ const app = {
         timerInterval: null,
         language: 'en', // 'en' or 'mal'
         isQuizActive: false,
-        startTime: 0
+        startTime: 0,
+        tempSubjectStats: null // To store for saving
     },
 
     init: async () => {
         app.loadStats();
         app.renderHistory();
-        
-        // Load questions from JSON
         await app.fetchQuestions();
     },
 
@@ -711,26 +694,14 @@ const app = {
         if(loading) loading.classList.remove('d-none');
         
         try {
-            // Attempt to fetch from the file
             const response = await fetch('questions.json');
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             QUESTIONS_DB = await response.json();
-            console.log("Successfully loaded questions from questions.json");
-            
         } catch (error) {
-            console.warn("Failed to load questions.json (This is expected in Preview mode). Using fallback data.", error);
-            // Fallback for Preview or if file missing
+            console.warn("Using fallback data.", error);
             QUESTIONS_DB = FALLBACK_DATA; 
-            
-            // In a real environment, you might want to alert the user
-            // alert("Could not load questions.json. Please ensure the file exists.");
         } finally {
             if(loading) loading.classList.add('d-none');
-            // Do NOT populate modal here, we wait for user to click button so logic is fresher
         }
     },
 
@@ -742,22 +713,25 @@ const app = {
         document.getElementById('stat-rate').textContent = `${rate}%`;
     },
 
-    saveStats: (isWin) => {
+    saveStats: (isWin, totalTimeStr, avgTimeSec) => {
         const stats = JSON.parse(localStorage.getItem('quizStats')) || { total: 0, wins: 0 };
         stats.total++;
         if (isWin) stats.wins++;
         localStorage.setItem('quizStats', JSON.stringify(stats));
         
-        // Save history entry
+        // Save detailed history entry
         const history = JSON.parse(localStorage.getItem('quizHistory')) || [];
         const entry = {
-            date: new Date().toLocaleDateString(),
+            date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
             score: app.state.score,
             total: app.state.currentQuestions.length,
-            percentage: Math.round((app.state.score / app.state.currentQuestions.length) * 100)
+            percentage: Math.round((app.state.score / app.state.currentQuestions.length) * 100),
+            timeTaken: totalTimeStr,
+            avgTime: avgTimeSec,
+            subjectDetails: app.state.tempSubjectStats // Capture the breakdown
         };
         history.unshift(entry); // Add to top
-        if(history.length > 10) history.pop(); // Keep last 10
+        if(history.length > 20) history.pop(); // Increased limit to 20
         localStorage.setItem('quizHistory', JSON.stringify(history));
     },
 
@@ -765,15 +739,13 @@ const app = {
         document.querySelectorAll('#app-sections > div').forEach(div => div.classList.remove('active'));
         document.getElementById(`${sectionId}-section`).classList.add('active');
         
-        // --- UPDATED: HANDLE QUIZ MODE UI ---
         const mainHeader = document.getElementById('main-header');
-        
         if (sectionId === 'quiz') {
             document.body.classList.add('quiz-mode');
-            mainHeader.classList.add('d-none'); // Hide Navbar
+            mainHeader.classList.add('d-none'); 
         } else {
             document.body.classList.remove('quiz-mode');
-            mainHeader.classList.remove('d-none'); // Show Navbar
+            mainHeader.classList.remove('d-none'); 
             if (sectionId === 'home') app.loadStats();
         }
     },
@@ -796,22 +768,12 @@ const app = {
         }
 
         let finalQuestions = [];
-        
         CONFIG.examStructure.forEach(req => {
             let subjectQs = QUESTIONS_DB.filter(q => q.subject === req.subject);
-            
-            // Handle case where we don't have enough questions for the requirement
-            if (subjectQs.length === 0) {
-                 console.warn(`No questions found for ${req.subject}`);
-            }
-            
             subjectQs = utils.shuffle(subjectQs);
-            
-            // Fill duplicates if needed
             while(subjectQs.length > 0 && subjectQs.length < req.count) {
                 subjectQs = subjectQs.concat(subjectQs);
             }
-            
             finalQuestions = finalQuestions.concat(subjectQs.slice(0, req.count));
         });
 
@@ -819,11 +781,8 @@ const app = {
             alert("No questions found matching the exam criteria.");
             return;
         }
-
         app.startQuizExecution(finalQuestions);
     },
-
-    // --- CHAPTER SELECTION LOGIC ---
 
     startSubjectFlow: (subjectName) => {
         const qs = QUESTIONS_DB.filter(q => q.subject === subjectName);
@@ -831,12 +790,7 @@ const app = {
             alert("No questions available for this subject.");
             return;
         }
-
-        // Extract unique chapters
-        // Handle cases where chapter might be numeric or string or null
         const chapters = [...new Set(qs.map(q => q.chapter))].filter(c => c != null).sort();
-
-        // If no chapters defined, just start quiz
         if (chapters.length === 0) {
             const modalEl = document.getElementById('subjectModal');
             const modal = bootstrap.Modal.getInstance(modalEl);
@@ -844,11 +798,9 @@ const app = {
             app.startQuizExecution(utils.shuffle(qs).slice(0, 20));
             return;
         }
-
-        // Render Chapter Selection UI in Modal
+        
         const modalTitle = document.getElementById('modal-title');
         const modalBody = document.getElementById('modal-body');
-        
         modalTitle.textContent = `Select Chapters: ${subjectName}`;
         
         let html = `
@@ -859,25 +811,10 @@ const app = {
                 </div>
                 <div id="chapter-checkboxes" class="mb-4" style="max-height: 300px; overflow-y: auto;">
         `;
-        
         chapters.forEach(chap => {
-            html += `
-                <div class="form-check mb-2">
-                    <input class="form-check-input chapter-chk" type="checkbox" value="${chap}" id="chap_${chap}" checked>
-                    <label class="form-check-label" for="chap_${chap}">Chapter ${chap}</label>
-                </div>
-            `;
+            html += `<div class="form-check mb-2"><input class="form-check-input chapter-chk" type="checkbox" value="${chap}" id="chap_${chap}" checked><label class="form-check-label" for="chap_${chap}">Chapter ${chap}</label></div>`;
         });
-
-        html += `
-                </div>
-                <div class="d-flex justify-content-between">
-                    <button class="btn btn-outline-light" onclick="app.populateSubjectModal()">Back</button>
-                    <button class="btn btn-primary px-4" onclick="app.confirmChapterSelection('${subjectName}')">Start Practice</button>
-                </div>
-            </div>
-        `;
-        
+        html += `</div><div class="d-flex justify-content-between"><button class="btn btn-outline-light" onclick="app.populateSubjectModal()">Back</button><button class="btn btn-primary px-4" onclick="app.confirmChapterSelection('${subjectName}')">Start Practice</button></div></div>`;
         modalBody.innerHTML = html;
     },
 
@@ -888,34 +825,14 @@ const app = {
 
     confirmChapterSelection: (subjectName) => {
         const checkboxes = document.querySelectorAll('.chapter-chk:checked');
-        const selectedChapters = Array.from(checkboxes).map(cb => cb.value); // Values are strings
-
-        if (selectedChapters.length === 0) {
-            alert("Please select at least one chapter.");
-            return;
-        }
-
-        // Filter Questions
-        // Note: chapter in JSON might be number, value in checkbox is string. Use loose comparison or conversion.
-        let qs = QUESTIONS_DB.filter(q => 
-            q.subject === subjectName && 
-            selectedChapters.includes(String(q.chapter))
-        );
-
-        if (qs.length === 0) {
-            alert("No questions match the selected criteria.");
-            return;
-        }
-
-        // Limit to 25 questions for practice
-        qs = utils.shuffle(qs).slice(0, 25);
-
-        // Hide Modal
+        const selectedChapters = Array.from(checkboxes).map(cb => cb.value); 
+        if (selectedChapters.length === 0) { alert("Please select at least one chapter."); return; }
+        let qs = QUESTIONS_DB.filter(q => q.subject === subjectName && selectedChapters.includes(String(q.chapter)));
+        if (qs.length === 0) { alert("No questions match the selected criteria."); return; }
         const modalEl = document.getElementById('subjectModal');
         const modal = bootstrap.Modal.getInstance(modalEl);
         if(modal) modal.hide();
-
-        app.startQuizExecution(qs);
+        app.startQuizExecution(utils.shuffle(qs).slice(0, 25));
     },
 
     startQuizExecution: (questions) => {
@@ -925,7 +842,6 @@ const app = {
         app.state.answers = [];
         app.state.timer = 0;
         app.state.isQuizActive = true;
-        app.state.startTime = Date.now();
         
         document.getElementById('next-btn').disabled = true;
         document.getElementById('options-container').innerHTML = '';
@@ -948,37 +864,26 @@ const app = {
         const q = app.state.currentQuestions[app.state.currentQuestionIndex];
         const isMal = app.state.language === 'mal';
         
-        // Force reset focus to prevent sticky styles
-        if (document.activeElement instanceof HTMLElement) {
-             document.activeElement.blur();
-        }
+        if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
 
-        // Metadata
         document.getElementById('subject-indicator').textContent = q.subject;
-        document.getElementById('question-counter').textContent = 
-            `Question ${app.state.currentQuestionIndex + 1} of ${app.state.currentQuestions.length}`;
-        
-        // Progress
-        const progress = ((app.state.currentQuestionIndex) / app.state.currentQuestions.length) * 100;
-        document.getElementById('quiz-progress').style.width = `${progress}%`;
-
-        // Content
+        document.getElementById('question-counter').textContent = `Question ${app.state.currentQuestionIndex + 1} of ${app.state.currentQuestions.length}`;
+        document.getElementById('quiz-progress').style.width = `${((app.state.currentQuestionIndex) / app.state.currentQuestions.length) * 100}%`;
         document.getElementById('q-text').textContent = isMal ? q.malayalam_question : q.question;
 
         const imgContainer = document.getElementById('q-image-container');
         const img = document.getElementById('q-image');
         if (q.image && q.image !== "null" && q.image !== null) {
-            img.src = q.image;
-            imgContainer.classList.remove('d-none');
-            img.onerror = function() { imgContainer.classList.add('d-none'); };
-        } else {
-            imgContainer.classList.add('d-none');
-        }
+            img.src = q.image; imgContainer.classList.remove('d-none'); img.onerror = function() { imgContainer.classList.add('d-none'); };
+        } else { imgContainer.classList.add('d-none'); }
 
-        // Options
         const container = document.getElementById('options-container');
+        const scrollContainer = document.getElementById('question-container');
         
         if (isNewQuestion) {
+            // FIX: Scroll to top automatically when new question loads
+            if(scrollContainer) scrollContainer.scrollTop = 0;
+            
             container.innerHTML = '';
             const options = [
                 { id: 1, text: q.option1, mal: q.malayalam_option1 },
@@ -986,24 +891,16 @@ const app = {
                 { id: 3, text: q.option3, mal: q.malayalam_option3 },
                 { id: 4, text: q.option4, mal: q.malayalam_option4 }
             ];
-            
-            // Randomize options display
-            const shuffledOptions = utils.shuffle([...options]);
-
-            shuffledOptions.forEach(opt => {
+            utils.shuffle(options).forEach(opt => {
                 const btn = document.createElement('button');
-                btn.className = 'btn option-btn'; // Strict reset
+                btn.className = 'btn option-btn'; 
                 btn.dataset.optId = opt.id;
                 btn.textContent = isMal ? opt.mal : opt.text;
                 btn.onclick = () => app.handleAnswer(btn, opt, q);
                 container.appendChild(btn);
             });
-            
-            // Reset next button state just in case
-            const nextBtn = document.getElementById('next-btn');
-            nextBtn.disabled = true;
+            document.getElementById('next-btn').disabled = true;
         } else {
-            // Update text only - Button order remains same
             const buttons = container.querySelectorAll('button');
             buttons.forEach((btn) => {
                 const qKey = `option${btn.dataset.optId}`;
@@ -1016,31 +913,21 @@ const app = {
     handleAnswer: (btn, optionObj, questionObj) => {
         const container = document.getElementById('options-container');
         const buttons = container.querySelectorAll('button');
-        
-        // Prevent multiple clicks
         buttons.forEach(b => b.disabled = true);
-        
-        // Remove focus from the clicked button to prevent "sticky" hover style
         btn.blur();
 
-        // FIX: Ensure both sides are strings to avoid crashes with numbers/nulls
         const correctAnswerText = String(questionObj.answer).trim();
-        // The option text coming from the loop/object
         const selectedText = String(questionObj[`option${optionObj.id}`]).trim();
-        
         const isCorrect = selectedText === correctAnswerText;
         
         if (isCorrect) {
             btn.classList.add('correct');
             btn.innerHTML += ' <i class="fas fa-check float-end mt-1"></i>';
             app.state.score++;
-            // Update Score Badge
             document.getElementById('score-counter').innerHTML = `<i class="fas fa-star"></i> ${app.state.score}`;
         } else {
             btn.classList.add('wrong');
             btn.innerHTML += ' <i class="fas fa-times float-end mt-1"></i>';
-            
-            // Show correct answer
             buttons.forEach(b => {
                 const optText = String(questionObj[`option${b.dataset.optId}`]).trim();
                 if (optText === correctAnswerText) {
@@ -1050,16 +937,8 @@ const app = {
             });
         }
 
-        app.state.answers.push({
-            subject: questionObj.subject,
-            isCorrect: isCorrect,
-            time: Date.now()
-        });
-
-        // AUTO NEXT: Trigger next question automatically after short delay
-        setTimeout(() => {
-            app.nextQuestion();
-        }, 1500); // 1.5 seconds delay
+        app.state.answers.push({ subject: questionObj.subject, isCorrect: isCorrect, time: Date.now() });
+        setTimeout(() => { app.nextQuestion(); }, 1500); 
     },
 
     nextQuestion: () => {
@@ -1079,41 +958,68 @@ const app = {
         const percentage = Math.round((app.state.score / totalQs) * 100);
         const passed = percentage >= CONFIG.passMark;
         const timeTaken = document.getElementById('timer').textContent;
+        const totalSeconds = app.state.timer;
+        const avgSeconds = Math.round(totalSeconds / totalQs);
 
+        // Render Result Page
         const circle = document.getElementById('score-circle');
         circle.className = `score-circle ${passed ? 'pass' : 'fail'}`;
         circle.textContent = `${percentage}%`;
 
         const msgEl = document.getElementById('result-message');
-        msgEl.textContent = passed ? 
-            "Excellent Work!" : 
-            "Don't Give Up!";
+        msgEl.textContent = passed ? "Excellent Work!" : "Don't Give Up!";
         msgEl.className = passed ? "text-success mb-2 fw-bold" : "text-danger mb-2 fw-bold";
 
         document.getElementById('result-time').textContent = `Total Time: ${timeTaken.trim()}`;
 
-        // Analytics
+        // Avg Time Logic
+        document.getElementById('result-avg-time').textContent = `${avgSeconds} seconds`;
+        const avgFeedback = document.getElementById('avg-time-feedback');
+        if (avgSeconds <= CONFIG.avgTimeTarget) {
+            avgFeedback.textContent = "Great! You are within the time limit.";
+            avgFeedback.className = "text-success small";
+        } else {
+            avgFeedback.textContent = "Try to answer faster (Target: 120s)";
+            avgFeedback.className = "text-warning small";
+        }
+
+        // Subject Breakdown Calculation
         const subjectStats = {};
         app.state.answers.forEach(ans => {
             if (!subjectStats[ans.subject]) subjectStats[ans.subject] = { correct: 0, total: 0 };
             subjectStats[ans.subject].total++;
             if (ans.isCorrect) subjectStats[ans.subject].correct++;
         });
-
-        const statsContainer = document.getElementById('subject-performance');
-        statsContainer.innerHTML = '';
         
+        // Save to state for later History use
+        app.state.tempSubjectStats = subjectStats;
+
+        // Render Stats
+        app.renderSubjectPerformance(subjectStats, 'subject-performance');
+
+        // Strong/Weak Subject
         let bestSub = { name: '-', val: -1 };
         let worstSub = { name: '-', val: 101 };
-
         Object.keys(subjectStats).forEach(sub => {
             const data = subjectStats[sub];
             const perc = Math.round((data.correct / data.total) * 100);
-            
             if (perc > bestSub.val) { bestSub = { name: sub, val: perc }; }
             if (perc < worstSub.val) { worstSub = { name: sub, val: perc }; }
+        });
+        document.getElementById('strong-subject').textContent = bestSub.name;
+        document.getElementById('weak-subject').textContent = worstSub.name;
 
-            statsContainer.innerHTML += `
+        app.saveStats(passed, timeTaken.trim(), avgSeconds);
+        app.showSection('result');
+    },
+
+    renderSubjectPerformance: (stats, containerId) => {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '';
+        Object.keys(stats).forEach(sub => {
+            const data = stats[sub];
+            const perc = Math.round((data.correct / data.total) * 100);
+            container.innerHTML += `
                 <div class="col-md-6">
                     <div class="d-flex justify-content-between mb-1">
                         <span class="small text-secondary text-uppercase">${sub}</span>
@@ -1126,12 +1032,6 @@ const app = {
                 </div>
             `;
         });
-
-        document.getElementById('strong-subject').textContent = bestSub.name;
-        document.getElementById('weak-subject').textContent = worstSub.name;
-
-        app.saveStats(passed);
-        app.showSection('result');
     },
 
     /**
@@ -1152,10 +1052,12 @@ const app = {
         }
 
         let html = '';
-        history.forEach(h => {
+        history.forEach((h, index) => {
             const passed = h.percentage >= CONFIG.passMark;
             html += `
-                <div class="card p-3 mb-2 d-flex flex-row justify-content-between align-items-center" style="border-left: 4px solid ${passed ? 'var(--success-color)' : 'var(--error-color)'};">
+                <div class="card p-3 mb-2 d-flex flex-row justify-content-between align-items-center clickable-history" 
+                     style="border-left: 4px solid ${passed ? 'var(--success-color)' : 'var(--error-color)'};"
+                     onclick="app.showHistoryDetails(${index})">
                     <div>
                         <div class="fw-bold text-white">${h.date}</div>
                         <small class="text-secondary-custom">Score: ${h.score}/${h.total}</small>
@@ -1169,6 +1071,65 @@ const app = {
         container.innerHTML = html;
     },
 
+    showHistoryDetails: (index) => {
+        const history = JSON.parse(localStorage.getItem('quizHistory')) || [];
+        const item = history[index];
+        if(!item) return;
+
+        const modalBody = document.getElementById('history-modal-body');
+        
+        // Handling Legacy records (before update)
+        if(!item.subjectDetails) {
+            modalBody.innerHTML = `
+                <div class="text-center py-4">
+                    <h2 class="mb-3">${item.percentage}%</h2>
+                    <p class="text-secondary">Detailed breakdown not available for this record.</p>
+                    <p>Date: ${item.date}<br>Score: ${item.score}/${item.total}</p>
+                </div>
+            `;
+        } else {
+            // New Detailed View
+            let avgFeedback = item.avgTime <= CONFIG.avgTimeTarget 
+                ? `<span class="text-success">Good (<2m)</span>` 
+                : `<span class="text-warning">Slow (>2m)</span>`;
+
+            modalBody.innerHTML = `
+                <div class="text-center mb-4">
+                    <div class="score-circle ${item.percentage >= CONFIG.passMark ? 'pass' : 'fail'} mx-auto mb-3" style="width:100px; height:100px; font-size: 2rem;">
+                        ${item.percentage}%
+                    </div>
+                    <h5>${item.date}</h5>
+                </div>
+                <div class="row g-2 mb-4 text-center">
+                    <div class="col-4 border-end border-secondary">
+                        <small class="text-secondary">Score</small>
+                        <div class="fw-bold">${item.score}/${item.total}</div>
+                    </div>
+                    <div class="col-4 border-end border-secondary">
+                        <small class="text-secondary">Time</small>
+                        <div class="fw-bold">${item.timeTaken}</div>
+                    </div>
+                    <div class="col-4">
+                        <small class="text-secondary">Avg/Q</small>
+                        <div class="fw-bold">${item.avgTime}s</div>
+                        <small style="font-size:0.7em">${avgFeedback}</small>
+                    </div>
+                </div>
+                <h6 class="text-secondary text-uppercase ls-1 mb-3">Subject Performance</h6>
+                <div class="row g-3" id="history-subject-stats"></div>
+            `;
+            
+            // Render the breakdown into the specific container inside modal
+            // Need a slight delay or direct call to ensure DOM is ready
+            setTimeout(() => {
+                app.renderSubjectPerformance(item.subjectDetails, 'history-subject-stats');
+            }, 0);
+        }
+
+        const modal = new bootstrap.Modal(document.getElementById('historyDetailsModal'));
+        modal.show();
+    },
+
     clearHistory: () => {
         if(confirm('Are you sure you want to clear all exam history?')) {
             localStorage.removeItem('quizHistory');
@@ -1180,21 +1141,16 @@ const app = {
 
     showSubjectModal: () => {
         const modal = new bootstrap.Modal(document.getElementById('subjectModal'));
-        app.populateSubjectModal(); // Ensure list is fresh
+        app.populateSubjectModal(); 
         modal.show();
     },
 
     populateSubjectModal: () => {
-        const modalTitle = document.getElementById('modal-title');
-        modalTitle.textContent = "Select Subject";
-
-        // FIX: Don't look for subject-list yet, it might be gone if we are coming back from Chapter view.
-        // Instead, always reset the modal body structure first.
-        
         const modalBody = document.getElementById('modal-body');
         modalBody.innerHTML = '<div class="list-group list-group-flush" id="subject-list"></div>';
-        
         const list = document.getElementById('subject-list');
+        
+        document.getElementById('modal-title').textContent = "Select Subject";
 
         if (!QUESTIONS_DB || QUESTIONS_DB.length === 0) {
             list.innerHTML = '<div class="text-center p-3 text-secondary">No questions loaded.</div>';
@@ -1202,7 +1158,6 @@ const app = {
         }
 
         const subjects = [...new Set(QUESTIONS_DB.map(q => q.subject))];
-        
         subjects.forEach(sub => {
             const btn = document.createElement('button');
             btn.className = 'list-group-item list-group-item-action bg-transparent text-white border-secondary py-3';
