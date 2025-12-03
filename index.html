@@ -456,6 +456,48 @@ const app = {
         document.getElementById('stat-rate').textContent = `${rate}%`;
     },
 
+    // --- ENHANCED NON-REPEAT LOGIC (Priority Queue) ---
+    // Tracks usage of every question: { "questionText": lastSeenTimestamp }
+    getQuestionUsageMap: () => {
+        return JSON.parse(localStorage.getItem('questionUsageData')) || {};
+    },
+
+    updateQuestionUsage: () => {
+        const usageMap = app.getQuestionUsageMap();
+        const now = Date.now();
+        
+        app.state.currentQuestions.forEach(q => {
+            // Store simple Last Seen Timestamp for LRU sorting
+            usageMap[q.question] = now;
+        });
+        
+        localStorage.setItem('questionUsageData', JSON.stringify(usageMap));
+    },
+
+    // Returns a prioritized subset of questions for a subject
+    getPrioritizedQuestions: (allSubjectQs, count) => {
+        const usageMap = app.getQuestionUsageMap();
+        
+        // 1. Shuffle first to ensure randomness among equal priorities
+        let shuffled = utils.shuffle([...allSubjectQs]);
+        
+        // 2. Sort by Last Seen Time (Ascending)
+        // Questions never seen (undefined) come first (treated as 0)
+        // Questions seen long ago (small timestamp) come next
+        // Questions seen recently (large timestamp) come last
+        shuffled.sort((a, b) => {
+            const timeA = usageMap[a.question] || 0;
+            const timeB = usageMap[b.question] || 0;
+            return timeA - timeB;
+        });
+        
+        // 3. Pick top N
+        // If we have 100 questions and need 10:
+        // Top 10 will be the ones seen longest ago (or never).
+        // This guarantees NO repeats until all 100 are exhausted.
+        return shuffled.slice(0, count);
+    },
+
     saveStats: (isWin, totalTimeStr, avgTimeSec) => {
         const stats = JSON.parse(localStorage.getItem('quizStats')) || { total: 0, wins: 0 };
         stats.total++;
@@ -475,6 +517,9 @@ const app = {
         history.unshift(entry);
         if(history.length > 20) history.pop();
         localStorage.setItem('quizHistory', JSON.stringify(history));
+        
+        // Save Usage Data for next time
+        app.updateQuestionUsage();
     },
 
     showSection: (sectionId) => {
@@ -525,15 +570,23 @@ const app = {
             alert("Questions data not loaded. Please check questions.json.");
             return;
         }
+        
         let finalQuestions = [];
+        
         CONFIG.examStructure.forEach(req => {
             let subjectQs = QUESTIONS_DB.filter(q => q.subject === req.subject);
-            subjectQs = utils.shuffle(subjectQs);
-            while(subjectQs.length > 0 && subjectQs.length < req.count) {
-                subjectQs = subjectQs.concat(subjectQs);
+            
+            // Priority Selection Logic
+            let selectedForSubject = app.getPrioritizedQuestions(subjectQs, req.count);
+            
+            // If DB is smaller than required (Fallback)
+            while(selectedForSubject.length < req.count && selectedForSubject.length > 0) {
+                selectedForSubject = selectedForSubject.concat(selectedForSubject);
             }
-            finalQuestions = finalQuestions.concat(subjectQs.slice(0, req.count));
+            
+            finalQuestions = finalQuestions.concat(selectedForSubject.slice(0, req.count));
         });
+
         if (finalQuestions.length === 0) {
             alert("No questions found matching the exam criteria.");
             return;
@@ -550,7 +603,9 @@ const app = {
         const chapters = [...new Set(qs.map(q => q.chapter))].filter(c => c != null).sort();
         if (chapters.length === 0) {
             app.closeModal('subjectModal');
-            app.startQuizExecution(utils.shuffle(qs).slice(0, 20));
+            // Apply priority logic to subject quiz
+            let finalSelection = app.getPrioritizedQuestions(qs, 20);
+            app.startQuizExecution(finalSelection);
             return;
         }
         
@@ -594,10 +649,15 @@ const app = {
         const checkboxes = document.querySelectorAll('.chapter-chk:checked');
         const selectedChapters = Array.from(checkboxes).map(cb => cb.value); 
         if (selectedChapters.length === 0) { alert("Please select at least one chapter."); return; }
+        
         let qs = QUESTIONS_DB.filter(q => q.subject === subjectName && selectedChapters.includes(String(q.chapter)));
         if (qs.length === 0) { alert("No questions match the selected criteria."); return; }
+        
         app.closeModal('subjectModal');
-        app.startQuizExecution(utils.shuffle(qs).slice(0, 25));
+        
+        // Apply priority logic
+        let finalSelection = app.getPrioritizedQuestions(qs, 25);
+        app.startQuizExecution(finalSelection);
     },
 
     startQuizExecution: (questions) => {
@@ -889,6 +949,7 @@ const app = {
         if(confirm('Are you sure you want to clear all exam history?')) {
             localStorage.removeItem('quizHistory');
             localStorage.removeItem('quizStats');
+            localStorage.removeItem('questionUsageData');
             app.renderHistory();
             app.loadStats();
         }
