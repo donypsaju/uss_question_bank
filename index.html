@@ -4,574 +4,276 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>USS Pro</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
-    <!-- 
-      === INSTRUCTIONS FOR GITHUB ===
-      1. Create a file named 'styles.css' and paste the content from <style> below.
-      2. Link it here: <link rel="stylesheet" href="styles.css">
-    -->
-    <style>
-        /* === COPY TO styles.css === */
-        :root {
-            --bg-color: #121212;
-            --surface-color: #1e1e1e;
-            --surface-hover: #2d2d2d;
-            --primary-color: #bb86fc;
-            --primary-variant: #3700b3;
-            --secondary-color: #03dac6;
-            --error-color: #cf6679;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
-            --success-color: #4caf50;
-            --shadow-1: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20);
-            --shadow-2: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.20);
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#121212',
+                        surface: '#1e1e1e',
+                        'surface-hover': '#2d2d2d',
+                        primary: '#bb86fc',
+                        'primary-dark': '#a370f7',
+                        secondary: '#03dac6',
+                        error: '#cf6679',
+                        success: '#4caf50',
+                        text: '#ffffff',
+                        'text-sec': '#b0b0b0',
+                    },
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
         }
+    </script>
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-family: 'Roboto', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Material Card */
-        .card {
-            background-color: var(--surface-color);
-            border: none;
-            border-radius: 8px;
-            box-shadow: var(--shadow-1);
-            margin-bottom: 24px;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            box-shadow: var(--shadow-2);
-        }
-
-        /* Material Buttons */
-        .btn {
-            border-radius: 4px;
-            text-transform: uppercase;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            padding: 10px 20px;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            border: none;
-        }
-        
-        /* Remove focus ring to prevent "sticky" selection look */
-        .btn:focus, .btn:active {
-            outline: none !important;
-            box-shadow: none !important;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: #000;
-            box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12);
-        }
-
-        .btn-primary:hover {
-            background-color: #a370f7;
-            box-shadow: 0 5px 5px -3px rgba(0,0,0,0.2), 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12);
-            transform: translateY(-1px);
-        }
-
-        .btn-primary:disabled {
-            background-color: rgba(255, 255, 255, 0.12);
-            color: rgba(255, 255, 255, 0.3);
-            box-shadow: none;
-            transform: none;
-        }
-
-        .btn-outline-light {
-            border: 1px solid rgba(255,255,255,0.2);
-            color: var(--text-primary);
-        }
-
-        .btn-outline-light:hover {
-            background-color: rgba(255,255,255,0.08);
-            color: var(--text-primary);
-            border-color: var(--text-primary);
-        }
-
-        .text-secondary-custom {
-            color: var(--text-secondary);
-        }
-
-        /* Dashboard Stats - Compact Version */
-        .compact-stats {
-            padding: 15px 0;
-            margin-bottom: 1.5rem !important;
-        }
-
-        .stat-col {
-            padding: 0 5px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .stat-value {
-            font-size: clamp(1.5rem, 4vw, 2.5rem); /* Responsive font size */
-            font-weight: 700;
-            color: var(--secondary-color);
-            line-height: 1;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: clamp(0.6rem, 2vw, 0.8rem);
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center;
-            line-height: 1.2;
-        }
-
-        /* Quiz Interface */
-        .timer-badge {
-            font-size: 1rem;
-            min-width: 80px;
-            padding: 6px 10px;
-            border-radius: 16px;
-            background-color: rgba(207, 102, 121, 0.15);
-            color: var(--error-color);
-            border: 1px solid var(--error-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            white-space: nowrap;
-        }
-        
-        .score-badge {
-            font-size: 1rem;
-            min-width: 80px;
-            padding: 6px 10px;
-            border-radius: 16px;
-            background-color: rgba(76, 175, 80, 0.15);
-            color: var(--success-color);
-            border: 1px solid var(--success-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            white-space: nowrap;
-        }
-
-        /* DYNAMIC SCALING FOR QUIZ */
-        .question-text {
-            /* Dynamic font size: Minimum 1.1rem, Preferred 4vh, Maximum 1.8rem */
-            font-size: clamp(1.1rem, 3.5vh, 1.8rem);
-            font-weight: 400;
-            line-height: 1.4;
-            margin-bottom: 2vh;
-            color: rgba(255,255,255,0.95);
-        }
-
-        .option-btn {
-            text-align: left;
-            /* Dynamic margin and padding */
-            margin-bottom: clamp(8px, 1.5vh, 16px);
-            padding: clamp(12px, 2vh, 18px);
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .btn {
+                @apply px-5 py-2.5 rounded text-sm font-medium uppercase tracking-wide transition-all duration-200 ease-out focus:outline-none focus:ring-0 active:scale-95;
+            }
+            .btn-primary {
+                @apply bg-primary text-black shadow-md hover:bg-primary-dark hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none;
+            }
+            .btn-outline {
+                @apply border border-gray-600 text-text hover:bg-white/10;
+            }
             
-            white-space: normal;
-            border: 1px solid rgba(255,255,255,0.12);
-            background-color: transparent;
-            color: rgba(255,255,255,0.87);
-            border-radius: 8px;
-            position: relative;
-            text-transform: none;
-            letter-spacing: normal;
-            
-            /* Dynamic font size for options */
-            font-size: clamp(0.9rem, 2.2vh, 1.1rem);
-            /* Important: Transition for smooth state changes */
-            transition: all 0.2s ease;
-        }
-
-        /* Prevent options from dimming when disabled so feedback is visible */
-        .option-btn:disabled {
-            opacity: 1;
-            color: rgba(255,255,255,0.9);
-        }
-
-        /* FIX: Only show purple hover border on devices that actually have a mouse pointer.
-           This prevents "sticky" selection styles on touch devices. */
-        @media (hover: hover) {
-            .option-btn:hover {
-                background-color: rgba(255,255,255,0.05);
-                border-color: var(--primary-color);
-                color: var(--text-primary);
-                transform: none;
-                box-shadow: none;
+            /* Custom Scrollbar */
+            .custom-scrollbar::-webkit-scrollbar {
+                width: 8px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-track {
+                background: #121212; 
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb {
+                background: #444; 
+                border-radius: 4px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                background: #555; 
             }
         }
 
-        /* Feedback Styles (Stronger specificity) */
-        .option-btn.correct {
-            background-color: rgba(76, 175, 80, 0.15) !important;
-            border-color: var(--success-color) !important;
-            color: var(--success-color) !important;
+        /* Logic to prevent sticky hover on touch devices */
+        @media (hover: hover) {
+            .option-btn:hover {
+                background-color: rgba(255,255,255,0.05);
+                border-color: #bb86fc;
+                color: #ffffff;
+            }
         }
 
-        .option-btn.wrong {
-            background-color: rgba(207, 102, 121, 0.15) !important;
-            border-color: var(--error-color) !important;
-            color: var(--error-color) !important;
+        /* Toggle Switch Styling */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #bb86fc;
         }
-
-        .progress {
-            height: 4px;
-            background-color: rgba(255,255,255,0.1);
-            border-radius: 2px;
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #bb86fc;
         }
-
-        .progress-bar {
-            background-color: var(--secondary-color);
-        }
-
-        /* Results */
-        .score-circle {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 4px solid #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 32px;
-            font-size: 3rem;
-            font-weight: 300;
-            position: relative;
-        }
-
-        .score-circle::after {
-            content: 'SCORE';
-            position: absolute;
-            bottom: 30px;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            color: var(--text-secondary);
-        }
-        
-        .score-circle.pass {
-            border-color: var(--success-color);
-            color: var(--success-color);
-            box-shadow: 0 0 30px rgba(76, 175, 80, 0.2);
-        }
-
-        .score-circle.fail {
-            border-color: var(--error-color);
-            color: var(--error-color);
-            box-shadow: 0 0 30px rgba(207, 102, 121, 0.2);
-        }
-
-        /* Animations */
-        #app-sections > div {
-            display: none;
-        }
-
-        #app-sections > div.active {
-            display: block;
-            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .img-question {
-            max-width: 100%;
-            max-height: 25vh; /* Dynamic Image Height */
-            object-fit: contain;
-            border-radius: 4px;
-            margin: 1vh 0;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-color); 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #444; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555; 
-        }
-
-        /* Language Toggle */
-        .form-switch .form-check-input {
-            background-color: #3e3e3e;
-            border-color: #5e5e5e;
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23b0b0b0'/%3e%3c/svg%3e");
-        }
-        .form-switch .form-check-input:checked {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23000'/%3e%3c/svg%3e");
-        }
-        
-        /* Checkboxes in Modal */
-        .form-check-input {
-            background-color: #2c2c2c;
-            border-color: #555;
-        }
-        .form-check-input:checked {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-        }
-
-        /* History Modal */
-        .clickable-history {
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .clickable-history:hover {
-            background-color: var(--surface-hover);
-        }
-
-        /* === FOCUS MODE STYLES (For Quiz) === */
-        /* These styles activate when .quiz-mode is on body */
-        body.quiz-mode {
-            /* ALLOW SCROLLING if needed */
-            overflow-y: auto; 
-        }
-
-        body.quiz-mode #main-container {
-            padding: 0 !important;
-            max-width: 100% !important;
-            margin: 0 !important;
-            min-height: 100vh; /* Allow grow */
-        }
-
-        body.quiz-mode #quiz-section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: 10px;
-        }
-
-        body.quiz-mode .quiz-header-card {
-            margin-bottom: 10px !important;
-            flex-shrink: 0;
-        }
-
-        body.quiz-mode .quiz-main-card {
-            flex: 1; 
-            margin-bottom: 0 !important;
-            display: flex;
-            flex-direction: column;
-            padding: 1rem !important;
-        }
-
-        body.quiz-mode #question-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            /* Justify center removed to allow scrolling flow for large content */
-        }
-        
-        body.quiz-mode .progress {
-            flex-shrink: 0;
-            margin-bottom: 15px !important;
-        }
-
-        body.quiz-mode #next-btn-container {
-            padding-top: 15px;
-            flex-shrink: 0;
-        }
-
     </style>
 </head>
-<body>
+<body class="bg-bg text-text font-sans min-h-screen flex flex-col custom-scrollbar">
 
-<!-- ID added for JS targeting -->
-<div id="main-container" class="container py-4">
+<div id="main-container" class="container mx-auto px-4 py-4 flex flex-col flex-grow">
     <!-- Header -->
-    <header id="main-header" class="d-flex justify-content-between align-items-center mb-5">
-        <h4 class="m-0 fw-light">
-            <i class="fas fa-graduation-cap text-primary me-2"></i>
-            USS <span class="fw-bold">Pro</span>
+    <header id="main-header" class="flex justify-between items-center mb-8">
+        <h4 class="text-xl font-light">
+            <i class="fas fa-graduation-cap text-primary mr-2"></i>
+            USS <span class="font-bold">Pro</span>
         </h4>
-        <button class="btn btn-outline-light btn-sm" onclick="app.showSection('home')">
+        <button class="btn btn-outline text-xs py-1.5 px-3" onclick="app.showSection('home')">
             <i class="fas fa-home"></i>
         </button>
     </header>
 
-    <div id="app-sections">
+    <div id="app-sections" class="flex-grow flex flex-col">
         
         <!-- SECTION: HOME -->
-        <div id="home-section" class="active">
+        <div id="home-section" class="section-content flex-grow">
             
-            <!-- NEW COMPACT STATS ROW -->
-            <div class="card compact-stats border border-secondary bg-dark">
-                <div class="row g-0">
-                    <div class="col-4 stat-col border-end border-secondary">
-                        <div class="stat-value text-white" id="stat-total">0</div>
-                        <div class="stat-label">Total</div>
+            <!-- Compact Stats -->
+            <div class="bg-surface rounded-xl border border-gray-700 p-4 mb-6 shadow-lg">
+                <div class="grid grid-cols-3 divide-x divide-gray-700">
+                    <div class="flex flex-col items-center justify-center px-2">
+                        <div class="text-2xl md:text-4xl font-bold text-white mb-1" id="stat-total">0</div>
+                        <div class="text-[10px] md:text-xs text-text-sec uppercase tracking-wider">Total</div>
                     </div>
-                    <div class="col-4 stat-col border-end border-secondary">
-                        <div class="stat-value" id="stat-wins" style="color: var(--success-color)">0</div>
-                        <div class="stat-label">Passed</div>
+                    <div class="flex flex-col items-center justify-center px-2">
+                        <div class="text-2xl md:text-4xl font-bold text-success mb-1" id="stat-wins">0</div>
+                        <div class="text-[10px] md:text-xs text-text-sec uppercase tracking-wider">Passed</div>
                     </div>
-                    <div class="col-4 stat-col">
-                        <div class="stat-value" id="stat-rate" style="color: var(--secondary-color)">0%</div>
-                        <div class="stat-label">Win Rate</div>
+                    <div class="flex flex-col items-center justify-center px-2">
+                        <div class="text-2xl md:text-4xl font-bold text-secondary mb-1" id="stat-rate">0%</div>
+                        <div class="text-[10px] md:text-xs text-text-sec uppercase tracking-wider">Win Rate</div>
                     </div>
                 </div>
             </div>
 
-            <div class="card p-5 text-center">
-                <h2 class="mb-3 fw-light">Welcome Back</h2>
-                <p class="text-secondary-custom mb-5" style="max-width: 500px; margin: 0 auto;">
+            <div class="bg-surface rounded-xl shadow-lg p-8 text-center flex flex-col justify-center flex-grow max-w-2xl mx-auto w-full">
+                <h2 class="text-3xl font-light mb-4">Welcome Back</h2>
+                <p class="text-text-sec mb-8 max-w-md mx-auto">
                     Prepare for your scholarship exam with our adaptive mock tests. Track your progress across all subjects.
                 </p>
                 
-                <div class="d-grid gap-3 col-md-6 col-lg-5 mx-auto">
-                    <button class="btn btn-primary btn-lg" onclick="app.startFullQuiz()">
-                        <i class="fas fa-play me-2"></i> Start Full Mock Exam
+                <div class="grid gap-4 w-full max-w-md mx-auto">
+                    <button class="btn btn-primary text-lg py-3" onclick="app.startFullQuiz()">
+                        <i class="fas fa-play mr-2"></i> Start Full Mock Exam
                     </button>
-                    <button class="btn btn-outline-light" onclick="app.showSubjectModal()">
-                        <i class="fas fa-layer-group me-2"></i> Practice by Subject
+                    <button class="btn btn-outline py-3" onclick="app.showSubjectModal()">
+                        <i class="fas fa-layer-group mr-2"></i> Practice by Subject
                     </button>
-                    <button class="btn btn-outline-light" onclick="app.showHistory()" style="border-style: dashed; opacity: 0.7;">
-                        <i class="fas fa-history me-2"></i> View History
+                    <button class="btn btn-outline border-dashed opacity-70 hover:opacity-100 py-3" onclick="app.showHistory()">
+                        <i class="fas fa-history mr-2"></i> View History
                     </button>
                 </div>
-                <div id="loading-indicator" class="mt-3 text-secondary d-none">
-                    <i class="fas fa-spinner fa-spin"></i> Loading questions database...
+                <div id="loading-indicator" class="mt-6 text-text-sec text-sm hidden">
+                    <i class="fas fa-spinner fa-spin mr-2"></i> Loading questions database...
                 </div>
             </div>
         </div>
 
         <!-- SECTION: QUIZ -->
-        <div id="quiz-section">
-            <div class="card quiz-header-card p-3 mb-3 d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
-                <div class="d-flex align-items-center w-100 justify-content-between justify-content-md-start">
-                    <span class="badge bg-dark border border-secondary text-secondary-custom fw-normal px-3 py-2" id="subject-indicator">Subject</span>
-                    <div class="ms-md-3 d-flex align-items-center">
-                         <div class="score-badge" id="score-counter">
+        <div id="quiz-section" class="hidden flex-col h-full">
+            <!-- Quiz Header -->
+            <div class="bg-surface rounded-xl p-4 mb-4 flex flex-col md:flex-row justify-between items-center gap-4 shadow-md border border-gray-800">
+                <div class="flex items-center w-full justify-between md:justify-start">
+                    <span class="bg-gray-800 border border-gray-700 text-text-sec px-3 py-1 rounded-full text-sm" id="subject-indicator">Subject</span>
+                    <div class="md:ml-4 flex items-center">
+                         <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-green-900/30 text-success border border-success text-sm font-medium" id="score-counter">
                              <i class="fas fa-star"></i> 0
                          </div>
                     </div>
                 </div>
-                <div class="d-flex align-items-center gap-3 w-100 justify-content-end">
-                    <div class="form-check form-switch m-0">
-                        <input class="form-check-input" type="checkbox" id="langToggle" onchange="app.toggleLanguage()">
-                        <label class="form-check-label text-secondary-custom small" for="langToggle">MAL / ENG</label>
+                
+                <div class="flex items-center gap-4 w-full justify-end">
+                    <!-- Custom Toggle -->
+                    <div class="flex items-center">
+                        <label for="langToggle" class="flex items-center cursor-pointer">
+                            <div class="relative">
+                                <input type="checkbox" id="langToggle" class="sr-only" onchange="app.toggleLanguage()">
+                                <div class="w-10 h-4 bg-gray-700 rounded-full shadow-inner"></div>
+                                <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition text-primary flex items-center justify-center text-xs">
+                                    <i class="fas fa-language"></i>
+                                </div>
+                            </div>
+                            <div class="ml-3 text-text-sec text-xs font-medium">MAL / ENG</div>
+                        </label>
                     </div>
-                    <div class="timer-badge" id="timer">
+
+                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-red-900/20 text-error border border-error text-sm font-mono w-24 justify-center" id="timer">
                         <i class="far fa-clock"></i> 00:00
                     </div>
                 </div>
             </div>
             
-            <div class="card quiz-main-card p-4">
-                <div class="progress mb-2">
-                    <div class="progress-bar" id="quiz-progress" role="progressbar" style="width: 0%"></div>
+            <!-- Quiz Card -->
+            <div class="bg-surface rounded-xl shadow-lg p-4 md:p-6 flex-grow flex flex-col border border-gray-800">
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-700 rounded-full h-1.5 mb-2">
+                    <div class="bg-secondary h-1.5 rounded-full transition-all duration-300" id="quiz-progress" style="width: 0%"></div>
                 </div>
-                <div class="d-flex justify-content-between mb-2">
-                     <small class="text-secondary-custom" id="question-counter">Question 1 of 45</small>
+                <div class="flex justify-between mb-4">
+                     <small class="text-text-sec text-xs uppercase tracking-wide" id="question-counter">Question 1 of 45</small>
                 </div>
 
-                <div id="question-container">
+                <!-- Scrollable Content Area -->
+                <div id="question-container" class="flex-grow overflow-y-auto custom-scrollbar pr-2">
                     <!-- Question Image -->
-                    <div id="q-image-container" class="text-center d-none">
-                        <img id="q-image" src="" class="img-question" alt="Question Diagram">
+                    <div id="q-image-container" class="text-center hidden mb-4">
+                        <img id="q-image" src="" class="max-w-full h-48 object-contain mx-auto rounded border border-gray-700" alt="Question Diagram">
                     </div>
                     
                     <!-- Question Text -->
-                    <h5 class="question-text" id="q-text">Loading question...</h5>
+                    <h5 class="font-normal leading-relaxed text-gray-100 mb-6" id="q-text" style="font-size: clamp(1.1rem, 3.5vh, 1.6rem);">
+                        Loading question...
+                    </h5>
                     
                     <!-- Options -->
-                    <div class="d-flex flex-column" id="options-container">
+                    <div class="flex flex-col gap-3" id="options-container">
                         <!-- Options generated by JS -->
                     </div>
                 </div>
                 
-                <div class="mt-2 d-flex justify-content-end" id="next-btn-container">
-                    <button class="btn btn-primary px-4" id="next-btn" onclick="app.nextQuestion()" disabled>
-                        Next <i class="fas fa-arrow-right ms-2"></i>
+                <div class="mt-4 pt-2 border-t border-gray-800 flex justify-end" id="next-btn-container">
+                    <button class="btn btn-primary px-8" id="next-btn" onclick="app.nextQuestion()" disabled>
+                        Next <i class="fas fa-arrow-right ml-2"></i>
                     </button>
                 </div>
             </div>
         </div>
 
         <!-- SECTION: RESULT -->
-        <div id="result-section">
-            <div class="card p-5 text-center">
-                <h3 class="mb-5 fw-light">Performance Report</h3>
+        <div id="result-section" class="hidden">
+            <div class="bg-surface rounded-xl shadow-lg p-8 text-center max-w-3xl mx-auto border border-gray-800">
+                <h3 class="text-2xl font-light mb-8">Performance Report</h3>
                 
-                <div id="score-circle" class="score-circle">
-                    0%
+                <div id="score-circle" class="w-40 h-40 rounded-full border-4 border-gray-700 flex items-center justify-center mx-auto mb-6 relative">
+                    <span class="text-5xl font-light">0%</span>
+                    <span class="absolute bottom-8 text-[10px] text-text-sec tracking-[0.2em] uppercase">Score</span>
                 </div>
                 
-                <h4 id="result-message" class="mb-2 fw-bold"></h4>
-                <p class="text-secondary-custom mb-5" id="result-time">Time Taken: 00:00</p>
+                <h4 id="result-message" class="text-xl font-bold mb-2"></h4>
+                <p class="text-text-sec mb-8" id="result-time">Time Taken: 00:00</p>
                 
-                <!-- NEW: Average Time Insight -->
-                <div class="alert alert-dark d-inline-block text-start mb-4 border-secondary">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-stopwatch fa-2x me-3 text-secondary"></i>
-                        <div>
-                            <small class="text-secondary text-uppercase ls-1">Average Time / Question</small>
-                            <div class="fw-bold fs-5" id="result-avg-time">-- s</div>
-                            <small id="avg-time-feedback" class="text-muted"></small>
-                        </div>
+                <!-- Average Time Insight -->
+                <div class="inline-flex items-center bg-gray-800/50 border border-gray-700 rounded-lg p-4 mb-8 text-left max-w-sm w-full">
+                    <div class="bg-surface p-3 rounded-full mr-4 text-text-sec">
+                        <i class="fas fa-stopwatch fa-xl"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-text-sec uppercase tracking-wider mb-1">Avg. Time / Question</div>
+                        <div class="font-bold text-xl" id="result-avg-time">-- s</div>
+                        <small id="avg-time-feedback" class="text-xs"></small>
                     </div>
                 </div>
 
-                <h6 class="text-start text-secondary text-uppercase ls-1 mb-3">Subject Breakdown</h6>
-                <div class="row text-start g-4" id="subject-performance">
+                <h6 class="text-left text-text-sec text-xs uppercase tracking-widest mb-4 border-b border-gray-800 pb-2">Subject Breakdown</h6>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left mb-8" id="subject-performance">
                     <!-- Subject breakdown injected here -->
                 </div>
 
-                <div class="card bg-dark mt-4 border border-secondary p-3 text-start">
-                    <div class="row">
-                        <div class="col-6 border-end border-secondary">
-                            <small class="text-secondary text-uppercase">Strongest Subject</small>
-                            <div id="strong-subject" class="fw-bold text-success mt-1">-</div>
+                <div class="bg-black/20 rounded-lg border border-gray-700 p-4 text-left">
+                    <div class="grid grid-cols-2 gap-4 divide-x divide-gray-700">
+                        <div class="pl-2">
+                            <small class="text-text-sec text-[10px] uppercase tracking-wider">Strongest Subject</small>
+                            <div id="strong-subject" class="font-bold text-success mt-1 text-lg">-</div>
                         </div>
-                        <div class="col-6 ps-4">
-                            <small class="text-secondary text-uppercase">Needs Improvement</small>
-                            <div id="weak-subject" class="fw-bold text-danger mt-1">-</div>
+                        <div class="pl-6">
+                            <small class="text-text-sec text-[10px] uppercase tracking-wider">Needs Improvement</small>
+                            <div id="weak-subject" class="font-bold text-error mt-1 text-lg">-</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-center gap-3 mt-5">
-                    <button class="btn btn-outline-light px-4" onclick="app.showSection('home')">Back to Home</button>
-                    <button class="btn btn-primary px-4" onclick="app.startFullQuiz()">Attempt Again</button>
+                <div class="flex justify-center gap-4 mt-8">
+                    <button class="btn btn-outline px-6" onclick="app.showSection('home')">Home</button>
+                    <button class="btn btn-primary px-6" onclick="app.startFullQuiz()">Try Again</button>
                 </div>
             </div>
         </div>
 
         <!-- SECTION: HISTORY -->
-        <div id="history-section">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4 class="fw-light">Exam History</h4>
-                <button class="btn btn-sm btn-outline-danger" onclick="app.clearHistory()">
-                    <i class="fas fa-trash-alt me-1"></i> Clear Data
+        <div id="history-section" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h4 class="text-xl font-light">Exam History</h4>
+                <button class="btn border border-error text-error hover:bg-error/10 text-xs py-1 px-3" onclick="app.clearHistory()">
+                    <i class="fas fa-trash-alt mr-2"></i> Clear Data
                 </button>
             </div>
-            <div id="history-list">
+            <div id="history-list" class="space-y-3">
                 <!-- History items -->
             </div>
         </div>
@@ -579,57 +281,77 @@
     </div>
 </div>
 
-<!-- Subject Selection Modal -->
-<div class="modal fade" id="subjectModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content" style="background-color: var(--surface-color); color: white; border: 1px solid #333;">
-            <div class="modal-header border-secondary">
-                <h5 class="modal-title fw-light" id="modal-title">Select Subject</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body p-0" id="modal-body">
-                <div class="list-group list-group-flush" id="subject-list">
-                    <!-- Subjects generated here -->
-                </div>
+<!-- MODAL: Subject Selection -->
+<div id="subjectModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" aria-hidden="true">
+    <div class="bg-surface w-full max-w-lg rounded-xl shadow-2xl border border-gray-700 overflow-hidden m-4 flex flex-col max-h-[80vh]">
+        <div class="p-4 border-b border-gray-700 flex justify-between items-center bg-surface-hover">
+            <h5 class="text-lg font-light" id="modal-title">Select Subject</h5>
+            <button class="text-gray-400 hover:text-white transition-colors" onclick="app.closeModal('subjectModal')">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        <div class="p-0 overflow-y-auto custom-scrollbar" id="modal-body">
+            <div class="divide-y divide-gray-700" id="subject-list">
+                <!-- Subjects generated here -->
             </div>
         </div>
     </div>
 </div>
 
-<!-- NEW: History Details Modal -->
-<div class="modal fade" id="historyDetailsModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-        <div class="modal-content" style="background-color: var(--surface-color); color: white; border: 1px solid #333;">
-            <div class="modal-header border-secondary">
-                <h5 class="modal-title fw-light">Exam Details</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body p-4" id="history-modal-body">
-                <!-- Content Injected via JS -->
-            </div>
+<!-- MODAL: History Details -->
+<div id="historyDetailsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" aria-hidden="true">
+    <div class="bg-surface w-full max-w-2xl rounded-xl shadow-2xl border border-gray-700 overflow-hidden m-4 flex flex-col max-h-[85vh]">
+        <div class="p-4 border-b border-gray-700 flex justify-between items-center bg-surface-hover">
+            <h5 class="text-lg font-light">Exam Details</h5>
+            <button class="text-gray-400 hover:text-white transition-colors" onclick="app.closeModal('historyDetailsModal')">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        <div class="p-6 overflow-y-auto custom-scrollbar" id="history-modal-body">
+            <!-- Content Injected via JS -->
         </div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+    /* Styling for the custom toggle switch dot */
+    input:checked ~ .dot {
+        transform: translateX(100%);
+    }
+    
+    /* Option Button Base Styles (Tailwind abstraction) */
+    .option-btn {
+        @apply w-full text-left p-4 rounded-lg border border-gray-700 text-gray-300 bg-transparent transition-all duration-200 text-base relative disabled:opacity-100;
+    }
+    
+    .option-btn.correct {
+        @apply bg-green-900/20 border-green-500 text-green-500 !important;
+    }
+    
+    .option-btn.wrong {
+        @apply bg-red-900/20 border-red-500 text-red-500 !important;
+    }
 
-<!-- 
-  === INSTRUCTIONS FOR GITHUB ===
-  1. Create a file named 'script.js' and paste the content from <script> below.
-  2. Link it here: <script src="script.js"></script>
--->
+    /* Score Circle states */
+    #score-circle.pass {
+        @apply border-success text-success shadow-[0_0_30px_rgba(76,175,80,0.2)];
+    }
+    #score-circle.fail {
+        @apply border-error text-error shadow-[0_0_30px_rgba(207,102,121,0.2)];
+    }
+</style>
+
 <script>
 /* === COPY TO script.js === */
 
-// FIX: Define this GLOBALLY so it is accessible everywhere
 let QUESTIONS_DB = [];
 
 /**
  * APP DATA & CONFIGURATION
  */
 const CONFIG = {
-    passMark: 70, // Percentage
-    avgTimeTarget: 120, // Max seconds per question
+    passMark: 70, 
+    avgTimeTarget: 120, 
     examStructure: [
         { subject: "Part I Malayalam", count: 5 },
         { subject: "Part II Malayalam", count: 5 },
@@ -640,15 +362,12 @@ const CONFIG = {
     ]
 };
 
-// Fallback data for Preview Mode only
+// Fallback data
 const FALLBACK_DATA = [
     { "question": "The length and width of a rectangular park are 9/4 metre and 8/3 metre respectively. Find the area of the park", "malayalam_question": "ദീർഘചതുരാകൃതിയിലുള്ള പാർക്കിൻ്റെ നീളവും വീതിയും യഥാക്രമം 9/4 മീറ്ററും 8/3 മീറ്ററുമാണ്. പാർക്കിൻ്റെ പ്രദേശം കണ്ടെത്തുക", "option1": "6 square metre", "malayalam_option1": "6 ചതുരശ്ര മീറ്റർ", "option2": "4 square metre", "malayalam_option2": "4 ചതുരശ്ര മീറ്റർ", "option3": "9/2 square metre", "malayalam_option3": "9/2 ചതുരശ്ര മീറ്റർ", "option4": "10 square metre", "malayalam_option4": "10 ചതുരശ്ര മീറ്റർ", "answer": "6 square metre", "malayalam_answer": "6 ചതുരശ്ര മീറ്റർ", "subject": "Maths", "chapter": 2, "image": "null" },
     { "question": "Who wrote the poem 'Veena Poovu'?", "malayalam_question": "'വീണപൂവ്' എന്ന കവിത ആരാണ് രചിച്ചത്?", "option1": "Kumaran Asan", "malayalam_option1": "കുമാരനാശാൻ", "option2": "Vallathol", "malayalam_option2": "വള്ളത്തോൾ", "option3": "Ulloor", "malayalam_option3": "ഉള്ളൂർ", "option4": "Changampuzha", "malayalam_option4": "ചങ്ങമ്പുഴ", "answer": "Kumaran Asan", "malayalam_answer": "കുമാരനാശാൻ", "subject": "Part I Malayalam", "chapter": 1, "image": "null" }
 ];
 
-/**
- * UTILITY FUNCTIONS
- */
 const utils = {
     shuffle: (array) => {
         let currentIndex = array.length, randomIndex;
@@ -666,9 +385,6 @@ const utils = {
     }
 };
 
-/**
- * MAIN APP LOGIC
- */
 const app = {
     state: {
         currentQuestions: [],
@@ -677,10 +393,10 @@ const app = {
         answers: [], 
         timer: 0,
         timerInterval: null,
-        language: 'en', // 'en' or 'mal'
+        language: 'en',
         isQuizActive: false,
         startTime: 0,
-        tempSubjectStats: null // To store for saving
+        tempSubjectStats: null
     },
 
     init: async () => {
@@ -691,8 +407,7 @@ const app = {
 
     fetchQuestions: async () => {
         const loading = document.getElementById('loading-indicator');
-        if(loading) loading.classList.remove('d-none');
-        
+        if(loading) loading.classList.remove('hidden');
         try {
             const response = await fetch('questions.json');
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -701,7 +416,7 @@ const app = {
             console.warn("Using fallback data.", error);
             QUESTIONS_DB = FALLBACK_DATA; 
         } finally {
-            if(loading) loading.classList.add('d-none');
+            if(loading) loading.classList.add('hidden');
         }
     },
 
@@ -719,7 +434,6 @@ const app = {
         if (isWin) stats.wins++;
         localStorage.setItem('quizStats', JSON.stringify(stats));
         
-        // Save detailed history entry
         const history = JSON.parse(localStorage.getItem('quizHistory')) || [];
         const entry = {
             date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
@@ -728,24 +442,33 @@ const app = {
             percentage: Math.round((app.state.score / app.state.currentQuestions.length) * 100),
             timeTaken: totalTimeStr,
             avgTime: avgTimeSec,
-            subjectDetails: app.state.tempSubjectStats // Capture the breakdown
+            subjectDetails: app.state.tempSubjectStats
         };
-        history.unshift(entry); // Add to top
-        if(history.length > 20) history.pop(); // Increased limit to 20
+        history.unshift(entry);
+        if(history.length > 20) history.pop();
         localStorage.setItem('quizHistory', JSON.stringify(history));
     },
 
     showSection: (sectionId) => {
-        document.querySelectorAll('#app-sections > div').forEach(div => div.classList.remove('active'));
-        document.getElementById(`${sectionId}-section`).classList.add('active');
+        // Hide all
+        document.getElementById('home-section').classList.add('hidden');
+        document.getElementById('quiz-section').classList.add('hidden');
+        document.getElementById('result-section').classList.add('hidden');
+        document.getElementById('history-section').classList.add('hidden');
+        
+        // Show Target
+        const target = document.getElementById(`${sectionId}-section`);
+        target.classList.remove('hidden');
         
         const mainHeader = document.getElementById('main-header');
         if (sectionId === 'quiz') {
             document.body.classList.add('quiz-mode');
-            mainHeader.classList.add('d-none'); 
+            mainHeader.classList.add('hidden'); 
+            target.classList.add('flex'); // Quiz needs flex
         } else {
             document.body.classList.remove('quiz-mode');
-            mainHeader.classList.remove('d-none'); 
+            mainHeader.classList.remove('hidden'); 
+            target.classList.remove('flex'); // Others are block
             if (sectionId === 'home') app.loadStats();
         }
     },
@@ -758,15 +481,22 @@ const app = {
         }
     },
 
-    /**
-     * QUIZ LOGIC
-     */
+    // --- Modal Logic (Tailwind) ---
+    openModal: (modalId) => {
+        const modal = document.getElementById(modalId);
+        if(modal) modal.classList.remove('hidden');
+    },
+
+    closeModal: (modalId) => {
+        const modal = document.getElementById(modalId);
+        if(modal) modal.classList.add('hidden');
+    },
+
     startFullQuiz: () => {
         if (!QUESTIONS_DB || QUESTIONS_DB.length === 0) {
             alert("Questions data not loaded. Please check questions.json.");
             return;
         }
-
         let finalQuestions = [];
         CONFIG.examStructure.forEach(req => {
             let subjectQs = QUESTIONS_DB.filter(q => q.subject === req.subject);
@@ -776,7 +506,6 @@ const app = {
             }
             finalQuestions = finalQuestions.concat(subjectQs.slice(0, req.count));
         });
-
         if (finalQuestions.length === 0) {
             alert("No questions found matching the exam criteria.");
             return;
@@ -792,9 +521,7 @@ const app = {
         }
         const chapters = [...new Set(qs.map(q => q.chapter))].filter(c => c != null).sort();
         if (chapters.length === 0) {
-            const modalEl = document.getElementById('subjectModal');
-            const modal = bootstrap.Modal.getInstance(modalEl);
-            if(modal) modal.hide();
+            app.closeModal('subjectModal');
             app.startQuizExecution(utils.shuffle(qs).slice(0, 20));
             return;
         }
@@ -804,17 +531,29 @@ const app = {
         modalTitle.textContent = `Select Chapters: ${subjectName}`;
         
         let html = `
-            <div class="p-4">
-                <div class="form-check mb-3 pb-3 border-bottom border-secondary">
-                    <input class="form-check-input" type="checkbox" id="selectAllChapters" checked onchange="app.toggleAllChapters(this)">
-                    <label class="form-check-label" for="selectAllChapters">Select All Chapters</label>
+            <div class="p-6">
+                <div class="flex items-center mb-4 pb-4 border-b border-gray-700">
+                    <input type="checkbox" id="selectAllChapters" class="w-5 h-5 rounded border-gray-600 bg-gray-700 text-secondary focus:ring-secondary" checked onchange="app.toggleAllChapters(this)">
+                    <label for="selectAllChapters" class="ml-3 text-sm font-medium text-white">Select All Chapters</label>
                 </div>
-                <div id="chapter-checkboxes" class="mb-4" style="max-height: 300px; overflow-y: auto;">
+                <div id="chapter-checkboxes" class="space-y-3 mb-6 max-h-60 overflow-y-auto custom-scrollbar pr-2">
         `;
         chapters.forEach(chap => {
-            html += `<div class="form-check mb-2"><input class="form-check-input chapter-chk" type="checkbox" value="${chap}" id="chap_${chap}" checked><label class="form-check-label" for="chap_${chap}">Chapter ${chap}</label></div>`;
+            html += `
+                <div class="flex items-center">
+                    <input type="checkbox" value="${chap}" id="chap_${chap}" class="chapter-chk w-4 h-4 rounded border-gray-600 bg-gray-700 text-secondary focus:ring-offset-0 focus:ring-secondary" checked>
+                    <label for="chap_${chap}" class="ml-3 text-sm text-gray-300">Chapter ${chap}</label>
+                </div>
+            `;
         });
-        html += `</div><div class="d-flex justify-content-between"><button class="btn btn-outline-light" onclick="app.populateSubjectModal()">Back</button><button class="btn btn-primary px-4" onclick="app.confirmChapterSelection('${subjectName}')">Start Practice</button></div></div>`;
+        html += `
+                </div>
+                <div class="flex justify-between pt-2">
+                    <button class="text-sm text-gray-400 hover:text-white underline" onclick="app.populateSubjectModal()">Back to Subjects</button>
+                    <button class="btn btn-primary px-6" onclick="app.confirmChapterSelection('${subjectName}')">Start Practice</button>
+                </div>
+            </div>
+        `;
         modalBody.innerHTML = html;
     },
 
@@ -829,9 +568,7 @@ const app = {
         if (selectedChapters.length === 0) { alert("Please select at least one chapter."); return; }
         let qs = QUESTIONS_DB.filter(q => q.subject === subjectName && selectedChapters.includes(String(q.chapter)));
         if (qs.length === 0) { alert("No questions match the selected criteria."); return; }
-        const modalEl = document.getElementById('subjectModal');
-        const modal = bootstrap.Modal.getInstance(modalEl);
-        if(modal) modal.hide();
+        app.closeModal('subjectModal');
         app.startQuizExecution(utils.shuffle(qs).slice(0, 25));
     },
 
@@ -874,14 +611,13 @@ const app = {
         const imgContainer = document.getElementById('q-image-container');
         const img = document.getElementById('q-image');
         if (q.image && q.image !== "null" && q.image !== null) {
-            img.src = q.image; imgContainer.classList.remove('d-none'); img.onerror = function() { imgContainer.classList.add('d-none'); };
-        } else { imgContainer.classList.add('d-none'); }
+            img.src = q.image; imgContainer.classList.remove('hidden'); img.onerror = function() { imgContainer.classList.add('hidden'); };
+        } else { imgContainer.classList.add('hidden'); }
 
         const container = document.getElementById('options-container');
         const scrollContainer = document.getElementById('question-container');
         
         if (isNewQuestion) {
-            // FIX: Scroll to top automatically when new question loads
             if(scrollContainer) scrollContainer.scrollTop = 0;
             
             container.innerHTML = '';
@@ -893,7 +629,7 @@ const app = {
             ];
             utils.shuffle(options).forEach(opt => {
                 const btn = document.createElement('button');
-                btn.className = 'btn option-btn'; 
+                btn.className = 'option-btn'; 
                 btn.dataset.optId = opt.id;
                 btn.textContent = isMal ? opt.mal : opt.text;
                 btn.onclick = () => app.handleAnswer(btn, opt, q);
@@ -922,17 +658,17 @@ const app = {
         
         if (isCorrect) {
             btn.classList.add('correct');
-            btn.innerHTML += ' <i class="fas fa-check float-end mt-1"></i>';
+            btn.innerHTML += ' <i class="fas fa-check float-right mt-1"></i>';
             app.state.score++;
             document.getElementById('score-counter').innerHTML = `<i class="fas fa-star"></i> ${app.state.score}`;
         } else {
             btn.classList.add('wrong');
-            btn.innerHTML += ' <i class="fas fa-times float-end mt-1"></i>';
+            btn.innerHTML += ' <i class="fas fa-times float-right mt-1"></i>';
             buttons.forEach(b => {
                 const optText = String(questionObj[`option${b.dataset.optId}`]).trim();
                 if (optText === correctAnswerText) {
                     b.classList.add('correct');
-                    b.innerHTML += ' <i class="fas fa-check float-end mt-1"></i>';
+                    b.innerHTML += ' <i class="fas fa-check float-right mt-1"></i>';
                 }
             });
         }
@@ -963,12 +699,12 @@ const app = {
 
         // Render Result Page
         const circle = document.getElementById('score-circle');
-        circle.className = `score-circle ${passed ? 'pass' : 'fail'}`;
-        circle.textContent = `${percentage}%`;
+        circle.className = `w-40 h-40 rounded-full border-4 flex items-center justify-center mx-auto mb-6 relative ${passed ? 'pass' : 'fail'}`;
+        circle.querySelector('span:first-child').textContent = `${percentage}%`;
 
         const msgEl = document.getElementById('result-message');
         msgEl.textContent = passed ? "Excellent Work!" : "Don't Give Up!";
-        msgEl.className = passed ? "text-success mb-2 fw-bold" : "text-danger mb-2 fw-bold";
+        msgEl.className = `text-2xl font-bold mb-2 ${passed ? "text-success" : "text-error"}`;
 
         document.getElementById('result-time').textContent = `Total Time: ${timeTaken.trim()}`;
 
@@ -977,13 +713,13 @@ const app = {
         const avgFeedback = document.getElementById('avg-time-feedback');
         if (avgSeconds <= CONFIG.avgTimeTarget) {
             avgFeedback.textContent = "Great! You are within the time limit.";
-            avgFeedback.className = "text-success small";
+            avgFeedback.className = "text-success font-medium";
         } else {
             avgFeedback.textContent = "Try to answer faster (Target: 120s)";
-            avgFeedback.className = "text-warning small";
+            avgFeedback.className = "text-yellow-500 font-medium";
         }
 
-        // Subject Breakdown Calculation
+        // Stats
         const subjectStats = {};
         app.state.answers.forEach(ans => {
             if (!subjectStats[ans.subject]) subjectStats[ans.subject] = { correct: 0, total: 0 };
@@ -991,13 +727,10 @@ const app = {
             if (ans.isCorrect) subjectStats[ans.subject].correct++;
         });
         
-        // Save to state for later History use
         app.state.tempSubjectStats = subjectStats;
-
-        // Render Stats
         app.renderSubjectPerformance(subjectStats, 'subject-performance');
 
-        // Strong/Weak Subject
+        // Strong/Weak
         let bestSub = { name: '-', val: -1 };
         let worstSub = { name: '-', val: 101 };
         Object.keys(subjectStats).forEach(sub => {
@@ -1020,23 +753,20 @@ const app = {
             const data = stats[sub];
             const perc = Math.round((data.correct / data.total) * 100);
             container.innerHTML += `
-                <div class="col-md-6">
-                    <div class="d-flex justify-content-between mb-1">
-                        <span class="small text-secondary text-uppercase">${sub}</span>
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="text-[10px] text-text-sec uppercase tracking-wider">${sub}</span>
                         <small class="text-white">${data.correct}/${data.total}</small>
                     </div>
-                    <div class="progress" style="height: 6px; background-color: #333;">
-                        <div class="progress-bar ${perc >= 70 ? 'bg-success' : 'bg-warning'}" 
-                             role="progressbar" style="width: ${perc}%"></div>
+                    <div class="w-full bg-gray-700 h-1.5 rounded-full">
+                        <div class="h-1.5 rounded-full ${perc >= 70 ? 'bg-success' : 'bg-yellow-500'}" 
+                             style="width: ${perc}%"></div>
                     </div>
                 </div>
             `;
         });
     },
 
-    /**
-     * HISTORY & MODALS
-     */
     showHistory: () => {
         app.renderHistory();
         app.showSection('history');
@@ -1047,22 +777,24 @@ const app = {
         const container = document.getElementById('history-list');
         
         if (history.length === 0) {
-            container.innerHTML = '<div class="text-center text-secondary py-5"><i class="fas fa-history fa-2x mb-3"></i><p>No exams taken yet.</p></div>';
+            container.innerHTML = '<div class="text-center text-text-sec py-12"><i class="fas fa-history fa-2x mb-3 block"></i><p>No exams taken yet.</p></div>';
             return;
         }
 
         let html = '';
         history.forEach((h, index) => {
             const passed = h.percentage >= CONFIG.passMark;
+            const borderColor = passed ? 'border-l-success' : 'border-l-error';
+            const scoreColor = passed ? 'text-success' : 'text-error';
+            
             html += `
-                <div class="card p-3 mb-2 d-flex flex-row justify-content-between align-items-center clickable-history" 
-                     style="border-left: 4px solid ${passed ? 'var(--success-color)' : 'var(--error-color)'};"
+                <div class="bg-surface rounded-lg p-4 shadow border-l-4 ${borderColor} flex justify-between items-center cursor-pointer hover:bg-surface-hover transition-colors"
                      onclick="app.showHistoryDetails(${index})">
                     <div>
-                        <div class="fw-bold text-white">${h.date}</div>
-                        <small class="text-secondary-custom">Score: ${h.score}/${h.total}</small>
+                        <div class="font-bold text-white">${h.date}</div>
+                        <small class="text-text-sec">Score: ${h.score}/${h.total}</small>
                     </div>
-                    <div class="fs-4 ${passed ? 'text-success' : 'text-danger'} fw-bold">
+                    <div class="text-2xl font-bold ${scoreColor}">
                         ${h.percentage}%
                     </div>
                 </div>
@@ -1078,56 +810,51 @@ const app = {
 
         const modalBody = document.getElementById('history-modal-body');
         
-        // Handling Legacy records (before update)
         if(!item.subjectDetails) {
             modalBody.innerHTML = `
-                <div class="text-center py-4">
-                    <h2 class="mb-3">${item.percentage}%</h2>
-                    <p class="text-secondary">Detailed breakdown not available for this record.</p>
-                    <p>Date: ${item.date}<br>Score: ${item.score}/${item.total}</p>
+                <div class="text-center py-8">
+                    <h2 class="text-4xl font-bold mb-4">${item.percentage}%</h2>
+                    <p class="text-text-sec mb-4">Detailed breakdown not available for this record.</p>
+                    <div class="text-sm">Date: ${item.date}<br>Score: ${item.score}/${item.total}</div>
                 </div>
             `;
         } else {
-            // New Detailed View
             let avgFeedback = item.avgTime <= CONFIG.avgTimeTarget 
                 ? `<span class="text-success">Good (<2m)</span>` 
-                : `<span class="text-warning">Slow (>2m)</span>`;
+                : `<span class="text-yellow-500">Slow (>2m)</span>`;
 
             modalBody.innerHTML = `
-                <div class="text-center mb-4">
-                    <div class="score-circle ${item.percentage >= CONFIG.passMark ? 'pass' : 'fail'} mx-auto mb-3" style="width:100px; height:100px; font-size: 2rem;">
+                <div class="text-center mb-8">
+                    <div class="w-24 h-24 rounded-full border-4 flex items-center justify-center mx-auto mb-4 text-3xl font-bold ${item.percentage >= CONFIG.passMark ? 'border-success text-success' : 'border-error text-error'}">
                         ${item.percentage}%
                     </div>
-                    <h5>${item.date}</h5>
+                    <h5 class="text-lg">${item.date}</h5>
                 </div>
-                <div class="row g-2 mb-4 text-center">
-                    <div class="col-4 border-end border-secondary">
-                        <small class="text-secondary">Score</small>
-                        <div class="fw-bold">${item.score}/${item.total}</div>
+                <div class="grid grid-cols-3 gap-4 mb-8 text-center divide-x divide-gray-700">
+                    <div>
+                        <small class="text-text-sec text-[10px] uppercase">Score</small>
+                        <div class="font-bold text-lg">${item.score}/${item.total}</div>
                     </div>
-                    <div class="col-4 border-end border-secondary">
-                        <small class="text-secondary">Time</small>
-                        <div class="fw-bold">${item.timeTaken}</div>
+                    <div>
+                        <small class="text-text-sec text-[10px] uppercase">Time</small>
+                        <div class="font-bold text-lg">${item.timeTaken}</div>
                     </div>
-                    <div class="col-4">
-                        <small class="text-secondary">Avg/Q</small>
-                        <div class="fw-bold">${item.avgTime}s</div>
-                        <small style="font-size:0.7em">${avgFeedback}</small>
+                    <div>
+                        <small class="text-text-sec text-[10px] uppercase">Avg/Q</small>
+                        <div class="font-bold text-lg">${item.avgTime}s</div>
+                        <small class="text-xs">${avgFeedback}</small>
                     </div>
                 </div>
-                <h6 class="text-secondary text-uppercase ls-1 mb-3">Subject Performance</h6>
-                <div class="row g-3" id="history-subject-stats"></div>
+                <h6 class="text-text-sec text-xs uppercase tracking-widest mb-4 border-b border-gray-700 pb-2">Subject Performance</h6>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4" id="history-subject-stats"></div>
             `;
             
-            // Render the breakdown into the specific container inside modal
-            // Need a slight delay or direct call to ensure DOM is ready
             setTimeout(() => {
                 app.renderSubjectPerformance(item.subjectDetails, 'history-subject-stats');
             }, 0);
         }
 
-        const modal = new bootstrap.Modal(document.getElementById('historyDetailsModal'));
-        modal.show();
+        app.openModal('historyDetailsModal');
     },
 
     clearHistory: () => {
@@ -1140,28 +867,27 @@ const app = {
     },
 
     showSubjectModal: () => {
-        const modal = new bootstrap.Modal(document.getElementById('subjectModal'));
         app.populateSubjectModal(); 
-        modal.show();
+        app.openModal('subjectModal');
     },
 
     populateSubjectModal: () => {
         const modalBody = document.getElementById('modal-body');
-        modalBody.innerHTML = '<div class="list-group list-group-flush" id="subject-list"></div>';
+        modalBody.innerHTML = '<div class="divide-y divide-gray-700" id="subject-list"></div>';
         const list = document.getElementById('subject-list');
         
         document.getElementById('modal-title').textContent = "Select Subject";
 
         if (!QUESTIONS_DB || QUESTIONS_DB.length === 0) {
-            list.innerHTML = '<div class="text-center p-3 text-secondary">No questions loaded.</div>';
+            list.innerHTML = '<div class="text-center p-6 text-text-sec">No questions loaded.</div>';
             return;
         }
 
         const subjects = [...new Set(QUESTIONS_DB.map(q => q.subject))];
         subjects.forEach(sub => {
             const btn = document.createElement('button');
-            btn.className = 'list-group-item list-group-item-action bg-transparent text-white border-secondary py-3';
-            btn.innerHTML = `<i class="fas fa-book me-2 text-secondary"></i> ${sub}`;
+            btn.className = 'w-full text-left py-4 px-6 hover:bg-surface-hover text-gray-200 transition-colors flex items-center group';
+            btn.innerHTML = `<i class="fas fa-book mr-3 text-gray-500 group-hover:text-primary transition-colors"></i> ${sub}`;
             btn.onclick = () => app.startSubjectFlow(sub); 
             list.appendChild(btn);
         });
