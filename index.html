@@ -286,8 +286,12 @@
                     </div>
                 </div>
 
-                <div class="flex justify-center gap-4 mt-8">
+                <div class="flex flex-wrap justify-center gap-4 mt-8">
                     <button class="btn btn-outline px-6" onclick="app.showSection('home')">Home</button>
+                    <!-- Share Button (Current Result) -->
+                    <button class="btn border border-secondary text-secondary hover:bg-secondary/10 px-6" onclick="app.shareResult(0)">
+                        <i class="fas fa-share-alt mr-2"></i> Share
+                    </button>
                     <button class="btn btn-primary px-6" onclick="app.startFullQuiz()">Try Again</button>
                 </div>
             </div>
@@ -337,6 +341,10 @@
         </div>
         <div class="p-6 overflow-y-auto custom-scrollbar" id="history-modal-body">
             <!-- Content Injected via JS -->
+        </div>
+        <!-- Share Button Footer for History -->
+        <div class="p-4 border-t border-gray-700 flex justify-end" id="history-modal-footer">
+            <!-- Share button injected here by JS -->
         </div>
     </div>
 </div>
@@ -457,7 +465,6 @@ const app = {
     },
 
     // --- ENHANCED NON-REPEAT LOGIC (Priority Queue) ---
-    // Tracks usage of every question: { "questionText": lastSeenTimestamp }
     getQuestionUsageMap: () => {
         return JSON.parse(localStorage.getItem('questionUsageData')) || {};
     },
@@ -467,35 +474,66 @@ const app = {
         const now = Date.now();
         
         app.state.currentQuestions.forEach(q => {
-            // Store simple Last Seen Timestamp for LRU sorting
             usageMap[q.question] = now;
         });
         
         localStorage.setItem('questionUsageData', JSON.stringify(usageMap));
     },
 
-    // Returns a prioritized subset of questions for a subject
     getPrioritizedQuestions: (allSubjectQs, count) => {
         const usageMap = app.getQuestionUsageMap();
-        
-        // 1. Shuffle first to ensure randomness among equal priorities
         let shuffled = utils.shuffle([...allSubjectQs]);
         
-        // 2. Sort by Last Seen Time (Ascending)
-        // Questions never seen (undefined) come first (treated as 0)
-        // Questions seen long ago (small timestamp) come next
-        // Questions seen recently (large timestamp) come last
         shuffled.sort((a, b) => {
             const timeA = usageMap[a.question] || 0;
             const timeB = usageMap[b.question] || 0;
             return timeA - timeB;
         });
         
-        // 3. Pick top N
-        // If we have 100 questions and need 10:
-        // Top 10 will be the ones seen longest ago (or never).
-        // This guarantees NO repeats until all 100 are exhausted.
         return shuffled.slice(0, count);
+    },
+
+    // --- SHARE FUNCTIONALITY ---
+    shareResult: (historyIndex) => {
+        const history = JSON.parse(localStorage.getItem('quizHistory')) || [];
+        const item = history[historyIndex];
+        
+        if (!item) {
+            alert("No data to share.");
+            return;
+        }
+
+        // Build Structured String
+        let shareText = `USS Pro Result\n`;
+        shareText += `Date: ${item.date}\n`;
+        shareText += `Score: ${item.score}/${item.total} (${item.percentage}%)\n`;
+        shareText += `Time Taken: ${item.timeTaken}\n`;
+        shareText += `Avg Speed: ${item.avgTime}s/q\n`;
+        
+        if (item.subjectDetails) {
+            shareText += `Subject Performance: `;
+            // Format: Subject: Score/Total | Subject: Score/Total ...
+            const subStrs = Object.keys(item.subjectDetails).map(sub => {
+                const d = item.subjectDetails[sub];
+                return `${sub}: ${d.correct}/${d.total}`;
+            });
+            shareText += subStrs.join(' | ');
+        }
+
+        // Copy to clipboard
+        // Using temporary textarea element for robustness across browsers/iframes
+        const el = document.createElement('textarea');
+        el.value = shareText;
+        document.body.appendChild(el);
+        el.select();
+        try {
+            document.execCommand('copy');
+            alert("Result copied to clipboard!");
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+            alert("Failed to copy results.");
+        }
+        document.body.removeChild(el);
     },
 
     saveStats: (isWin, totalTimeStr, avgTimeSec) => {
@@ -518,7 +556,6 @@ const app = {
         if(history.length > 20) history.pop();
         localStorage.setItem('quizHistory', JSON.stringify(history));
         
-        // Save Usage Data for next time
         app.updateQuestionUsage();
     },
 
@@ -897,6 +934,7 @@ const app = {
         if(!item) return;
 
         const modalBody = document.getElementById('history-modal-body');
+        const modalFooter = document.getElementById('history-modal-footer');
         
         if(!item.subjectDetails) {
             modalBody.innerHTML = `
@@ -906,6 +944,7 @@ const app = {
                     <div class="text-sm">Date: ${item.date}<br>Score: ${item.score}/${item.total}</div>
                 </div>
             `;
+            modalFooter.innerHTML = '';
         } else {
             let avgFeedback = item.avgTime <= CONFIG.avgTimeTarget 
                 ? `<span class="text-success">Good (<2m)</span>` 
@@ -935,6 +974,13 @@ const app = {
                 </div>
                 <h6 class="text-text-sec text-xs uppercase tracking-widest mb-4 border-b border-gray-700 pb-2">Subject Performance</h6>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4" id="history-subject-stats"></div>
+            `;
+            
+            // Add Share Button to Modal Footer
+            modalFooter.innerHTML = `
+                <button class="btn border border-secondary text-secondary hover:bg-secondary/10 px-6" onclick="app.shareResult(${index})">
+                    <i class="fas fa-copy mr-2"></i> Copy Details
+                </button>
             `;
             
             setTimeout(() => {
