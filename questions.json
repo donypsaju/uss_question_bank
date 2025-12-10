@@ -1231,11 +1231,11 @@
     "option2": "Safranine and Leishman stain",
     "malayalam_option2": "സഫ്രാനൈൻ ആൻഡ് ലീഷ്മാൻ സ്റ്റെയിൻ",
     "option3": "Phenolphthalein and Methyl orange",
-    "malayalam_option3": "ഫിനോൾഫ്തലീനും മീഥൈൽ ഓറഞ്ചും",
+    "malayalam_option3": "ഫിനോൾഫ്തലിൻ, മീഥൈൽ ഓറഞ്ച്",
     "option4": "Turmeric and beetroot",
     "malayalam_option4": "മഞ്ഞളും ബീറ്റ്റൂട്ടും",
     "answer": "Phenolphthalein and Methyl orange",
-    "malayalam_answer": "ഫിനോൾഫ്തലീനും മീഥൈൽ ഓറഞ്ചും",
+    "malayalam_answer": "ഫിനോൾഫ്തലിൻ, മീഥൈൽ ഓറഞ്ച്",
     "subject": "Basic Science",
     "chapter": 2,
     "image": "null"
@@ -1463,7 +1463,7 @@
   },
   {
     "question": "A gas was produced when a few pieces of magnesium were put in dilute hydrochloric acid and the gas formed was collected in a balloon. What are the characteristics of this gas?",
-    "malayalam_question": "നേർപ്പിച്ച ഹൈഡ്രോക്ലോറിക് ആസിഡിൽ കുറച്ച് മഗ്നീഷ്യം കഷണങ്ങൾ ഇട്ട്, രൂപം കൊള്ളുന്ന വാതകം ഒരു ബലൂണിൽ ശേഖരിച്ചപ്പോൾ ഒരു വാതകം ഉണ്ടായി. ഈ വാതകത്തിന്റെ സവിശേഷതകൾ എന്തൊക്കെയാണ്?",
+    "malayalam_question": "നേർപ്പിച്ച ഹൈഡ്രോക്ലോറിക് ആസിഡിൽ കുറച്ച് മഗ്നീഷ്യം കഷണങ്ങൾ ഇട്ട് രൂപം കൊള്ളുന്ന വാതകം ഒരു ബലൂണിൽ ശേഖരിക്കുമ്പോൾ ഒരു വാതകം ഉണ്ടാകുന്നു. ഈ വാതകത്തിന്റെ സവിശേഷതകൾ എന്തൊക്കെയാണ്?",
     "option1": "Heavy and coloured gas",
     "malayalam_option1": "കനത്തതും നിറമുള്ളതുമായ വാതകം",
     "option2": "Rises high and burns with a sound",
@@ -2738,7 +2738,7 @@
   },
   {
     "question": "Which of the following is not the work of Chattampi Swamikal",
-    "malayalam_question": "താഴെ പറയുന്നവയിൽ ഏതാണ് ചട്ടമ്പി സ്വാമികളുടെ കൃതി അല്ലാത്തത്?",
+    "malayalam_question": "താഴെ പറയുന്നവയിൽ ചട്ടമ്പി സ്വാമികളുടെ കൃതി അല്ലാത്തത് ഏതാണ്?",
     "option1": "Vivekodayam",
     "malayalam_option1": "വിവേകോദയം",
     "option2": "Pracheena Malayalam",
