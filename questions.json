@@ -1,7 +1,7 @@
 [
   {
     "question": "The length and width of a rectangular park are 9/4 metre and 8/3 metre respectively. Find the area of the park",
-    "malayalam_question": "ഒരു ചതുരാകൃതിയിലുള്ള പാർക്കിന്റെ നീളവും വീതിയും യഥാക്രമം 9/4 മീറ്ററും 8/3 മീറ്ററുമാണ്. പാർക്കിന്റെ വിസ്തീർണ്ണം കണ്ടെത്തുക?",
+    "malayalam_question": "ഒരു ചതുരാകൃതിയിലുള്ള പാർക്കിന്റെ നീളവും വീതിയും യഥാക്രമം 9/4 മീറ്ററും 8/3 മീറ്ററുമാണ്. പാർക്കിന്റെ വിസ്തീർണ്ണം കണ്ടെത്തുക.",
     "option1": "6 square metre",
     "malayalam_option1": "6 ചതുരശ്ര മീറ്റർ",
     "option2": "4 square metre",
@@ -226,13 +226,13 @@
     "option1": 480,
     "malayalam_option1": "480 (480)",
     "option2": 288,
-    "malayalam_option2": "288 अनिका",
+    "malayalam_option2": "288 മ്യൂസിക്",
     "option3": 342,
     "malayalam_option3": "342 342 समानिका 342",
     "option4": 156,
     "malayalam_option4": "156 (അറബിക്)",
     "answer": 288,
-    "malayalam_answer": "288 अनिका",
+    "malayalam_answer": "288 മ്യൂസിക്",
     "subject": "Maths",
     "chapter": 2,
     "image": "null"
@@ -1231,11 +1231,11 @@
     "option2": "Safranine and Leishman stain",
     "malayalam_option2": "സഫ്രാനൈൻ ആൻഡ് ലീഷ്മാൻ സ്റ്റെയിൻ",
     "option3": "Phenolphthalein and Methyl orange",
-    "malayalam_option3": "ഫിനോൾഫ്തലീനും മീഥൈൽ ഓറഞ്ചും",
+    "malayalam_option3": "ഫിനോൾഫ്തലിൻ, മീഥൈൽ ഓറഞ്ച്",
     "option4": "Turmeric and beetroot",
     "malayalam_option4": "മഞ്ഞളും ബീറ്റ്റൂട്ടും",
     "answer": "Phenolphthalein and Methyl orange",
-    "malayalam_answer": "ഫിനോൾഫ്തലീനും മീഥൈൽ ഓറഞ്ചും",
+    "malayalam_answer": "ഫിനോൾഫ്തലിൻ, മീഥൈൽ ഓറഞ്ച്",
     "subject": "Basic Science",
     "chapter": 2,
     "image": "null"
@@ -2330,7 +2330,7 @@
   },
   {
     "question": "What a smooth surface angle of incidence is 20°. Then what is the angle of reflection?",
-    "malayalam_question": "ഒരു മിനുസമാർന്ന പ്രതലത്തിന്റെ പതന കോൺ 20° ആണ്. അപ്പോൾ പ്രതിഫലന കോൺ എന്താണ്?",
+    "malayalam_question": "എത്ര മിനുസമാർന്ന പ്രതലത്തിന്റെ പതന കോൺ 20° ആണ്. അപ്പോൾ പ്രതിഫലന കോൺ എന്താണ്?",
     "option1": "10 degree",
     "malayalam_option1": "10 ഡിഗ്രി",
     "option2": "30 degree",
