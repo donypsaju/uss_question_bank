@@ -2330,7 +2330,7 @@
   },
   {
     "question": "What a smooth surface angle of incidence is 20°. Then what is the angle of reflection?",
-    "malayalam_question": "എത്ര മിനുസമാർന്ന പ്രതലത്തിന്റെ പതന കോൺ 20° ആണ്. അപ്പോൾ പ്രതിഫലന കോൺ എന്താണ്?",
+    "malayalam_question": "ഒരു മിനുസമാർന്ന പ്രതലത്തിന്റെ പതന കോൺ 20° ആണ്. അപ്പോൾ പ്രതിഫലന കോൺ എന്താണ്?",
     "option1": "10 degree",
     "malayalam_option1": "10 ഡിഗ്രി",
     "option2": "30 degree",
@@ -2942,7 +2942,7 @@
   },
   {
     "question": "We have 1651.3 / 7 = 235.9. Use this result to find the value of 16.513 / 7 without actual division.",
-    "malayalam_question": "നമുക്ക് 1651.3 / 7 = 235.9 ഉണ്ട്. യഥാർത്ഥ ഹരണമില്ലാതെ 16.513 / 7 ന്റെ മൂല്യം കണ്ടെത്താൻ ഈ ഫലം ഉപയോഗിക്കുക.",
+    "malayalam_question": "നമുക്ക് 1651.3 / 7 = 235.9 ഉണ്ട്. യഥാർത്ഥ ഹരണം കൂടാതെ 16.513 / 7 ന്റെ മൂല്യം കണ്ടെത്താൻ ഈ ഫലം ഉപയോഗിക്കുക.",
     "option1": 23.59,
     "malayalam_option1": "23.59 ഡെൽഹി",
     "option2": 2.359,
