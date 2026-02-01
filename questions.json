@@ -3318,7 +3318,7 @@
     "question": "If 314 x 12 = 3768, find 3.14 x 0.12 = ?",
     "malayalam_question": "314 x 12 = 3768 ആണെങ്കിൽ, 3.14 x 0.12 = കണ്ടെത്തുക?",
     "option1": 37.68,
-    "malayalam_option1": "37.68 [തിരുത്തുക]",
+    "malayalam_option1": "37.68 (37.68)",
     "option2": 376.8,
     "malayalam_option2": "376.8 [1] (കമ്പ്യൂട്ടർ)",
     "option3": 3.768,
