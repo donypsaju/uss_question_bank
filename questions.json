@@ -1,7 +1,7 @@
 [
   {
     "question": "The length and width of a rectangular park are 9/4 metre and 8/3 metre respectively. Find the area of the park",
-    "malayalam_question": "ഒരു ചതുരാകൃതിയിലുള്ള പാർക്കിന്റെ നീളവും വീതിയും യഥാക്രമം 9/4 മീറ്ററും 8/3 മീറ്ററുമാണ്. പാർക്കിന്റെ വിസ്തീർണ്ണം കണ്ടെത്തുക?",
+    "malayalam_question": "ഒരു ചതുരാകൃതിയിലുള്ള പാർക്കിന്റെ നീളവും വീതിയും യഥാക്രമം 9/4 മീറ്ററും 8/3 മീറ്ററുമാണ്. പാർക്കിന്റെ വിസ്തീർണ്ണം കണ്ടെത്തുക.",
     "option1": "6 square metre",
     "malayalam_option1": "6 ചതുരശ്ര മീറ്റർ",
     "option2": "4 square metre",
@@ -2432,7 +2432,7 @@
   },
   {
     "question": "Which of the following is not the property of a plane mirror?",
-    "malayalam_question": "താഴെ പറയുന്നവയിൽ ഏതാണ് ഒരു സമതല ദർപ്പണത്തിന്റെ സവിശേഷതയല്ലാത്തത്?",
+    "malayalam_question": "താഴെ പറയുന്നവയിൽ ഏതാണ് ഒരു സമതല ദർപ്പണത്തിന്റെ സ്വഭാവം അല്ലാത്തത്?",
     "option1": "Object and image have same size",
     "malayalam_option1": "വസ്തുവിനും ചിത്രത്തിനും ഒരേ വലുപ്പമുണ്ട്.",
     "option2": "Object and image are at same distance ",
@@ -2827,7 +2827,7 @@
     "option1": 37.61,
     "malayalam_option1": "37.61 ഡെൽഹി",
     "option2": 376.1,
-    "malayalam_option2": "376.1 ഡെവലപ്പർമാർ",
+    "malayalam_option2": "376.1",
     "option3": 3.761,
     "malayalam_option3": "3.761",
     "option4": 0.3761,
@@ -2942,7 +2942,7 @@
   },
   {
     "question": "We have 1651.3 / 7 = 235.9. Use this result to find the value of 16.513 / 7 without actual division.",
-    "malayalam_question": "നമുക്ക് 1651.3 / 7 = 235.9 ഉണ്ട്. യഥാർത്ഥ ഹരണമില്ലാതെ 16.513 / 7 ന്റെ മൂല്യം കണ്ടെത്താൻ ഈ ഫലം ഉപയോഗിക്കുക.",
+    "malayalam_question": "നമുക്ക് 1651.3 / 7 = 235.9 ഉണ്ട്. യഥാർത്ഥ ഹരണം കൂടാതെ 16.513 / 7 ന്റെ മൂല്യം കണ്ടെത്താൻ ഈ ഫലം ഉപയോഗിക്കുക.",
     "option1": 23.59,
     "malayalam_option1": "23.59 ഡെൽഹി",
     "option2": 2.359,
@@ -3031,13 +3031,13 @@
     "option1": 0.7,
     "malayalam_option1": "0.7 ഡെറിവേറ്റീവുകൾ",
     "option2": 0.35,
-    "malayalam_option2": "0.35",
+    "malayalam_option2": "0.35 മഷി",
     "option3": 0.14,
     "malayalam_option3": "0.14 ഡെറിവേറ്റീവുകൾ",
     "option4": 0.21,
     "malayalam_option4": "0.21 ഡെറിവേറ്റീവുകൾ",
     "answer": 0.35,
-    "malayalam_answer": "0.35",
+    "malayalam_answer": "0.35 മഷി",
     "subject": "Maths",
     "chapter": 5,
     "image": ""
