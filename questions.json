@@ -1,7 +1,7 @@
 [
   {
     "question": "The length and width of a rectangular park are 9/4 metre and 8/3 metre respectively. Find the area of the park",
-    "malayalam_question": "ഒരു ചതുരാകൃതിയിലുള്ള പാർക്കിന്റെ നീളവും വീതിയും യഥാക്രമം 9/4 മീറ്ററും 8/3 മീറ്ററുമാണ്. പാർക്കിന്റെ വിസ്തീർണ്ണം കണ്ടെത്തുക.",
+    "malayalam_question": "ഒരു ചതുരാകൃതിയിലുള്ള പാർക്കിന്റെ നീളവും വീതിയും യഥാക്രമം 9/4 മീറ്ററും 8/3 മീറ്ററുമാണ്. പാർക്കിന്റെ വിസ്തീർണ്ണം കണ്ടെത്തുക?",
     "option1": "6 square metre",
     "malayalam_option1": "6 ചതുരശ്ര മീറ്റർ",
     "option2": "4 square metre",
@@ -1231,11 +1231,11 @@
     "option2": "Safranine and Leishman stain",
     "malayalam_option2": "സഫ്രാനൈൻ ആൻഡ് ലീഷ്മാൻ സ്റ്റെയിൻ",
     "option3": "Phenolphthalein and Methyl orange",
-    "malayalam_option3": "ഫിനോൾഫ്തലിൻ, മീഥൈൽ ഓറഞ്ച്",
+    "malayalam_option3": "ഫിനോൾഫ്തലീനും മീഥൈൽ ഓറഞ്ചും",
     "option4": "Turmeric and beetroot",
     "malayalam_option4": "മഞ്ഞളും ബീറ്റ്റൂട്ടും",
     "answer": "Phenolphthalein and Methyl orange",
-    "malayalam_answer": "ഫിനോൾഫ്തലിൻ, മീഥൈൽ ഓറഞ്ച്",
+    "malayalam_answer": "ഫിനോൾഫ്തലീനും മീഥൈൽ ഓറഞ്ചും",
     "subject": "Basic Science",
     "chapter": 2,
     "image": "null"
@@ -2041,7 +2041,7 @@
   },
   {
     "question": "The product of two numbers is 4 1/3. One of them is 1 2/3. Find the other.",
-    "malayalam_question": "രണ്ട് സംഖ്യകളുടെ ഗുണനം 4 1/3 ആണ്. അവയിലൊന്ന് 1 2/3 ആണ്. മറ്റൊന്ന് കണ്ടെത്തുക.",
+    "malayalam_question": "രണ്ട് സംഖ്യകളുടെ ഗുണനഫലം 4 1/3 ആണ്. അവയിലൊന്ന് 1 2/3 ആണ്. മറ്റേത് കണ്ടെത്തുക.",
     "option1": "3 1/3",
     "malayalam_option1": "3 1/3",
     "option2": "5 1/2",
@@ -2738,7 +2738,7 @@
   },
   {
     "question": "Which of the following is not the work of Chattampi Swamikal",
-    "malayalam_question": "താഴെ പറയുന്നവയിൽ ചട്ടമ്പി സ്വാമികളുടെ കൃതി അല്ലാത്തത് ഏതാണ്?",
+    "malayalam_question": "താഴെ പറയുന്നവയിൽ ഏതാണ് ചട്ടമ്പി സ്വാമികളുടെ കൃതി അല്ലാത്തത്?",
     "option1": "Vivekodayam",
     "malayalam_option1": "വിവേകോദയം",
     "option2": "Pracheena Malayalam",
@@ -2925,7 +2925,7 @@
   },
   {
     "question": "40.8 kg of sugar was divided equally among 6 people. One among them divided what he got into 4 equal parts and gave one part to his son. How much did his son got?",
-    "malayalam_question": "40.8 കിലോഗ്രാം പഞ്ചസാര 6 പേർക്ക് തുല്യമായി വീതിച്ചു. അവരിൽ ഒരാൾ തനിക്ക് കിട്ടിയത് 4 തുല്യ ഭാഗങ്ങളാക്കി ഒരു ഭാഗം മകന് നൽകി. മകന് എത്ര കിട്ടി?",
+    "malayalam_question": "40.8 കിലോഗ്രാം പഞ്ചസാര 6 പേർക്ക് തുല്യമായി വീതിച്ചു. അവരിൽ ഒരാൾ തനിക്ക് കിട്ടിയത് 4 തുല്യ ഭാഗങ്ങളായി വിഭജിച്ച് ഒരു ഭാഗം മകന് നൽകി. മകന് എത്ര കിട്ടി?",
     "option1": "6.8 kg",
     "malayalam_option1": "6.8 കിലോ",
     "option2": "1.4 kg",
@@ -3318,7 +3318,7 @@
     "question": "If 314 x 12 = 3768, find 3.14 x 0.12 = ?",
     "malayalam_question": "314 x 12 = 3768 ആണെങ്കിൽ, 3.14 x 0.12 = കണ്ടെത്തുക?",
     "option1": 37.68,
-    "malayalam_option1": "37.68 (37.68)",
+    "malayalam_option1": "37.68 [തിരുത്തുക]",
     "option2": 376.8,
     "malayalam_option2": "376.8 [1] (കമ്പ്യൂട്ടർ)",
     "option3": 3.768,
